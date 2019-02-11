@@ -160,7 +160,7 @@ protected:
 	//helper render functions
 	void RenderLights();
 	void RenderObject(GameObject* go, bool enableLight = true);
-	void RenderMeshOnScreen(GameObject* go, bool enableLight = true);
+	void RenderObjectOnScreen(GameObject* go, bool enableLight = true);
 	void RenderText(GameObject* go, std::string text, Color color);
 	void RenderTextOnScreen(GameObject* go, std::string text, Color color, float size, float x, float y);
 	

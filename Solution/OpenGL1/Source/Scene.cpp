@@ -453,7 +453,7 @@ void Scene::RenderObject(GameObject* go, bool enableLight)
 	modelStack.PopMatrix();
 }
 
-void Scene::RenderMeshOnScreen(GameObject* go, bool enableLight)
+void Scene::RenderObjectOnScreen(GameObject* go, bool enableLight)
 {
 	Mtx44 ortho;
 	ortho.SetToOrtho(0, 40, 0, 20, -10, 10); //size of screen UI

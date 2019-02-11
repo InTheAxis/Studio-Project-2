@@ -9,6 +9,12 @@ public:
 	SceneStart();
 	~SceneStart();
 protected:
+
+	int size;
+
+	bool decreaseSize;
+	bool increaseSize;
+
 	GameObject Play;
 	GameObject LevelSelect;
 	GameObject Exit;
