@@ -4,3 +4,13 @@
 *.db-shm
 *.db-wal
 ipch
+
+Solution/Debug/*.lib
+Solution/Debug/*.pdb
+Solution/Debug/*.exe
+Solution/Debug/*.ilk
+
+Solution/Release/*.lib
+Solution/Release/*.pdb
+Solution/Release/*.exe
+Solution/Release/*.ilk
