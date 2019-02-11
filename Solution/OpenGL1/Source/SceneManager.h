@@ -11,9 +11,11 @@ class SceneManager
 public:
 	SceneManager();
 	Scene* GetScene(int index);
+	Scene* GetNextScene();
 	~SceneManager();
 private:
-	
+	int currentIndex;
+
 	SceneExample example;
 	SceneExample2 example2;
 	

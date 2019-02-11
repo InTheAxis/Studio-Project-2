@@ -21,7 +21,8 @@ void SceneExample2::RenderDerived()
 
 void SceneExample2::UpdateDerived(double dt)
 {
-	CUBE.IncrementScale(Vector3(dt, dt, dt));
+	//CUBE.IncrementScale(Vector3(dt, dt, dt));
+	CUBE.SetScale(Vector3(1, 1, 1));
 }
 
 void SceneExample2::UpdateDerivedBounced(double dt)
