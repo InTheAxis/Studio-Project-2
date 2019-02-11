@@ -4,7 +4,3 @@
 *.db-shm
 *.db-wal
 ipch
-
-# Compiled Objects
-*.obj
-!OBJ/*.obj

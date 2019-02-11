@@ -2,7 +2,7 @@
 cars leaking everywhere
 
 # useful git commands:
-git clone <website-link>
+git clone {website-link}
 
 git pull
 
