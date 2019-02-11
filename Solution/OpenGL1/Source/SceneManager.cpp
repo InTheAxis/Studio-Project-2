@@ -4,6 +4,12 @@
 
 SceneManager::SceneManager()
 {
+	//temporary init
+	for (int i = 0; i < NUM_OF_SCENES; ++i)
+	{
+		allScenes[i] = &example2;
+	}
+	
 	allScenes[0] = &example;
 	allScenes[1] = &example2;
 
@@ -13,6 +19,7 @@ SceneManager::SceneManager()
 
 Scene* SceneManager::GetFirstScene()
 {
+	currentIndex = 0;
 	return allScenes[0];
 }
 
@@ -30,10 +37,11 @@ void SceneManager::ChangeScene(int index)
 void SceneManager::PollForSceneChangeEvent()
 {
 	int index = 999;
-	if (allScenes[0]->GetChangeSceneEvent(&index))
+	if (allScenes[currentIndex]->GetChangeSceneEvent(&index))
 	{
+		currentIndex = index;
 		ChangeScene(index);
-	}	
+	}
 }
 
 SceneManager::~SceneManager()

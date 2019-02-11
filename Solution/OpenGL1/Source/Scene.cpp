@@ -23,7 +23,6 @@ bool Scene::GetChangeSceneEvent(int* outIndex)
 	else return false;
 }
 
-
 Scene::~Scene()
 {
 }

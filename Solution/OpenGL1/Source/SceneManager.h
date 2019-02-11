@@ -21,6 +21,7 @@ public:
 	~SceneManager();
 private:
 	Scene** currentScene;
+	int currentIndex;
 
 	SceneExample example;
 	SceneExample2 example2;
