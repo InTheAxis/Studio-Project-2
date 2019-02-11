@@ -163,7 +163,9 @@
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneExample.h" />
     <ClInclude Include="Source\SceneExample2.h" />
+    <ClInclude Include="Source\SceneLevelSelect.h" />
     <ClInclude Include="Source\SceneManager.h" />
+    <ClInclude Include="Source\SceneStart.h" />
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
@@ -181,7 +183,9 @@
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\SceneExample.cpp" />
     <ClCompile Include="Source\SceneExample2.cpp" />
+    <ClCompile Include="Source\SceneLevelSelect.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
+    <ClCompile Include="Source\SceneStart.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
   </ItemGroup>
