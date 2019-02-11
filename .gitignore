@@ -1,3 +1,10 @@
+# Database
+*.opendb
+*.db
+*.db-shm
+*.db-wal
+ipch
+
 # Prerequisites
 *.d
 

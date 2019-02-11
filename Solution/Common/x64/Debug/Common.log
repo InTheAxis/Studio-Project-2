@@ -1,0 +1,9 @@
+﻿  MatrixStack.cpp
+c:\users\codea\desktop\c++\comgassn1\common\source\matrixstack.cpp(240): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "stdafx.h"' to your source?
+  Mtx44.cpp
+c:\users\codea\desktop\c++\comgassn1\common\source\mtx44.cpp(498): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "stdafx.h"' to your source?
+  timer.cpp
+c:\users\codea\desktop\c++\comgassn1\common\source\timer.cpp(57): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "stdafx.h"' to your source?
+  Vector3.cpp
+c:\users\codea\desktop\c++\comgassn1\common\source\vector3.cpp(392): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "stdafx.h"' to your source?
+  Generating Code...

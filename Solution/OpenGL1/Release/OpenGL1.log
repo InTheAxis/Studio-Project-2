@@ -1,0 +1,32 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (Release\) contains files shared from another project (ComGAssn1.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Application.cpp
+c:\program files (x86)\windows kits\10\include\10.0.17134.0\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
+  c:\users\codea\desktop\c++\sp2\solution\glfw\include\glfw\glfw3.h(98): note: see previous definition of 'APIENTRY'
+  Bike.cpp
+  Camera2.cpp
+c:\users\codea\desktop\c++\sp2\solution\opengl1\source\camera2.cpp(44): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\codea\desktop\c++\sp2\solution\opengl1\source\camera2.cpp(48): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+c:\users\codea\desktop\c++\sp2\solution\opengl1\source\camera2.cpp(52): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\codea\desktop\c++\sp2\solution\opengl1\source\camera2.cpp(56): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+c:\users\codea\desktop\c++\sp2\solution\opengl1\source\camera2.cpp(155): warning C4244: '=': conversion from 'const int' to 'float', possible loss of data
+  Holdables.cpp
+c:\users\codea\desktop\c++\sp2\solution\opengl1\source\holdables.cpp(40): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+  Interactables.cpp
+  Light.cpp
+  LoadOBJ.cpp
+  LoadTGA.cpp
+  main.cpp
+  Mesh.cpp
+  MeshBuilder.cpp
+  SceneAssn2.cpp
+c:\users\codea\desktop\c++\sp2\solution\opengl1\source\sceneassn2.cpp(386): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\codea\desktop\c++\sp2\solution\opengl1\source\sceneassn2.cpp(425): warning C4244: '=': conversion from 'double' to 'unsigned int', possible loss of data
+c:\users\codea\desktop\c++\sp2\solution\opengl1\source\sceneassn2.cpp(970): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\codea\desktop\c++\sp2\solution\opengl1\source\sceneassn2.cpp(1200): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+c:\users\codea\desktop\c++\sp2\solution\opengl1\source\sceneassn2.cpp(1208): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+  shader.cpp
+  Utility.cpp
+  Generating Code...
+Application.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:ICF' specification
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  OpenGL1.vcxproj -> C:\Users\codea\Desktop\C++\SP2\Solution\Release\StudioProject2.exe
