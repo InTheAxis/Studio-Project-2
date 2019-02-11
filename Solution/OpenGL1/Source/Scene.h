@@ -113,12 +113,17 @@ public:
 	void Update(double dt);
 	void Render();
 	void Exit();
+	//for changing scenes
+	bool GetChangeSceneEvent(int* outIndex);
 protected:
 	//essentials for opengl
 	unsigned m_vertexArrayID;
 	unsigned m_programID;
 	unsigned m_parameters[U_TOTAL];
 	MS modelStack, viewStack, projectionStack;
+	//for changing scenes
+	int targetSceneIndex;
+	bool changingScene;
 
 	//other objects required
 	Camera2 camera;
@@ -139,6 +144,9 @@ protected:
 	bool lightOn;
 	bool captureMouse;
 	int numLights;
+
+	//for changing scenes
+	void RequestChangeScene(int index);
 
 	//helper functions to separate the init
 	void InitUniforms();

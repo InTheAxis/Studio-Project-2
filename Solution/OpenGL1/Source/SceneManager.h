@@ -10,11 +10,15 @@ class SceneManager
 {
 public:
 	SceneManager();
-	Scene* GetScene(int index);
-	Scene* GetNextScene();
+	Scene* GetFirstScene();
+
+	void SetCurrentScene(Scene**);
+	void ChangeScene(int index);
+	void PollForSceneChangeEvent();
+
 	~SceneManager();
 private:
-	int currentIndex;
+	Scene** currentScene;
 
 	SceneExample example;
 	SceneExample2 example2;

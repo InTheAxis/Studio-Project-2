@@ -2,7 +2,27 @@
 
 Scene::Scene()
 {
+	targetSceneIndex = 999;
+	changingScene = false;
 }
+
+void Scene::RequestChangeScene(int index)
+{
+	this->targetSceneIndex = index;
+	this->changingScene = true;
+}
+
+bool Scene::GetChangeSceneEvent(int* outIndex)
+{
+	if (changingScene)
+	{
+		*outIndex = this->targetSceneIndex;
+		changingScene = false;
+		return true;
+	}
+	else return false;
+}
+
 
 Scene::~Scene()
 {
@@ -173,6 +193,7 @@ void Scene::InitLights()
 
 void Scene::Init()
 {
+	std::cout << std::endl;
 	/*Windows Console Settings*/
 	SetConsoleMode(GetStdHandle(STD_INPUT_HANDLE), ENABLE_MOUSE_INPUT);
 	/*OpenGL Settings*/

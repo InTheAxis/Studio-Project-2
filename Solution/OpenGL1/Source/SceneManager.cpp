@@ -4,24 +4,33 @@
 
 SceneManager::SceneManager()
 {
-	currentIndex = 0; //default
-	
 	allScenes[0] = &example;
 	allScenes[1] = &example2;
 }
 
-Scene* SceneManager::GetScene(int index)
+Scene* SceneManager::GetFirstScene()
 {
-	currentIndex = index;
-	if (index >= NUM_OF_SCENES)
-		return nullptr;
-	else
-		return allScenes[index];
+	return allScenes[0];
 }
 
-Scene* SceneManager::GetNextScene()
+void SceneManager::SetCurrentScene(Scene** s)
 {
-	return GetScene(currentIndex + 1);
+	this->currentScene = s;
+}
+
+void SceneManager::ChangeScene(int index)
+{
+	*currentScene = allScenes[index];
+	(*currentScene)->Init();
+}
+
+void SceneManager::PollForSceneChangeEvent()
+{
+	int index = 999;
+	if (allScenes[0]->GetChangeSceneEvent(&index))
+	{
+		ChangeScene(index);
+	}	
 }
 
 SceneManager::~SceneManager()
