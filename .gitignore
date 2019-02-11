@@ -6,5 +6,5 @@
 ipch
 
 # Compiled Objects
-*.obj
-!OBJ/*.obj
+Release/*.obj
+Debug/*.obj
