@@ -5,6 +5,8 @@
 //include all yo scenes here
 #include "SceneExample.h"
 #include "SceneExample2.h"
+#include "SceneStart.h"
+#include "SceneLevelSelect.h"
 
 class SceneManager
 {
@@ -23,6 +25,9 @@ private:
 	SceneExample example;
 	SceneExample2 example2;
 	
+	SceneStart StartMenu;
+	SceneLevelSelect Levels;
+
 	enum gameScenes
 	{
 		ENTRY_POINT,
