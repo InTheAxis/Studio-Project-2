@@ -31,5 +31,9 @@ void SceneLevelSelect::UpdateDerived(double dt)
 void SceneLevelSelect::UpdateDerivedBounced(double dt)
 {
 	//CUBE.IncrementRotate(Vector3(0, 10, 0));
+	if (Application::IsKeyPressed(VK_LCONTROL))
+	{
+		RequestChangeScene(0);
+	}
 }
 

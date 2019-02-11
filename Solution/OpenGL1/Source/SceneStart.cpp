@@ -37,5 +37,9 @@ void SceneStart::UpdateDerived(double dt)
 void SceneStart::UpdateDerivedBounced(double dt)
 {
 	//CUBE.IncrementRotate(Vector3(0, 10, 0));
+	if (Application::IsKeyPressed(VK_LCONTROL))
+	{
+		RequestChangeScene(2);
+	}
 }
 

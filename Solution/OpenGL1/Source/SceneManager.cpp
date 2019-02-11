@@ -9,12 +9,9 @@ SceneManager::SceneManager()
 	{
 		allScenes[i] = &example2;
 	}
-	
-	allScenes[0] = &example;
-	allScenes[1] = &example2;
 
-	//allScenes[0] = &StartMenu;
-	//allScenes[1] = &Levels;
+	allScenes[1] = &StartMenu;
+	allScenes[2] = &Levels;
 }
 
 Scene* SceneManager::GetFirstScene()
