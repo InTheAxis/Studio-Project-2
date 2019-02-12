@@ -112,6 +112,9 @@ void main(){
 				
 				// Specular : reflective highlight, like a mirror
 				vec4(material.kSpecular, materialColor.a) * vec4(lights[i].color, 1) * lights[i].power * pow(cosAlpha, material.kShininess) * attenuationFactor * spotlightEffect;
+
+			//reset the alpha channel
+			color = vec4(color.rgb, materialColor.a);
 		}
 	}
 	else

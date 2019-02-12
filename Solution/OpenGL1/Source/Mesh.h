@@ -1,7 +1,7 @@
 #ifndef MESH_H
 #define MESH_H
 
-#include <string>
+#include <vector>
 #include "Vertex.h"
 #include "Material.h"
 
@@ -26,6 +26,10 @@ public:
 	~Mesh();
 	void Render();
 	void Render(unsigned offset, unsigned count);
+	
+	//getter setters
+	std::vector<Vertex>* GetVBData();
+	void SetVBData(std::vector<Vertex>*);
 
 	//todo: make these private
 
@@ -38,6 +42,9 @@ public:
 	//for gameobject to access
 	Material material;
 	unsigned textureID;
+
+protected:
+	std::vector<Vertex> vertexBufferData;
 };
 
 #endif

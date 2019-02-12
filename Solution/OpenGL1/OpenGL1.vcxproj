@@ -160,6 +160,8 @@
     <ClInclude Include="Source\Material.h" />
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
+    <ClInclude Include="Source\Paintable.h" />
+    <ClInclude Include="Source\RigidBody.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneExample.h" />
     <ClInclude Include="Source\SceneExample2.h" />
@@ -168,6 +170,7 @@
     <ClInclude Include="Source\SceneStart.h" />
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\Utility.h" />
+    <ClInclude Include="Source\Vehicle.h" />
     <ClInclude Include="Source\Vertex.h" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +183,8 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
+    <ClCompile Include="Source\Paintable.cpp" />
+    <ClCompile Include="Source\RigidBody.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\SceneExample.cpp" />
     <ClCompile Include="Source\SceneExample2.cpp" />
@@ -188,6 +193,7 @@
     <ClCompile Include="Source\SceneStart.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
+    <ClCompile Include="Source\Vehicle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\Text.fragmentshader" />

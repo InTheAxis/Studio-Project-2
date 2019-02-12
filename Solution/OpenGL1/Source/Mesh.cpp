@@ -144,3 +144,13 @@ void Mesh::Render(unsigned offset, unsigned count)
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(0);
 }
+
+std::vector<Vertex>* Mesh::GetVBData()
+{
+	return &vertexBufferData;
+}
+
+void Mesh::SetVBData(std::vector<Vertex>* vb)
+{
+	this->vertexBufferData = *vb;
+}

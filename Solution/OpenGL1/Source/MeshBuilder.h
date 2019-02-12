@@ -26,5 +26,8 @@ public:
 	static Mesh* GenerateAxes(float lengthX = 5000, float lengthY = 5000, float lengthZ = 5000);
 	static Mesh* GenerateQuad(Color color);
 	static Mesh* GenerateCube(Color color);
+
+	//reloading vbo
+	static void ReloadVBO(Mesh* targetMesh);
 };
 #endif
