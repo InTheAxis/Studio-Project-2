@@ -2,7 +2,7 @@
 
 // Interpolated values from the vertex shaders
 in vec3 vertexPosition_cameraspace;
-in vec3 fragmentColor;
+in vec4 fragmentColor;
 in vec3 vertexNormal_cameraspace;
 in vec2 texCoord;
 
@@ -59,7 +59,7 @@ uniform int numLights;
 uniform bool colorTextureEnabled;
 uniform sampler2D colorTexture;
 uniform bool textEnabled;
-uniform vec3 textColor;
+uniform vec4 textColor;
 
 void main(){
 	// Material properties
@@ -67,7 +67,7 @@ void main(){
 	if(colorTextureEnabled == true)
 		materialColor = texture2D( colorTexture, texCoord );
 	else
-		materialColor = vec4( fragmentColor, 1 );
+		materialColor = fragmentColor;
 	if(lightEnabled == true)
 	{
 		// Vectors
@@ -117,5 +117,5 @@ void main(){
 	else
 		color = materialColor;
 	if(textEnabled == true)
-		color *= vec4( textColor, 1 );
+		color *= textColor;
 }

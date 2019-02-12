@@ -9,7 +9,7 @@ public:
 	SceneExample2();
 	~SceneExample2();
 protected:
-	GameObject CUBE;
+	GameObject CUBE, QUAD;
 
 	virtual void InitDerived();
 	virtual void RenderDerived();
