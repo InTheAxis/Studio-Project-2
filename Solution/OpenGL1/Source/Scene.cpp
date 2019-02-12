@@ -111,7 +111,7 @@ void Scene::InitUniforms()
 
 void Scene::InitLights()
 {
-	glUniform1i(m_parameters[U_NUMLIGHTS], numLights);
+	glUniform1i(m_parameters[U_NUMLIGHTS], 5);
 
 	lights[0].position.Set(0, 10, 0);
 	lights[0].defaultPos = lights[0].position;
@@ -192,7 +192,9 @@ void Scene::InitLights()
 
 void Scene::Init()
 {
-	std::cout << std::endl;
+	/*Default Initialisation of cameras*/
+	camera[0]->Init(Vector3(0, 10, -20), Vector3(0, 0, 0), Vector3(0, 1, 0));
+	camera[1]->Init(Vector3(0, 10, -20), Vector3(-1, 25, 0), Vector3(0, 1, 0));
 	/*Windows Console Settings*/
 	SetConsoleMode(GetStdHandle(STD_INPUT_HANDLE), ENABLE_MOUSE_INPUT);
 	/*OpenGL Settings*/
@@ -222,7 +224,7 @@ void Scene::Init()
 	//init variables here
 	InitSceneVariables();
 	//default init camera, feel free to re-call in derived
-	camera.Init(Vector3(0, 10, -20), Vector3(-1, 25, 0), Vector3(0, 1, 0));
+	//camera.Init(Vector3(0, 10, -20), Vector3(-1, 25, 0), Vector3(0, 1, 0));
 	//init lights
 	InitLights();
 	//init projection matrix
@@ -250,7 +252,7 @@ void Scene::InitSceneVariables()
 	fps = 0;
 	elapsedTime = bounceTime = 0.0;
 	lightOn = true;
-	numLights = 5;
+	currentCam = 1;
 }
 
 Vector3 Scene::HandleMouseMovement()
@@ -285,7 +287,11 @@ void Scene::Update(double dt)
 	else if ((pci.flags != CURSOR_SHOWING && (DEBUG || !captureMouse)))
 		ShowCursor(true);
 
-	camera.Update(dt, captureMouse ? HandleMouseMovement() : Vector3(0, 0, 0), captureMouse); //update camera
+	//quick fix, todo fix
+	if (!currentCam)
+		camera[0]->Update(dt, Vector3(0, 0, 0), captureMouse); //update camera
+	else
+		camera[1]->Update(dt, captureMouse ? HandleMouseMovement() : Vector3(0, 0, 0), captureMouse); //update camera
 
 	UpdateDerived(dt);
 	/*Bounced checks*/
@@ -299,6 +305,7 @@ void Scene::Update(double dt)
 	if (Application::IsKeyPressed(VK_TAB))
 	{
 		DEBUG = !DEBUG;
+		currentCam = !currentCam;
 	}
 	if (Application::IsKeyPressed('1'))
 	{
@@ -320,7 +327,7 @@ void Scene::Update(double dt)
 	//noclip toggle
 	if (Application::IsKeyPressed('5'))
 	{
-		camera.ToggleNoClip();
+		camera[currentCam]->ToggleNoClip();
 	}
 
 	//light toggle
@@ -344,7 +351,7 @@ void Scene::Update(double dt)
 		//	lights[i].position = lights[i].defaultPos;
 		//}
 
-		camera.Reset();
+		camera[currentCam]->Reset();
 	}
 
 	UpdateDerivedBounced(dt);
@@ -358,14 +365,14 @@ void Scene::Render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	viewStack.LoadIdentity();
-	viewStack.LookAt(camera.position.x, camera.position.y, camera.position.z,
-		camera.target.x, camera.target.y, camera.target.z, camera.up.x, camera.up.y,
-		camera.up.z);
+	viewStack.LookAt(camera[currentCam]->position.x, camera[currentCam]->position.y, camera[currentCam]->position.z,
+		camera[currentCam]->target.x, camera[currentCam]->target.y, camera[currentCam]->target.z, camera[currentCam]->up.x, camera[currentCam]->up.y,
+		camera[currentCam]->up.z);
 
 	modelStack.LoadIdentity();
 
 	Mtx44 mvp = projectionStack.Top() * viewStack.Top() * modelStack.Top();
-	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &mvp.a[0]); //update the shader with new MVP
+	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &mvp.a[0]); //>update the shader with new MVP
 
 	//axes
 	if (DEBUG)
@@ -381,11 +388,12 @@ void Scene::Render()
 	{
 		std::string temp = "FPS: " + std::to_string(fps);
 		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0.5f, 18.5f); //fps
-		temp = "COORDS: " + std::to_string((int)camera.position.x) + " "
-			+ std::to_string((int)camera.position.y) + " "
-			+ std::to_string((int)camera.position.z);
+		temp = "COORDS: " + std::to_string((int)camera[currentCam]->position.x) + " "
+			+ std::to_string((int)camera[currentCam]->position.y) + " "
+			+ std::to_string((int)camera[currentCam]->position.z);
 		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0.5f, 17.5f); //coordinates
 	}
+
 }
 
 void Scene::Exit()
@@ -527,7 +535,7 @@ void Scene::RenderText(GameObject* go, std::string text, Color color)
 		return;
 	glDisable(GL_DEPTH_TEST);
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 1);
-	glUniform4fv(m_parameters[U_TEXT_COLOR], 1, &color.r);
+	glUniform3fv(m_parameters[U_TEXT_COLOR], 1, &color.r);
 	glUniform1i(m_parameters[U_LIGHTENABLED], 0);
 	glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
 	glActiveTexture(GL_TEXTURE0);
@@ -565,7 +573,7 @@ void Scene::RenderTextOnScreen(GameObject* go, std::string text, Color color, fl
 
 
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 1);
-	glUniform4fv(m_parameters[U_TEXT_COLOR], 1, &color.r);
+	glUniform3fv(m_parameters[U_TEXT_COLOR], 1, &color.r);
 	glUniform1i(m_parameters[U_LIGHTENABLED], 0);
 	glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
 	glActiveTexture(GL_TEXTURE0);
