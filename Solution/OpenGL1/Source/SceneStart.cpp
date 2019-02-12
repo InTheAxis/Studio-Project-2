@@ -4,9 +4,7 @@
 
 SceneStart::SceneStart()
 {
-	size = 1;
-	decreaseSize = false;
-	increaseSize = true;
+	
 }
 
 SceneStart::~SceneStart()
@@ -16,51 +14,128 @@ SceneStart::~SceneStart()
 
 void SceneStart::InitDerived()
 {
-	//CUBE.Init(MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(0, 20, 0));
-	Play.Init(MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(5, 5, 0),  Vector3(0, 0, 0), Vector3(size, size, size));
-	//CUBE.Init("OBJ//toilet.obj", "Image//toilet.tga", Vector3(0, -20, 0));
-	Play.SetMaterial(shiny);
 
+	play.Init(MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(20, 10, 0),  Vector3(0, 0, 0), Vector3(5, 1, 0));
+	levelSelect.Init(MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(20, 7.5, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
+	exit.Init(MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(20, 5, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
 
-	LevelSelect.Init(MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(0, 15, 0));
-	LevelSelect.SetMaterial(shiny);
+	decreaseSize = false;
+
+	allButtons.push_back(&play);
+	allButtons.push_back(&levelSelect);
+	allButtons.push_back(&exit);
+
+	totalbuttons = 3;
+
+	buttonindex = 0;
+
 }
 
 void SceneStart::RenderDerived()
 {
-	RenderObjectOnScreen(&Play, false);
-	RenderObject(&LevelSelect);
+	RenderObjectOnScreen(&play, false);
+	RenderObjectOnScreen(&levelSelect, false);
+	RenderObjectOnScreen(&exit, false);
 }
 
 void SceneStart::UpdateDerived(double dt)
 { 
-	//CUBE.IncrementScale(Vector3(dt, dt, dt));
-
-	if (Play.GetScale().x >= 3)
+	for (Button* b : allButtons)	//for each button in the vector carryout the function
 	{
-		decreaseSize = true;
+		b->AnimateButton();
 	}
 
-	else if (Play.GetScale().x <= 1.1)
+	if (play.GetOnClickEvent())
 	{
-		decreaseSize = false;
+		RequestChangeScene(2);
 	}
 
-	if(decreaseSize)
-		Play.IncrementScale(Vector3(-dt, -dt, -dt)*1.5);
-	
-	else if(!decreaseSize)
-		Play.IncrementScale(Vector3(dt, dt, dt)*1.5);
+	/*if (selectortranslateY == 10)
+	{
+		if (Play.GetScale().x >= 8)
+		{
+			decreaseSize = true;
+		}
 
-	
+		else if (Play.GetScale().x <= 5)
+		{
+			decreaseSize = false;
+		}
+
+		if (decreaseSize)
+			Play.IncrementScale(Vector3(3 * -dt, -dt, 0)*1.5);
+
+		else if (!decreaseSize)
+			Play.IncrementScale(Vector3(3 * dt, dt, 0)*1.5);
+	}
+
+	else
+		Play.SetScale(Vector3(5, 1, 1));*/
+
 }
 
 void SceneStart::UpdateDerivedBounced(double dt)
 {
-	//CUBE.IncrementRotate(Vector3(0, 10, 0));
-	if (Application::IsKeyPressed(VK_LCONTROL))
+	//selector controls
+
+	if (Application::IsKeyPressed(VK_RETURN))
 	{
-		RequestChangeScene(2);
+		allButtons[buttonindex]->DoAction();
+	}
+
+	if (Application::IsKeyPressed(VK_DOWN))
+	{
+		
+		/*selectortranslateY = Arrow.MoveSelector(15, selectortranslateY, -2.5, selector);
+		selector.SetTranslate(Vector3(15, selectortranslateY, 0));*/
+		if (buttonindex >= totalbuttons)
+		{
+			buttonindex = 0;
+		}
+
+		else
+		buttonindex++;
+	}
+
+	if (Application::IsKeyPressed(VK_UP))
+	{
+		if (buttonindex <= 0)
+			buttonindex = totalbuttons - 1;
+		else
+		buttonindex--;
+		/*selectortranslateY = Arrow.MoveSelector(15, selectortranslateY, 2.5, selector);
+		selector.SetTranslate(Vector3(15, selectortranslateY, 0));*/
 	}
 }
 
+//float Button::MoveSelector(float x, float y, float distance, GameObject selector)
+//{
+//	if (distance >= 0)
+//	{
+//		if (y >= optionposY[0])
+//		{
+//			y = optionposY.back();
+//		}
+//
+//		else
+//			y += distance;
+//	}
+//
+//	if (distance <= 0)
+//	{
+//		if (y <= optionposY.back())
+//		{
+//			y = optionposY[0];
+//		}
+//
+//		else
+//			y += distance;
+//	}
+//	return y;
+//
+//}
+//
+//void Button::SetOptionPosY(float y)
+//{
+//	optionposY.push_back(y);
+//}
