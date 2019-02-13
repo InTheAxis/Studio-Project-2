@@ -3,15 +3,20 @@
 
 #include "GameObject.h"
 
+/*NOTE, ONLY USE SINGLE SURFACE AND HIGH POLY MESHES FOR THIS CLASS*/
+
+
 class Paintable : public GameObject
 {
 public:
 	Paintable();
 
-	void ChangeColor();
+	void ChangeColor(Vector3 centerVert);
 
 	~Paintable();
 private:
+
+	const float VERT_RANGE = 0.8f;
 };
 
 #endif // !PAINTABLE_H

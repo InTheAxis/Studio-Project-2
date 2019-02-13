@@ -68,10 +68,6 @@ void Camera1::Update(double dt, Vector3 target, bool captureMouse)
 	//}
 }
 
-void Camera1::ToggleNoClip()
-{
-}
-
 void Camera1::Reset()
 {
 	position = defaultPosition;

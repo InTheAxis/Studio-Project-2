@@ -8,6 +8,7 @@
 #include "Application.h"
 #include "Mtx44.h"
 #include "shader.hpp"
+#include "Camera1.h"
 #include "Camera2.h"
 #include "Mesh.h"
 #include "MeshBuilder.h"
@@ -126,7 +127,7 @@ protected:
 	bool changingScene;
 
 	//other objects required
-	Camera2 camera;
+	Camera* camera[2] = { new Camera1, new Camera2 };
 	Light lights[5];
 
 	//essential gameobjects
@@ -144,6 +145,7 @@ protected:
 	bool lightOn;
 	bool captureMouse;
 	int numLights;
+	int currentCam;
 
 	//for changing scenes
 	void RequestChangeScene(int index);

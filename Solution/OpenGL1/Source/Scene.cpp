@@ -305,7 +305,6 @@ void Scene::Update(double dt)
 	if (Application::IsKeyPressed(VK_TAB))
 	{
 		DEBUG = !DEBUG;
-		currentCam = !currentCam;
 	}
 	if (Application::IsKeyPressed('1'))
 	{
@@ -327,7 +326,7 @@ void Scene::Update(double dt)
 	//noclip toggle
 	if (Application::IsKeyPressed('5'))
 	{
-		camera[currentCam]->ToggleNoClip();
+		dynamic_cast<Camera2*>(camera[1])->ToggleNoClip();
 	}
 
 	//light toggle
@@ -340,6 +339,11 @@ void Scene::Update(double dt)
 	if (Application::IsKeyPressed('7'))
 	{
 		captureMouse = !captureMouse;
+	}
+
+	if (Application::IsKeyPressed('8'))
+	{
+		currentCam = !currentCam;
 	}
 
 	//reset 

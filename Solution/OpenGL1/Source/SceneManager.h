@@ -3,8 +3,11 @@
 
 #include "Scene.h"
 //include all yo scenes here
+//test scenes
 #include "SceneExample.h"
-#include "SceneExample2.h"
+#include "SceneExampleInk.h"
+//actual scenes
+#include "SceneEmpty.h"
 #include "SceneStart.h"
 #include "SceneLevelSelect.h"
 
@@ -23,11 +26,14 @@ private:
 	Scene** currentScene;
 	int currentIndex;
 
+	//testing
 	SceneExample example;
-	SceneExample2 example2;
+	SceneExampleInk example2;
 	
-	SceneStart StartMenu;
-	SceneLevelSelect Levels;
+	//actual
+	SceneEmpty empty;
+	SceneStart startMenu;
+	SceneLevelSelect levels;
 
 	enum gameScenes
 	{

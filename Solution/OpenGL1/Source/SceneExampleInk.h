@@ -4,11 +4,11 @@
 #include "Scene.h"
 #include "Paintable.h"
 
-class SceneExample2 : public Scene
+class SceneExampleInk : public Scene
 {
 public:
-	SceneExample2();
-	~SceneExample2();
+	SceneExampleInk();
+	~SceneExampleInk();
 protected:
 	Paintable CUBE;
 

@@ -7,11 +7,12 @@ SceneManager::SceneManager()
 	//temporary init
 	for (int i = 0; i < NUM_OF_SCENES; ++i)
 	{
-		allScenes[i] = &example2;
+		allScenes[i] = &empty;
 	}
 
-	allScenes[1] = &StartMenu;
-	allScenes[2] = &Levels;
+	allScenes[0] = &example2;
+	allScenes[START] = &startMenu;
+	allScenes[LEVEL_SELECT] = &levels;
 }
 
 Scene* SceneManager::GetFirstScene()

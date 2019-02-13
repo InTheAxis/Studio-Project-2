@@ -10,7 +10,7 @@ SceneExample::SceneExample()
 void SceneExample::InitDerived()
 {
 	//CUBE.Init(MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(0, 20, 0));
-	CUBE.Init("OBJ//toilet.obj", "Image//toilet.tga", Vector3(0, -20, 0));
+	CUBE.Init("OBJ//toilet.obj", "Image//toilet.tga", Vector3(0, 0, 0));
 	CUBE.SetMaterial(shiny);
 	std::cout << "Scene1";
 }

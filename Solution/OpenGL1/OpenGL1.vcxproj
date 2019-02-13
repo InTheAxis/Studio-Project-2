@@ -152,10 +152,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
+    <ClInclude Include="Source\Button.h" />
+    <ClInclude Include="Source\Camera.h" />
+    <ClInclude Include="Source\Camera1.h" />
     <ClInclude Include="Source\Camera2.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\LoadOBJ.h" />
+    <ClInclude Include="Source\LoadSceneButton.h" />
     <ClInclude Include="Source\LoadTGA.h" />
     <ClInclude Include="Source\Material.h" />
     <ClInclude Include="Source\Mesh.h" />
@@ -163,8 +167,9 @@
     <ClInclude Include="Source\Paintable.h" />
     <ClInclude Include="Source\RigidBody.h" />
     <ClInclude Include="Source\Scene.h" />
+    <ClInclude Include="Source\SceneEmpty.h" />
     <ClInclude Include="Source\SceneExample.h" />
-    <ClInclude Include="Source\SceneExample2.h" />
+    <ClInclude Include="Source\SceneExampleInk.h" />
     <ClInclude Include="Source\SceneLevelSelect.h" />
     <ClInclude Include="Source\SceneManager.h" />
     <ClInclude Include="Source\SceneStart.h" />
@@ -175,10 +180,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\Button.cpp" />
+    <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\Camera1.cpp" />
     <ClCompile Include="Source\Camera2.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\Light.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
+    <ClCompile Include="Source\LoadSceneButton.cpp" />
     <ClCompile Include="Source\LoadTGA.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
@@ -186,8 +195,9 @@
     <ClCompile Include="Source\Paintable.cpp" />
     <ClCompile Include="Source\RigidBody.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
+    <ClCompile Include="Source\SceneEmpty.cpp" />
     <ClCompile Include="Source\SceneExample.cpp" />
-    <ClCompile Include="Source\SceneExample2.cpp" />
+    <ClCompile Include="Source\SceneExampleInk.cpp" />
     <ClCompile Include="Source\SceneLevelSelect.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\SceneStart.cpp" />

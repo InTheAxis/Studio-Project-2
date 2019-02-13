@@ -21,9 +21,8 @@ public:
 	virtual void ReInit(const Vector3& pos, const Vector3& target, const Vector3& up) = 0; //init but dont set defaults
 	virtual void Update(double dt, Vector3 angles, bool captureMouse) = 0;
 	virtual void Reset() = 0;
-	virtual void ToggleNoClip() = 0;
 
-private:
+protected:
 	Vector3 defaultPosition;
 	Vector3 defaultTarget;
 	Vector3 defaultUp;
