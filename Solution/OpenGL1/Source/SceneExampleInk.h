@@ -12,7 +12,7 @@ public:
 protected:
 	Paintable CUBE;
 
-	GameObject QUAD;
+	Paintable QUAD1, QUAD2;
 
 	virtual void InitDerived();
 	virtual void RenderDerived();

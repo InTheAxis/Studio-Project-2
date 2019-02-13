@@ -13,7 +13,8 @@ void Paintable::ChangeColor(Vector3 centerVert)
 	for (int i = 0; i < vbo->size(); ++i)
 	{
 		Vertex* v = &(vbo->at(i));
-		if (Math::FAbs(v->pos.x - centerVert.x) < VERT_RANGE && Math::FAbs(v->pos.z - centerVert.z) < VERT_RANGE) //y doesnt matter, since this mesh shld only be top surface
+		Vector3 temp = Vector3(v->pos.x, v->pos.y, v->pos.z) - centerVert;
+		if (temp.Length() < VERT_RANGE)
 		{
 			std::cout << v->pos.x << ", " << v->pos.y << "\n";
 			v->color.Set(1, 0, 0);

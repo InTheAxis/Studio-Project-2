@@ -8,7 +8,7 @@ layout(location = 3) in vec2 vertexTexCoord;
 
 // Output data ; will be interpolated for each fragment.
 out vec3 vertexPosition_cameraspace;
-flat out vec4 fragmentColor;
+out vec4 fragmentColor;
 out vec3 vertexNormal_cameraspace;
 out vec2 texCoord;
 

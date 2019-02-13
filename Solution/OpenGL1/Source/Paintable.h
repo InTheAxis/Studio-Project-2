@@ -16,7 +16,7 @@ public:
 	~Paintable();
 private:
 
-	const float VERT_RANGE = 0.8f;
+	const float VERT_RANGE = 1;
 };
 
 #endif // !PAINTABLE_H
