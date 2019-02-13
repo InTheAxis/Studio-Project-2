@@ -4,8 +4,7 @@
 #include "Scene.h"
 //include all yo scenes here
 //test scenes
-#include "SceneExample.h"
-#include "SceneExampleInk.h"
+#include "SceneExampleCar.h"
 //actual scenes
 #include "SceneEmpty.h"
 #include "SceneStart.h"
@@ -27,8 +26,7 @@ private:
 	int currentIndex;
 
 	//testing
-	SceneExample example;
-	SceneExampleInk example2;
+	SceneExampleCar example;
 	
 	//actual
 	SceneEmpty empty;

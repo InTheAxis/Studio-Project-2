@@ -111,13 +111,13 @@ void Scene::InitUniforms()
 
 void Scene::InitLights()
 {
-	glUniform1i(m_parameters[U_NUMLIGHTS], 5);
+	glUniform1i(m_parameters[U_NUMLIGHTS], 1);
 
-	lights[0].position.Set(0, 10, 0);
+	lights[0].position.Set(0, 50, 0);
 	lights[0].defaultPos = lights[0].position;
-	lights[0].color.Set(0, 0, 1);
-	lights[0].power = 3;
-	lights[0].type = Light::LIGHT_SPOT;
+	lights[0].color.Set(1, 0.9f, 1);
+	lights[0].power = 1;
+	lights[0].type = Light::LIGHT_DIRECTIONAL;
 	glUniform1i(m_parameters[U_LIGHT0_TYPE], lights[0].type);
 	glUniform3fv(m_parameters[U_LIGHT0_COLOR], 1, &lights[0].color.r);
 	glUniform1f(m_parameters[U_LIGHT0_POWER], lights[0].power);
@@ -132,7 +132,7 @@ void Scene::InitLights()
 	lights[1].defaultPos = lights[1].position;
 	lights[1].color.Set(1, 0, 0);
 	lights[1].power = 3;
-	lights[1].type = Light::LIGHT_POINT;
+	lights[1].type = Light::LIGHT_SPOT;
 	glUniform1i(m_parameters[U_LIGHT1_TYPE], lights[1].type);
 	glUniform3fv(m_parameters[U_LIGHT1_COLOR], 1, &lights[1].color.r);
 	glUniform1f(m_parameters[U_LIGHT1_POWER], lights[1].power);
