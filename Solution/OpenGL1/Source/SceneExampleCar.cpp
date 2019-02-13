@@ -39,7 +39,7 @@ void SceneExampleCar::UpdateDerived(double dt)
 	car.UpdateSuvat(dt);
 
 	if (!currentCam)
-		camera[0]->Update(dt, car.GetTranslate(), captureMouse); //update camera
+		camera[0]->Update(dt, car.GetTranslate(), car.GetRotate()); //update camera
 }
 
 void SceneExampleCar::UpdateDerivedBounced(double dt)

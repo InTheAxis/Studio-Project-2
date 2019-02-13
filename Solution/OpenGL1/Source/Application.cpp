@@ -15,6 +15,7 @@
 GLFWwindow* m_window;
 const unsigned char FPS = 60; // FPS of this game
 const unsigned int frameTime = 1000 / FPS; // time for each frame
+double Application::cursorX = 0, Application::cursorY = 0; //cursor xy
 
 //Define an error callback
 static void error_callback(int error, const char* description)
@@ -28,6 +29,13 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
+}
+
+//Define the mouse movement callback
+static void cursor_position_callback(GLFWwindow* window, double cursorX, double cursorY)
+{
+	Application::cursorX = cursorX;
+	Application::cursorY = cursorY;
 }
 
 bool Application::IsKeyPressed(unsigned short key)
@@ -90,6 +98,9 @@ void Application::Init()
 	//Sets the key callback
 	glfwSetKeyCallback(m_window, key_callback);
 
+	//Sets mouse callback
+	glfwSetCursorPosCallback(m_window, cursor_position_callback);
+
 	glewExperimental = true; // Needed for core profile
 	//Initialize GLEW
 	GLenum err = glewInit();
@@ -112,6 +123,12 @@ void Application::Run()
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
 	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
 	{
+		//hide or show cursor
+		if (scene->GetCaptureMouse())
+			glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		else
+			glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		
 		scene->Update(m_timer.getElapsedTime());
 		scene->Render();
 		//Swap buffers

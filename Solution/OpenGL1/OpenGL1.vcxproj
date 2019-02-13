@@ -154,8 +154,8 @@
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Button.h" />
     <ClInclude Include="Source\Camera.h" />
-    <ClInclude Include="Source\Camera1.h" />
-    <ClInclude Include="Source\Camera2.h" />
+    <ClInclude Include="Source\FixedCam.h" />
+    <ClInclude Include="Source\FreeCam.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\LoadOBJ.h" />
@@ -183,8 +183,8 @@
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Button.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
-    <ClCompile Include="Source\Camera1.cpp" />
-    <ClCompile Include="Source\Camera2.cpp" />
+    <ClCompile Include="Source\FixedCam.cpp" />
+    <ClCompile Include="Source\FreeCam.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\Light.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />

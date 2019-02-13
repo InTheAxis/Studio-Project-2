@@ -5,6 +5,7 @@
 //include all yo scenes here
 //test scenes
 #include "SceneExampleCar.h"
+#include "SceneExampleInk.h"
 //actual scenes
 #include "SceneEmpty.h"
 #include "SceneStart.h"

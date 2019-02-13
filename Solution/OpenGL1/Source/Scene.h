@@ -8,8 +8,8 @@
 #include "Application.h"
 #include "Mtx44.h"
 #include "shader.hpp"
-#include "Camera1.h"
-#include "Camera2.h"
+#include "FixedCam.h"
+#include "FreeCam.h"
 #include "Mesh.h"
 #include "MeshBuilder.h"
 #include "MatrixStack.h"
@@ -116,6 +116,8 @@ public:
 	void Exit();
 	//for changing scenes
 	bool GetChangeSceneEvent(int* outIndex);
+	//for capturing mouse
+	bool GetCaptureMouse();
 protected:
 	//essentials for opengl
 	unsigned m_vertexArrayID;
@@ -127,7 +129,7 @@ protected:
 	bool changingScene;
 
 	//other objects required
-	Camera* camera[2] = { new Camera1, new Camera2 };
+	Camera* camera[2] = { new FixedCam, new FreeCam };
 	Light lights[5];
 
 	//essential gameobjects
@@ -155,9 +157,6 @@ protected:
 	void InitLights();
 	void InitGameObjects();
 	void InitSceneVariables();
-
-	//handle mouse position
-	Vector3 HandleMouseMovement();
 
 	//helper render functions
 	void RenderLights();

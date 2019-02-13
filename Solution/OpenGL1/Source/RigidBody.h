@@ -23,7 +23,7 @@ protected:
 	void AddForce(Vector3 f); //add a force
 	
 	
-	const float GRAVITY = 9.8;
+	const float GRAVITY = 9.8f;
 };
 
 #endif // !RIGIDBODY_H

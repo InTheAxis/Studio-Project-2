@@ -23,6 +23,11 @@ bool Scene::GetChangeSceneEvent(int* outIndex)
 	else return false;
 }
 
+bool Scene::GetCaptureMouse()
+{
+	return captureMouse;
+}
+
 Scene::~Scene()
 {
 }
@@ -194,7 +199,7 @@ void Scene::Init()
 {
 	/*Default Initialisation of cameras*/
 	camera[0]->Init(Vector3(0, 10, -20), Vector3(0, 0, 0), Vector3(0, 1, 0));
-	camera[1]->Init(Vector3(0, 10, -20), Vector3(-1, 25, 0), Vector3(0, 1, 0));
+	camera[1]->Init(Vector3(0, 10, -20), Vector3(0, 0, -1), Vector3(0, 1, 0));
 	/*Windows Console Settings*/
 	SetConsoleMode(GetStdHandle(STD_INPUT_HANDLE), ENABLE_MOUSE_INPUT);
 	/*OpenGL Settings*/
@@ -255,43 +260,15 @@ void Scene::InitSceneVariables()
 	currentCam = 1;
 }
 
-Vector3 Scene::HandleMouseMovement()
-{
-	POINT point;
-
-	RECT desktop;
-	const HWND hDesktop = GetDesktopWindow();
-	GetWindowRect(hDesktop, &desktop);
-
-	//get current mouse pos
-	GetCursorPos(&point);
-
-	Vector3 temp = Vector3(desktop.right * 0.5f - point.x, desktop.bottom * 0.5f - point.y, 0);
-
-	//set cursor to middle
-	SetCursorPos(desktop.right * 0.5f, desktop.bottom * 0.5f);
-
-	return temp;
-}
-
 void Scene::Update(double dt)
 {
 	/*frequent priority checks*/
 
-	//hide or show cursor
-	CURSORINFO pci;
-	pci.cbSize = sizeof(CURSORINFO);
-	GetCursorInfo(&pci);
-	if (pci.flags == CURSOR_SHOWING && !DEBUG && captureMouse)
-		ShowCursor(false);
-	else if ((pci.flags != CURSOR_SHOWING && (DEBUG || !captureMouse)))
-		ShowCursor(true);
-
-	//quick fix, todo fix
+	//0 is fixed, 1 is free
 	if (!currentCam)
-		camera[0]->Update(dt, Vector3(0, 0, 0), captureMouse); //update camera
+		camera[0]->Update(dt, Vector3(0, 10, -10), Vector3(0, 0, 0)); //default values, overwrite this
 	else
-		camera[1]->Update(dt, captureMouse ? HandleMouseMovement() : Vector3(0, 0, 0), captureMouse); //update camera
+		camera[1]->Update(dt, Vector3(0, 10, -10), Vector3(Application::cursorX, Application::cursorY, 0)); //update camera
 
 	UpdateDerived(dt);
 	/*Bounced checks*/
@@ -326,7 +303,7 @@ void Scene::Update(double dt)
 	//noclip toggle
 	if (Application::IsKeyPressed('5'))
 	{
-		dynamic_cast<Camera2*>(camera[1])->ToggleNoClip();
+		dynamic_cast<FreeCam*>(camera[1])->ToggleNoClip();
 	}
 
 	//light toggle
@@ -344,6 +321,14 @@ void Scene::Update(double dt)
 	if (Application::IsKeyPressed('8'))
 	{
 		currentCam = !currentCam;
+	}
+	if (Application::IsKeyPressed('9'))
+	{
+		dynamic_cast<FreeCam*>(camera[1])->ToggleInvert(1, 0);
+	}
+	if (Application::IsKeyPressed('0'))
+	{
+		dynamic_cast<FreeCam*>(camera[1])->ToggleInvert(0, 1);
 	}
 
 	//reset 
