@@ -10,9 +10,8 @@ public:
 	SceneExampleInk();
 	~SceneExampleInk();
 protected:
-	Paintable CUBE;
-
-	Paintable QUAD1, QUAD2;
+	GameObject QUAD1;
+	Paintable QUAD2;
 
 	virtual void InitDerived();
 	virtual void RenderDerived();

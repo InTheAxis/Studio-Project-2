@@ -14,6 +14,7 @@ void Paintable::ChangeColor(Vector3 centerVert)
 	{
 		Vertex* v = &(vbo->at(i));
 		Vector3 temp = Vector3(v->pos.x, v->pos.y, v->pos.z) - centerVert;
+		temp.y = 0;
 		if (temp.Length() < VERT_RANGE)
 		{
 			std::cout << v->pos.x << ", " << v->pos.y << "\n";
