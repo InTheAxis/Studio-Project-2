@@ -29,7 +29,7 @@ private:
 	std::vector<Vertex*> cell; //the part of the vbo i want to search
 	Vector3 upleft;
 
-	const float VERT_RANGE = 0.5f * 0.5f; //square of the radius i want
+	const float VERT_RANGE = 0.25f; //square of the radius i want
 };
 
 #endif //! PAINTABLE_CEL_H

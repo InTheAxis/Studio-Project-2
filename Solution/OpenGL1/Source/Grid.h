@@ -10,6 +10,7 @@ public:
 	Grid();
 	void CreateLinkedList(std::vector<Vertex>** vbo); //where the loop throug the vbo is
 	GridCell** FindCell(int x, int z); //traverse list to find cell
+	std::vector<GridCell**> FindCells(int x, int z); //traverse list to find cella
 	~Grid();
 private:
 	GridCell* head, *tail; //first cell and last cell

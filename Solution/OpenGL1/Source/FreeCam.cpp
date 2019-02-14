@@ -70,11 +70,11 @@ void FreeCam::Update(double dt, Vector3 translate, Vector3 rotate)
 		{
 			position.x = position.x + view.x * MOVE_SPEED * static_cast<float>(dt);
 			position.z = position.z + view.z * MOVE_SPEED * static_cast<float>(dt);
-			target = position + view;
 		}
 		if (Application::IsKeyPressed('A'))
 		{
-			position = position - right * MOVE_SPEED * static_cast<float>(dt);
+			position.x = position.x - right.x * MOVE_SPEED * static_cast<float>(dt);
+			position.z = position.z -right.z * MOVE_SPEED * static_cast<float>(dt);
 		}
 		if (Application::IsKeyPressed('S'))
 		{
@@ -83,7 +83,8 @@ void FreeCam::Update(double dt, Vector3 translate, Vector3 rotate)
 		}
 		if (Application::IsKeyPressed('D'))
 		{
-			position = position + right * MOVE_SPEED * static_cast<float>(dt);
+			position.x = position.x + right.x * MOVE_SPEED * static_cast<float>(dt);
+			position.z = position.z + right.z * MOVE_SPEED * static_cast<float>(dt);
 		}
 	}
 

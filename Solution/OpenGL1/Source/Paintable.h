@@ -19,8 +19,7 @@ public:
 private:
 	std::vector<Vertex>* vbo;
 	Grid* currentGrid;
-
-	const float VERT_RANGE = 0.5f * 0.5f; //square of the radius i want
+	GridCell** cellToColor;
 };
 
 #endif // !PAINTABLE_H

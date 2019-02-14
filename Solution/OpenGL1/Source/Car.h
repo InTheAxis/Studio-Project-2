@@ -8,11 +8,11 @@ class Car : public Vehicle
 {
 public:
 	Car();
-	void RollFront(double dt);
-	void RollBack(double dt);
+	virtual void RollFront(float u , float v, double dt);
+	virtual void RollBack(float u, float v, double dt);
 	~Car();
-protected:
-
+	Wheel wheels[4];
+private:
 };
 
 #endif // !CAR_H

@@ -9,15 +9,19 @@ public:
 	Vehicle();
 	void MoveForward(int dir, double dt);
 	void MoveRight(int dir, double dt);
-	void SetStats(float thrustForce, float turningSpeed);
+	virtual void RollFront(float u, float v, double dt) = 0;
+	virtual void RollBack(float u, float v, double dt) = 0;
+	void SetStats(float thrustForce, float turningSpeed, float wheelRadius);
 	void SetGear(int gear);
-	float GetGear();
+	int GetGear();
 	float GetAngleY();
 	~Vehicle();
 protected:
 	float thrustForce, turningSpeed;
 	int gearNumber;
 	float angleY;
+	float wheelRadius;
+	const float MAX_FORCE = 20000.f;
 };
 
 #endif // !VEHICLE_H

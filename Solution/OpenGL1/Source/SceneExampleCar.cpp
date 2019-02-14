@@ -19,24 +19,34 @@ void SceneExampleCar::RenderDerived()
 {
 	RenderObject(&floor);
 	RenderObject(&car);
+	RenderObject(&(car.wheels[0]));
 }
 
 void SceneExampleCar::UpdateDerived(double dt)
 {	
 	if (Application::IsKeyPressed(VK_UP))
+	{
 		car.MoveForward(1, dt);
+	}
 	else if (Application::IsKeyPressed(VK_DOWN))
+	{
 		car.MoveForward(-1, dt);
+	}
 	else
+	{
 		car.MoveForward(0, dt);
-
+	}
 	//todo make actual turn
 	if (Application::IsKeyPressed(VK_LEFT))
+	{
 		car.MoveRight(-1, dt);
+	}		
 	else if (Application::IsKeyPressed(VK_RIGHT))
+	{
 		car.MoveRight(1, dt);
-
+	}
 	car.UpdateSuvat(dt);
+	car.UpdateRotation(dt);
 
 	if (!currentCam)
 		camera[0]->Update(dt, car.GetTranslate(), car.GetRotate()); //update camera
@@ -48,14 +58,14 @@ void SceneExampleCar::UpdateDerivedBounced(double dt)
 	{
 		RequestChangeScene(1);
 	}
-	/*if (Application::IsKeyPressed('Z'))
+	if (Application::IsKeyPressed('Z'))
 	{
-		car.SetGears(car.GetGear() - 1);
+		car.SetGear(car.GetGear() - 1);
 	}
 	if (Application::IsKeyPressed('X'))
 	{
-		car.SetGears(car.GetGear() + 1);
-	}*/
+		car.SetGear(car.GetGear() + 1);
+	}
 }
 
 SceneExampleCar::~SceneExampleCar()

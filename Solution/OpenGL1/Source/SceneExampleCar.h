@@ -2,7 +2,7 @@
 #define SCENE_EXAMPLE_CAR_H
 
 #include "Scene.h"
-#include "Vehicle.h"
+#include "Car.h"
 
 class SceneExampleCar : public Scene
 {
@@ -10,7 +10,7 @@ public:
 	SceneExampleCar();
 	~SceneExampleCar();
 protected:
-	Vehicle car;
+	Car car;
 	GameObject floor;
 
 	virtual void InitDerived();
