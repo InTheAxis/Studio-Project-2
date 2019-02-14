@@ -6,21 +6,36 @@ Paintable::Paintable()
 {
 }
 
-void Paintable::ChangeColor(Vector3 centerVert)
+std::vector<Vertex>** Paintable::GetVBO()
 {
-	std::vector<Vertex>* vbo = this->objectMesh->GetVBData();
-	
-	for (int i = 0; i < vbo->size(); ++i)
+	return &(this->vbo);
+}
+
+void Paintable::GenerateGrid()
+{
+	vbo = this->objectMesh->GetVBData();
+	for (Vertex &v : *vbo)
 	{
-		Vertex* v = &(vbo->at(i));
-		Vector3 temp = Vector3(v->pos.x, v->pos.y, v->pos.z) - centerVert;
-		temp.y = 0;
-		if (temp.Length() < VERT_RANGE)
-		{
-			std::cout << v->pos.x << ", " << v->pos.y << "\n";
-			v->color.Set(1, 0, 0);
-		}
+		if (v.pos.x >= 0 && v.pos.z >= 0) //+x, +z
+			grid[0].PushToCell(&v, 1, 1);
+		else if (v.pos.x < 0 && v.pos.z < 0) //-x, -z
+			grid[1].PushToCell(&v, -1, -1);
+		else if (v.pos.x < 0 && v.pos.z >= 0) //-x, +z
+			grid[2].PushToCell(&v, -1, 1);
+		else if (v.pos.x >= 0 && v.pos.z < 0) //+x, -z
+			grid[3].PushToCell(&v, 1, -1);
 	}
+}
+
+void Paintable::ChangeColor(Vector3 centerVert, Color color)
+{
+	for (int i = 0; i < GRID_SIZE; ++i)
+	{
+		if (grid[i].CompareXZ(int(centerVert.x), int(centerVert.z)))
+		{
+			grid[i].ChangeColorCell(centerVert, color);
+		}
+	}	
 
 	this->objectMesh->SetVBData(vbo);
 	MeshBuilder::ReloadVBO(this->objectMesh);

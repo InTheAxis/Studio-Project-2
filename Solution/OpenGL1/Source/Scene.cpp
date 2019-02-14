@@ -242,8 +242,8 @@ void Scene::Init()
 
 void Scene::InitGameObjects()
 {
-	AXES.Init(MeshBuilder::GenerateAxes());
-	LIGHTBALL.Init(MeshBuilder::GenerateCube(Color(1, 1, 1)));
+	AXES.Init(MeshBuilder::GenerateAxes(10000, 5000, 10000));
+	LIGHTBALL.Init(MeshBuilder::GenerateCube(Color(1, 1, 0.9f)));
 	TEXT.Init(MeshBuilder::GenerateText(16, 16), "Image//Fonts//calibri.tga");
 }
 

@@ -157,6 +157,7 @@
     <ClInclude Include="Source\FixedCam.h" />
     <ClInclude Include="Source\FreeCam.h" />
     <ClInclude Include="Source\GameObject.h" />
+    <ClInclude Include="Source\Grid.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\LoadOBJ.h" />
     <ClInclude Include="Source\LoadSceneButton.h" />
@@ -165,6 +166,7 @@
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
     <ClInclude Include="Source\Paintable.h" />
+    <ClInclude Include="Source\GridCell.h" />
     <ClInclude Include="Source\RigidBody.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneEmpty.h" />
@@ -186,6 +188,7 @@
     <ClCompile Include="Source\FixedCam.cpp" />
     <ClCompile Include="Source\FreeCam.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
+    <ClCompile Include="Source\Grid.cpp" />
     <ClCompile Include="Source\Light.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
     <ClCompile Include="Source\LoadSceneButton.cpp" />
@@ -194,6 +197,7 @@
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
     <ClCompile Include="Source\Paintable.cpp" />
+    <ClCompile Include="Source\GridCell.cpp" />
     <ClCompile Include="Source\RigidBody.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\SceneEmpty.cpp" />

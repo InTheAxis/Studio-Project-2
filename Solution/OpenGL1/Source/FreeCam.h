@@ -33,8 +33,8 @@ private:
 	float yaw, pitch;
 	bool noclip, invertX, invertY;
 
-	const float MOVE_SPEED = 30;
-	const float CAM_SPEED = 1.5f;
+	const float MOVE_SPEED = 10;
+	const float CAM_SPEED = 1.f;
 	const float CAM_DEADZONE = 1.f;
 	const float FOV = 50;
 };

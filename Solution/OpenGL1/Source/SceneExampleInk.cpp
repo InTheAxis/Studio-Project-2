@@ -9,11 +9,18 @@ SceneExampleInk::SceneExampleInk()
 
 void SceneExampleInk::InitDerived()
 {
+
 	QUAD1.Init("OBJ//ground-low.obj", "Image//color2.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
 	QUAD2.Init("OBJ//ground-high.obj", "", Vector3(0, 0.3f, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
 
 	QUAD1.SetMaterial(dull);
 	QUAD2.SetMaterial(dull);
+
+	QUAD2.GenerateGrid();
+
+	std::cout << "Generating grid for level\n";
+	level.CreateLinkedList(QUAD2.GetVBO());
+	std::cout << "Done!\n";
 }
 
 void SceneExampleInk::RenderDerived()
@@ -26,7 +33,7 @@ void SceneExampleInk::UpdateDerived(double dt)
 {
 	if (Application::IsKeyPressed('F'))
 	{
-		QUAD2.ChangeColor(camera[currentCam]->position);
+		QUAD2.ChangeColor(camera[currentCam]->position, Color(1,0,1));
 	}
 }
 
