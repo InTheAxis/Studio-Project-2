@@ -2,7 +2,7 @@
 #define PAINTABLE_H
 
 #include "GameObject.h"
-#include "GridCell.h"
+#include "Grid.h"
 
 /*NOTE, ONLY USE SINGLE SURFACE AND HIGH POLY MESHES FOR THIS CLASS*/
 
@@ -13,15 +13,14 @@ public:
 	Paintable();
 
 	std::vector<Vertex>** GetVBO();
-	void GenerateGrid();
-	void ChangeColor(Vector3 centerVert, Color color);
+	void ChangeColor(Grid* currentGrid, Vector3 centerVert, Color color);
 
 	~Paintable();
 private:
-	const static int GRID_SIZE = 4;
-
 	std::vector<Vertex>* vbo;
-	GridCell grid[GRID_SIZE];
+	Grid* currentGrid;
+
+	const float VERT_RANGE = 0.5f * 0.5f; //square of the radius i want
 };
 
 #endif // !PAINTABLE_H

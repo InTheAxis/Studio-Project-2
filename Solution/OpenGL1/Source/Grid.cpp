@@ -4,13 +4,13 @@
 
 Grid::Grid()
 {
+	this->traversalIndex = 0;
 	this->head = tail = nullptr;
 	this->current = forTraversing= nullptr;
 }
 
 void Grid::CreateLinkedList(std::vector<Vertex>** vbo)
 {
-	start = new GridCell(STARTX, STARTZ);
 	head = new GridCell(-GRID_LENGTH_HALF, -GRID_LENGTH_HALF);
 	tail = forTraversing = current = head;
 	for (int z = -GRID_LENGTH_HALF; z <= GRID_LENGTH_HALF; z += GRID_UNIT)
@@ -19,46 +19,57 @@ void Grid::CreateLinkedList(std::vector<Vertex>** vbo)
 		{
  			if (x == -GRID_LENGTH_HALF && z == -GRID_LENGTH_HALF) 
 				continue;
-			if (x == STARTX && z == STARTZ)
-				current = start;
 			else
 				current = new GridCell(x, z);
 
 			tail->SetNext(current);
+			current->SetPrev(tail);
+
+			tail->PushToAdjacents(current);
+			current->PushToAdjacents(tail);
+
 			tail = current;
 		}
 	}
-	current = start;
+	current = head;
 
 	AssignCell(vbo);
 }
 
+GridCell** Grid::FindCell(int x, int z)
+{
+	int traverseAmount = 0;
+	traverseAmount = ((z + GRID_LENGTH_HALF) * (GRID_LENGTH_HALF * 2 + 1)) + (x + GRID_LENGTH_HALF);
+	traverseAmount = Math::Clamp(traverseAmount, 0, GRID_MAX_CELLS - 1);
+	std::cout << "Cell:" << traverseAmount << "   ";
+	
+	if (traversalIndex > traverseAmount)
+	{
+		//traverse forward
+		for (int i = 0; i < traversalIndex - traverseAmount; ++i)
+		{
+			current = current->GetPrev();
+		}
+	}
+	else if (traversalIndex < traverseAmount)
+	{
+		//traverse forward
+		for (int i = 0; i < traverseAmount - traversalIndex; ++i)
+		{
+			current = current->GetNext();
+		}
+	}
+
+	traversalIndex = traverseAmount;
+	return &current;
+}
+
 void Grid::AssignCell(std::vector<Vertex>** vbo)
 {
-	std::vector<Vertex*> cellTemp;
-	Vector3 upleftTrunc;
-	int traverseAmount = 0;
-
+	current = head;
 	for (Vertex &v : **vbo)
 	{
-		forTraversing = head;
-		
-		upleftTrunc = Vector3((int)(v.pos.x), 0, (int)(v.pos.z)); //gets the nearest vertex, doesnt work if GRID_UNIT != 1
-
-		traverseAmount = ((upleftTrunc.z + GRID_LENGTH_HALF) * (GRID_LENGTH_HALF * 2 + 1)) + (upleftTrunc.x + GRID_LENGTH_HALF);
-		
-		std::cout << traverseAmount;
-
-		traverseAmount = Math::Clamp(traverseAmount, 0, GRID_MAX_CELLS - 1);
-
-		std::cout << ":" << traverseAmount << "   ";
-
-		for (int i = 0; i < traverseAmount; ++i)
-		{
-			forTraversing = forTraversing->GetNext();
-		}
-
-		forTraversing->PushVertToCell(&v);
+		(*FindCell((int)v.pos.x, (int)v.pos.z))->PushVertToCell(&v);
 	}
 }
 

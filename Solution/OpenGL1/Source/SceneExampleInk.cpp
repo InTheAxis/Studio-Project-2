@@ -16,8 +16,6 @@ void SceneExampleInk::InitDerived()
 	QUAD1.SetMaterial(dull);
 	QUAD2.SetMaterial(dull);
 
-	QUAD2.GenerateGrid();
-
 	std::cout << "Generating grid for level\n";
 	level.CreateLinkedList(QUAD2.GetVBO());
 	std::cout << "Done!\n";
@@ -33,7 +31,7 @@ void SceneExampleInk::UpdateDerived(double dt)
 {
 	if (Application::IsKeyPressed('F'))
 	{
-		QUAD2.ChangeColor(camera[currentCam]->position, Color(1,0,1));
+		QUAD2.ChangeColor(&level, camera[currentCam]->position, Color(1,0,1));
 	}
 }
 

@@ -1,7 +1,4 @@
 ﻿  Grid.cpp
-c:\users\codea\desktop\sp2\solution\opengl1\source\grid.cpp(13): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
 c:\users\codea\desktop\sp2\solution\opengl1\source\grid.cpp(14): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-c:\users\codea\desktop\sp2\solution\opengl1\source\grid.cpp(25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\codea\desktop\sp2\solution\opengl1\source\grid.cpp(46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\codea\desktop\sp2\solution\opengl1\source\grid.cpp(48): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\codea\desktop\sp2\solution\opengl1\source\grid.cpp(23): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   OpenGL1.vcxproj -> C:\Users\codea\Desktop\SP2\Solution\Debug\StudioProject2.exe
