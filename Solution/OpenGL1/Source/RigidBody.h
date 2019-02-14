@@ -15,10 +15,11 @@ public:
 protected:
 	Vector3 forward, up, right;
 	float s, u, v, a;
-	float theta, omegaI, omegaF, alpha, radius;
+	float theta, omegaI, omegaF, alpha;
 	float forceForward, forceRight;
 	float staticCoeff, maxStaticFriction, kineticFriction;
 	float mass;
+	float friction, maxFriction;
 
 	Mtx44 rotationMatrix;
 

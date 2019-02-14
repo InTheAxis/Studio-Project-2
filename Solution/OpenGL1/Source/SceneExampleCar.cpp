@@ -8,7 +8,7 @@ SceneExampleCar::SceneExampleCar()
 void SceneExampleCar::InitDerived()
 {
 	car.Init("OBJ//taxi.obj", "Image//taxi.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1.f, 1.f, 1.f));
-	car.CreateRigidBody(Vector3(0, 0, 10), 1200, 0.4, 0.2);
+	car.CreateRigidBody(Vector3(0, 0, 10), 1200, 0.8f, 0.6f);
 	floor.Init("OBJ//ground-low-flat.obj", "Image//color2.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
 	paintLayer.Init("OBJ//ground-high-flat.obj", "", Vector3(0, 0.3f, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
 

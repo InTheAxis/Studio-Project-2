@@ -6,7 +6,7 @@ RigidBody::RigidBody()
 {
 	this->forward = up = right = Vector3(0, 0, 0);
 	this->s = u = v = a = 0;
-	this->theta = omegaI = omegaF = alpha = radius = 0;
+	this->theta = omegaI = omegaF = alpha = 0;
 	this->staticCoeff = maxStaticFriction = kineticFriction = 0;
 	this->mass = 0;
 	this->forceForward = forceRight = 0;
@@ -61,18 +61,22 @@ void RigidBody::UpdateSuvat(double dt)
 
 void RigidBody::UpdateRotation(double dt)
 {
-	if (Math::FAbs(forceRight) > maxStaticFriction)
+	//if (Math::FAbs(forceRight) > maxStaticFriction)
 	{
 		this->alpha = (forceRight - kineticFriction) / mass;
 	}
-	else
+	//else
 	{
-		omegaI = omegaF = alpha = 0;
+		//omegaI = omegaF = alpha = 0;
 	}
-	/*this->omegaF = omegaI + alpha * float(dt);
-	this->theta = omegaF * float(dt);
-	this->omegaI = omegaF;*/
+	this->omegaF = omegaI + alpha * float(dt);
 	this->theta = 0.5 * (omegaI + omegaF) * float(dt);
+	this->omegaI = omegaF;
+
+	std::cout << "I :" << omegaI << std::endl;
+	std::cout << "F :" << omegaF << std::endl;
+	std::cout << "A :" << alpha << std::endl;
+	std::cout << "T :" << theta << std::endl;
 }
 
 RigidBody::~RigidBody()
