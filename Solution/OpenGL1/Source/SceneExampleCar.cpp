@@ -7,17 +7,24 @@ SceneExampleCar::SceneExampleCar()
 
 void SceneExampleCar::InitDerived()
 {
-	floor.Init(MeshBuilder::GenerateQuad(Color(1, 1, 1)), "", Vector3(0, -5, 0), Vector3(0, 0, 0), Vector3(50, 1, 50));
-	car.Init(MeshBuilder::GenerateCube(Color(0, 0, 1, 0.5f)), "", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(2, 2, 4));
+	car.Init("OBJ//taxi.obj", "Image//taxi.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1.f, 1.f, 1.f));
 	car.CreateRigidBody(Vector3(0, 0, 10), 1200, 0.4, 0.2);
+	floor.Init("OBJ//ground-low-flat.obj", "Image//color2.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
+	paintLayer.Init("OBJ//ground-high-flat.obj", "", Vector3(0, 0.3f, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
 
 	car.SetMaterial(shiny);
 	floor.SetMaterial(dull);
+	paintLayer.SetMaterial(dull);
+
+	std::cout << "Generating grid for level\n";
+	level.CreateLinkedList(paintLayer.GetVBO());
+	std::cout << "Done!\n";
 }
 
 void SceneExampleCar::RenderDerived()
 {
 	RenderObject(&floor);
+	RenderObject(&paintLayer);
 	RenderObject(&car);
 	RenderObject(&(car.wheels[0]));
 }
@@ -50,6 +57,11 @@ void SceneExampleCar::UpdateDerived(double dt)
 
 	if (!currentCam)
 		camera[0]->Update(dt, car.GetTranslate(), car.GetRotate()); //update camera
+
+	if (Application::IsKeyPressed('F'))
+	{
+		paintLayer.ChangeColor(&level, car.GetTranslate(), Color(1, 0, 1));
+	}
 }
 
 void SceneExampleCar::UpdateDerivedBounced(double dt)

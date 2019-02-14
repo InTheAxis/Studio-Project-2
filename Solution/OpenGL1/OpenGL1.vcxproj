@@ -154,6 +154,7 @@
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Button.h" />
     <ClInclude Include="Source\Camera.h" />
+    <ClInclude Include="Source\Car.h" />
     <ClInclude Include="Source\FixedCam.h" />
     <ClInclude Include="Source\FreeCam.h" />
     <ClInclude Include="Source\GameObject.h" />
@@ -180,11 +181,13 @@
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vehicle.h" />
     <ClInclude Include="Source\Vertex.h" />
+    <ClInclude Include="Source\Wheel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Button.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\Car.cpp" />
     <ClCompile Include="Source\FixedCam.cpp" />
     <ClCompile Include="Source\FreeCam.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
@@ -210,6 +213,7 @@
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\Vehicle.cpp" />
+    <ClCompile Include="Source\Wheel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\Text.fragmentshader" />

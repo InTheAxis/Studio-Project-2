@@ -3,6 +3,8 @@
 
 #include "Scene.h"
 #include "Car.h"
+#include "Grid.h"
+#include "Paintable.h"
 
 class SceneExampleCar : public Scene
 {
@@ -10,8 +12,10 @@ public:
 	SceneExampleCar();
 	~SceneExampleCar();
 protected:
-	Car car;
+	Grid level;
+	Paintable paintLayer;
 	GameObject floor;
+	Car car;
 
 	virtual void InitDerived();
 	virtual void RenderDerived();
