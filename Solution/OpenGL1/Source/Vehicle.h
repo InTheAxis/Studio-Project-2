@@ -10,11 +10,14 @@ public:
 	void MoveForward(int dir, double dt);
 	void MoveRight(int dir, double dt);
 	void SetStats(float thrustForce, float turningSpeed);
+	void SetGear(int gear);
+	float GetGear();
+	float GetAngleY();
 	~Vehicle();
 protected:
 	float thrustForce, turningSpeed;
-	int gearBox;
-	float accelLimit;
+	int gearNumber;
+	float angleY;
 };
 
 #endif // !VEHICLE_H

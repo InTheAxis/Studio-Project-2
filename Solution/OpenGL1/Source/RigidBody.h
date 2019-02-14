@@ -15,7 +15,7 @@ protected:
 	Vector3 forward, up, right;
 	float s, u, v, a;
 	float forceForward, forceRight;
-	float staticCoeff, maxStaticFriction, kineticFirction;
+	float staticCoeff, maxStaticFriction, kineticFriction;
 	float mass;
 
 	Mtx44 rotationMatrix;

@@ -48,6 +48,14 @@ void SceneExampleCar::UpdateDerivedBounced(double dt)
 	{
 		RequestChangeScene(1);
 	}
+	/*if (Application::IsKeyPressed('Z'))
+	{
+		car.SetGears(car.GetGear() - 1);
+	}
+	if (Application::IsKeyPressed('X'))
+	{
+		car.SetGears(car.GetGear() + 1);
+	}*/
 }
 
 SceneExampleCar::~SceneExampleCar()
