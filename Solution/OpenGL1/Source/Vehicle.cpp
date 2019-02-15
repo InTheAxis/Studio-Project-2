@@ -81,7 +81,7 @@ int Vehicle::GetGear()
 	return gearNumber;
 }
 
-Vector3 Vehicle::GetAngleY()
+Vector3 Vehicle::GetAngle()
 {
 	return Vector3(0, angleY, 0);
 }

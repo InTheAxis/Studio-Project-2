@@ -23,7 +23,7 @@ void SceneExampleCar::RenderDerived()
 
 	if (DEBUG)
 	{
-		std::string temp = "AngleY: " + std::to_string(car.GetAngleY().y);
+		std::string temp = "AngleY: " + std::to_string(car.GetAngle().y);
 		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0, 0); //fps
 	}
 }
@@ -54,18 +54,13 @@ void SceneExampleCar::UpdateDerived(double dt)
 	}
 	else
 	{
-<<<<<<< HEAD
 		//car.MoveRight(0, dt);
 	}
-=======
-		car.MoveRight(0, dt);
-	}
-
->>>>>>> 3fa7a9f2a1ccb5a8edcbf0fea1116b4056055f38
 	car.UpdateSuvat(dt);
 	car.UpdateRotation(dt);
 	
-	camera[0]->Update(dt, car.GetTranslate(), car.GetAngleY()); //update camera
+	if (!currentCam)
+		camera[0]->Update(dt, car.GetTranslate(), car.GetAngle()); //update camera
 }
 
 void SceneExampleCar::UpdateDerivedBounced(double dt)
