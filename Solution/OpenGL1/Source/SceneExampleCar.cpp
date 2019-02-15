@@ -23,26 +23,35 @@ void SceneExampleCar::RenderDerived()
 
 	if (DEBUG)
 	{
-		std::string temp = "AngleY: " + std::to_string(car.GetAngle().y);
+		std::string temp = "Gear number: " + std::to_string(car.GetGear());
 		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0, 0); //fps
 	}
 }
 
 void SceneExampleCar::UpdateDerived(double dt)
 {
-	if (Application::IsKeyPressed(VK_UP))
+	if (Application::IsKeyPressed(VK_UP) && car.GetGear() > 0)
 	{
 		car.MoveForward(1, dt);
 	}
-	else if (Application::IsKeyPressed(VK_DOWN))
+	else if (Application::IsKeyPressed(VK_UP) && car.GetGear() == 0)
 	{
-		//car.MoveForward(-1, dt);
-		car.Brake(dt);
+		car.MoveForward(-1, dt);
 	}
 	else
 	{
 		car.MoveForward(0, dt);
 	}
+
+	if (Application::IsKeyPressed(VK_DOWN))
+	{
+		car.Brake(true);
+	}
+	else
+	{
+		car.Brake(false);
+	}
+	
 	//todo make actual turn
 	if (Application::IsKeyPressed(VK_LEFT))
 	{

@@ -9,6 +9,7 @@ Vehicle::Vehicle()
 	gearNumber = 1;
 	wheelRadius = 0.001f;
 	angleY = 0.0f;
+	InitMaxThrustForce(MAX_FORCE);
 }
 
 void Vehicle::MoveForward(int dir, double dt)
@@ -25,6 +26,7 @@ void Vehicle::MoveForward(int dir, double dt)
 
 void Vehicle::MoveRight(int dir, double dt)
 {
+	if (v < 1 || u < 1) return;
 	if (!dir)
 		this->forceRight = 0;
 	this->AddForceRight(Vector3(0, dir * turningSpeed * (float)dt, 0));
@@ -35,9 +37,12 @@ void Vehicle::MoveRight(int dir, double dt)
 	this->rotate.y += angleY;
 }
 
-void Vehicle::Brake(double dt)
+void Vehicle::Brake(bool brake)
 {
-	this->AddKineticFriction(Vector3(0, 0, BRAKE_FORCE * (float)dt));
+	if (brake)
+		this->AddBrakeFriction(Vector3(0, 0, BRAKE_FRICTION));
+	else
+		this->AddBrakeFriction(Vector3(0, 0, 0));
 }
 
 void Vehicle::SetStats(float thrustForce, float turningSpeed, float wheelRadius)
@@ -49,12 +54,15 @@ void Vehicle::SetStats(float thrustForce, float turningSpeed, float wheelRadius)
 
 void Vehicle::SetGear(int gear)
 {
-	if (gear > 0 && gear < 6)
+	if (gear >= 0 && gear < 6)
 	{
 		this->gearNumber = gear;
 	}
 
 	switch (gearNumber) {
+	case 0:
+		thrustForce = MAX_FORCE / 5;
+		break;
 	case 1:
 		thrustForce = MAX_FORCE / 5;
 		break;
@@ -74,11 +82,17 @@ void Vehicle::SetGear(int gear)
 		thrustForce = MAX_FORCE / 5;
 		break;
 	}
+	InitMaxThrustForce(MAX_FORCE);
 }
 
 int Vehicle::GetGear()
 {
 	return gearNumber;
+}
+
+int Vehicle::GetThrustForce()
+{
+	return thrustForce;
 }
 
 Vector3 Vehicle::GetAngle()

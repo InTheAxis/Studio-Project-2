@@ -8,9 +8,11 @@ RigidBody::RigidBody()
 	this->s = u = v = a = 0;
 	this->theta = omegaI = omegaF = alpha = 0;
 	this->forceForward = forceRight = 0;
-	this->staticCoeff = maxStaticFriction = kineticFriction = 0;
-	this->mass = 0;
+	this->mass = staticCoeff = maxStaticFriction = kineticFriction = brakeFriction = 0;
 	this->REV_FORCE = 0;
+	this->maxDrag = 0;
+	this->dragForce = 10;
+	this->frameNum = 1;
 	this->rotationMatrix.SetToIdentity();
 }
 
@@ -38,24 +40,36 @@ void RigidBody::AddForceRight(Vector3 f)
 	forceRight += f.y;
 }
 
-void RigidBody::AddKineticFriction(Vector3 f)
+void RigidBody::AddBrakeFriction(Vector3 f)
 {
-	kineticFriction + f.z;
+	brakeFriction = f.z;
 }
+
+void RigidBody::InitMaxThrustForce(float thrustForce)
+{
+	maxDrag = thrustForce - (kineticFriction + brakeFriction);
+}
+
+//int maxDrag = max force -friction
+//maxDrag = maxDrag / frameNum + maxDrag / frameNum + maxDrag / frameNum ....
+//frameNum = currentNum * 2 , OR currentNum << 1 
 
 void RigidBody::UpdateSuvat(double dt)
 {
 	//calc fnet and hence accel
-	if (Math::FAbs(forceForward) > maxStaticFriction) //if static friction overcome start moving
+	if ((Math::FAbs(forceForward) + REV_FORCE) > maxStaticFriction) //if static friction overcome start moving
 	{
-		this->a = (forceForward - kineticFriction) / mass;
+		frameNum *=  2;
+		dragForce += (dragForce / frameNum);
+		
+		this->a = (forceForward - (kineticFriction + brakeFriction + dragForce)) / mass;
 	}
 	else if (forceForward == 0) //means no pedal, friction shld kick in to slow down car
 	{
 		int direction = v / (Math::FAbs(v)); //1 or -1
 		if (Math::FAbs(v) > 0.1f)
 		{
-			this->a = (-1 * direction * kineticFriction) / mass;
+			this->a = (-1 * direction * (kineticFriction + brakeFriction)) / mass;
 		}
 		else
 		{
@@ -66,7 +80,9 @@ void RigidBody::UpdateSuvat(double dt)
 	this->s = v * float(dt); //update displacement
 	this->u = v; //update new initial speed
 
-	std::cout << forceForward << std::endl;
+	std::cout << "Drag: " << dragForce << std::endl;
+	std::cout << "Accel: " << a << std::endl;
+	std::cout << "FrameNum: " <<  frameNum << std::endl;
 }
 
 void RigidBody::UpdateRotation(double dt)
