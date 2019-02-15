@@ -8,6 +8,7 @@ Vehicle::Vehicle()
 	turningSpeed = 20.f;
 	gearNumber = 1;
 	wheelRadius = 0.001f;
+	angleY = 0.0f;
 }
 
 void Vehicle::MoveForward(int dir, double dt)
@@ -28,10 +29,15 @@ void Vehicle::MoveRight(int dir, double dt)
 		this->forceRight = 0;
 	this->AddForceRight(Vector3(0, dir * turningSpeed * (float)dt, 0));
 
-	angleY = -1 * dir * forceRight * dt;
+	angleY = -1 * forceRight * dt;
 	rotationMatrix.SetToRotation(angleY, 0, 1, 0);
 	forward = rotationMatrix * forward;
 	this->rotate.y += angleY;
+}
+
+void Vehicle::Brake(double dt)
+{
+	this->AddKineticFriction(Vector3(0, 0, BRAKE_FORCE * (float)dt));
 }
 
 void Vehicle::SetStats(float thrustForce, float turningSpeed, float wheelRadius)
@@ -75,19 +81,9 @@ int Vehicle::GetGear()
 	return gearNumber;
 }
 
-float Vehicle::GetAngleY()
+Vector3 Vehicle::GetAngle()
 {
-	return angleY;
-}
-
-Vector3 Vehicle::GetOffset()
-{
-	return angleOffset;
-}
-
-void Vehicle::SetOffset(Vector3 offset)
-{
-	this->angleOffset = offset;
+	return Vector3(0, angleY, 0);
 }
 
 Vehicle::~Vehicle()

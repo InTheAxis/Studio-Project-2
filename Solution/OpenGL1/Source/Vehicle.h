@@ -9,14 +9,13 @@ public:
 	Vehicle();
 	void MoveForward(int dir, double dt);
 	void MoveRight(int dir, double dt);
+	void Brake(double dt);
 	virtual void RollFront(float u, float v, double dt) = 0;
 	virtual void RollBack(float u, float v, double dt) = 0;
 	void SetStats(float thrustForce, float turningSpeed, float wheelRadius);
 	void SetGear(int gear);
 	int GetGear();
-	float GetAngleY();
-	Vector3 GetOffset();
-	void SetOffset(Vector3 offset);
+	Vector3 GetAngle(); //ignore x and y
 	~Vehicle();
 protected:
 	float thrustForce, turningSpeed;
@@ -24,7 +23,7 @@ protected:
 	float angleY;
 	float wheelRadius;
 	const float MAX_FORCE = 20000.f;
-	Vector3 angleOffset;
+	const float BRAKE_FORCE = 1.f;
 };
 
 #endif // !VEHICLE_H

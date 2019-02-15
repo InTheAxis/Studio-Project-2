@@ -7,9 +7,10 @@ RigidBody::RigidBody()
 	this->forward = up = right = Vector3(0, 0, 0);
 	this->s = u = v = a = 0;
 	this->theta = omegaI = omegaF = alpha = 0;
+	this->forceForward = forceRight = 0;
 	this->staticCoeff = maxStaticFriction = kineticFriction = 0;
 	this->mass = 0;
-	this->forceForward = forceRight = 0;
+	this->REV_FORCE = 0;
 	this->rotationMatrix.SetToIdentity();
 }
 
@@ -20,6 +21,8 @@ void RigidBody::CreateRigidBody(Vector3 forward, float mass, float staticCoeff, 
 	this->staticCoeff = staticCoeff;
 	this->kineticFriction = kineticCoeff * GRAVITY * mass;
 	this->maxStaticFriction = staticCoeff * GRAVITY * mass;
+
+	this->REV_FORCE = maxStaticFriction * REV_FORCE_MULTIPLIER;
 
 	if (maxStaticFriction < kineticCoeff)
 		std::cout << "RigidBody: Static friction must be larger!" << std::endl;
@@ -33,6 +36,11 @@ void RigidBody::AddForceForward(Vector3 f)
 void RigidBody::AddForceRight(Vector3 f)
 {
 	forceRight += f.y;
+}
+
+void RigidBody::AddKineticFriction(Vector3 f)
+{
+	kineticFriction + f.z;
 }
 
 void RigidBody::UpdateSuvat(double dt)
@@ -57,26 +65,23 @@ void RigidBody::UpdateSuvat(double dt)
 	this->v = u + a * float(dt); //calc final speed
 	this->s = v * float(dt); //update displacement
 	this->u = v; //update new initial speed
+
+	std::cout << forceForward << std::endl;
 }
 
 void RigidBody::UpdateRotation(double dt)
 {
-	//if (Math::FAbs(forceRight) > maxStaticFriction)
+	if (Math::FAbs(forceRight) > maxStaticFriction)
 	{
 		this->alpha = (forceRight - kineticFriction) / mass;
 	}
-	//else
+	else
 	{
-		//omegaI = omegaF = alpha = 0;
+		omegaI = omegaF = alpha = 0;
 	}
 	this->omegaF = omegaI + alpha * float(dt);
 	this->theta = 0.5 * (omegaI + omegaF) * float(dt);
 	this->omegaI = omegaF;
-
-	//std::cout << "I :" << omegaI << std::endl;
-	//std::cout << "F :" << omegaF << std::endl;
-	//std::cout << "A :" << alpha << std::endl;
-	//std::cout << "T :" << theta << std::endl;
 }
 
 RigidBody::~RigidBody()
