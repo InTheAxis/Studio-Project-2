@@ -4,6 +4,7 @@ Scene::Scene()
 {
 	targetSceneIndex = 999;
 	changingScene = false;
+	pause = false;
 }
 
 void Scene::RequestChangeScene(int index)

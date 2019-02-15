@@ -171,6 +171,8 @@ protected:
 	virtual void RenderDerived() = 0;
 	virtual void UpdateDerived(double dt) = 0;
 	virtual void UpdateDerivedBounced(double dt) = 0;
+
+	bool pause;
 };
 
 #endif
