@@ -25,3 +25,6 @@ Solution/Release/*.lib
 Solution/Release/*.pdb
 Solution/Release/*.ilk
 Solution/Release/*.exe
+
+Solution/.vs/StudioProject2/v15/*.db
+Solution/.vs/StudioProject2/v15/ipch
