@@ -10,6 +10,7 @@
 #include "SceneEmpty.h"
 #include "SceneStart.h"
 #include "SceneLevelSelect.h"
+#include "SceneLevel1.h"
 
 class SceneManager
 {
@@ -28,11 +29,12 @@ private:
 
 	//testing
 	SceneExampleCar example;
-	
+
 	//actual
 	SceneEmpty empty;
 	SceneStart startMenu;
 	SceneLevelSelect levels;
+	SceneLevel1 level1;
 
 	enum gameScenes
 	{

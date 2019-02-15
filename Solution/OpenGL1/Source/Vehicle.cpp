@@ -8,6 +8,7 @@ Vehicle::Vehicle()
 	turningSpeed = 20.f;
 	gearNumber = 1;
 	wheelRadius = 0.001f;
+	angleY = 0.0f;
 }
 
 void Vehicle::MoveForward(int dir, double dt)
@@ -80,9 +81,9 @@ int Vehicle::GetGear()
 	return gearNumber;
 }
 
-float Vehicle::GetAngleY()
+Vector3 Vehicle::GetAngleY()
 {
-	return angleY;
+	return Vector3(0, angleY, 0);
 }
 
 Vehicle::~Vehicle()

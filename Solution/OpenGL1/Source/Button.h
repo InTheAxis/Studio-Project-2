@@ -14,6 +14,8 @@ public:
 
 	bool GetOnClickEvent();
 	void SetOnClickEvent(bool);
+	void SetHover(bool hover);
+	bool GetHover();
 
 	virtual void DoAction() = 0;
 	virtual void AnimateButton() = 0;

@@ -13,6 +13,7 @@ SceneManager::SceneManager()
 	allScenes[0] = &example;
 	allScenes[START] = &startMenu;
 	allScenes[LEVEL_SELECT] = &levels;
+	allScenes[LEVEL_1] = &level1;
 }
 
 Scene* SceneManager::GetFirstScene()

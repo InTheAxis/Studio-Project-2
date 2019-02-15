@@ -21,6 +21,8 @@ public:
 	void Render();
 	void Render(unsigned offset, unsigned count);
 	
+	//virtual void RenderChildren(); //put stuff that is under this object's hierachy here
+
 	void AddTexture(std::string filePathTGA); //adds a tga to a list of textures
 
 	//getter setters

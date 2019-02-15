@@ -148,6 +148,7 @@ protected:
 	bool captureMouse;
 	int numLights;
 	int currentCam;
+	Vector3 orthSize;
 
 	//for changing scenes
 	void RequestChangeScene(int index);
@@ -170,6 +171,8 @@ protected:
 	virtual void RenderDerived() = 0;
 	virtual void UpdateDerived(double dt) = 0;
 	virtual void UpdateDerivedBounced(double dt) = 0;
+
+	bool pause;
 };
 
 #endif

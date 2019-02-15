@@ -4,6 +4,7 @@ Scene::Scene()
 {
 	targetSceneIndex = 999;
 	changingScene = false;
+	pause = false;
 }
 
 void Scene::RequestChangeScene(int index)
@@ -258,6 +259,7 @@ void Scene::InitSceneVariables()
 	elapsedTime = bounceTime = 0.0;
 	lightOn = true;
 	currentCam = 1;
+	orthSize = Vector3(60, 30, 0);
 }
 
 void Scene::Update(double dt)
@@ -453,7 +455,7 @@ void Scene::RenderObject(GameObject* go, bool enableLight)
 void Scene::RenderObjectOnScreen(GameObject* go, bool enableLight)
 {
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 60, 0, 30, -10, 10); //size of screen UI
+	ortho.SetToOrtho(0, orthSize.x, 0, orthSize.y, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
@@ -550,7 +552,7 @@ void Scene::RenderTextOnScreen(GameObject* go, std::string text, Color color, fl
 	glDisable(GL_DEPTH_TEST);
 
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 60, 0, 30, -10, 10); //size of screen UI
+	ortho.SetToOrtho(0, orthSize.x, 0, orthSize.y, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();

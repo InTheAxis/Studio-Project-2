@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  RigidBody.cpp
 d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\rigidbody.cpp(43): warning C4552: '+': result of expression not used
 d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\rigidbody.cpp(55): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
@@ -5,3 +6,57 @@ d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\rigidbody.cpp(83): w
   SceneExampleCar.cpp
   Generating Code...
   OpenGL1.vcxproj -> D:\Users\539\Desktop\ink-in-my-junk\Solution\Debug\StudioProject2.exe
+=======
+﻿  Application.cpp
+c:\program files (x86)\windows kits\10\include\10.0.17134.0\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
+  c:\users\codea\desktop\sp2\solution\glfw\include\glfw\glfw3.h(98): note: see previous definition of 'APIENTRY'
+  Button.cpp
+  Camera.cpp
+c:\users\codea\desktop\sp2\solution\opengl1\source\camera.cpp(16): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\codea\desktop\sp2\solution\opengl1\source\camera.cpp(30): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Car.cpp
+  FixedCam.cpp
+  FreeCam.cpp
+  GameObject.cpp
+  Grid.cpp
+c:\users\codea\desktop\sp2\solution\opengl1\source\grid.cpp(14): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+c:\users\codea\desktop\sp2\solution\opengl1\source\grid.cpp(23): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Light.cpp
+  LoadOBJ.cpp
+  LoadSceneButton.cpp
+  LoadTGA.cpp
+  main.cpp
+  Mesh.cpp
+  MeshBuilder.cpp
+  Paintable.cpp
+  GridCell.cpp
+  RigidBody.cpp
+c:\users\codea\desktop\sp2\solution\opengl1\source\rigidbody.cpp(47): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\codea\desktop\sp2\solution\opengl1\source\rigidbody.cpp(73): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Scene.cpp
+c:\users\codea\desktop\sp2\solution\opengl1\source\scene.cpp(273): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\codea\desktop\sp2\solution\opengl1\source\scene.cpp(281): warning C4244: '=': conversion from 'double' to 'unsigned int', possible loss of data
+c:\users\codea\desktop\sp2\solution\opengl1\source\scene.cpp(653): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  SceneEmpty.cpp
+  Generating Code...
+  Compiling...
+  SceneExample.cpp
+  SceneExampleCar.cpp
+  SceneExampleCarInk.cpp
+  SceneExampleInk.cpp
+  SceneLevel1.cpp
+  SceneLevelSelect.cpp
+  SceneManager.cpp
+  SceneStart.cpp
+c:\users\codea\desktop\sp2\solution\opengl1\source\scenestart.cpp(17): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\codea\desktop\sp2\solution\opengl1\source\scenestart.cpp(46): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  shader.cpp
+  Utility.cpp
+  Vehicle.cpp
+c:\users\codea\desktop\sp2\solution\opengl1\source\vehicle.cpp(32): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Wheel.cpp
+c:\users\codea\desktop\sp2\solution\opengl1\source\wheel.cpp(15): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  OpenGL1.vcxproj -> C:\Users\codea\Desktop\SP2\Solution\Debug\StudioProject2.exe
+>>>>>>> 3fa7a9f2a1ccb5a8edcbf0fea1116b4056055f38

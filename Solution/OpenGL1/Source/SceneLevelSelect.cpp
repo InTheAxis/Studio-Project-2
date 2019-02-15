@@ -13,27 +13,77 @@ SceneLevelSelect::~SceneLevelSelect()
 
 void SceneLevelSelect::InitDerived()
 {
-	//CUBE.Init(MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(0, 20, 0));
-	CUBE.Init("OBJ//toilet.obj", "Image//toilet.tga", Vector3(0, -20, 0));
-	CUBE.SetMaterial(shiny);
+	level1.Init(MeshBuilder::GenerateCube(Color(0, 1, 0)), "", Vector3(30, 20, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
+	level2.Init(MeshBuilder::GenerateCube(Color(0, 1, 0)), "", Vector3(30, 17.5, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
+	level3.Init(MeshBuilder::GenerateCube(Color(0, 1, 0)), "", Vector3(30, 15, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
+
+	allButtons.push_back(&level1);
+	allButtons.push_back(&level2);
+	allButtons.push_back(&level3);
+
+	totalbuttons = 3;
+	buttonindex = 0;
+	allButtons[0]->SetHover(true);
 }
 
 void SceneLevelSelect::RenderDerived()
 {
-	RenderObject(&CUBE);
+	RenderObjectOnScreen(&level1, false);
+	RenderObjectOnScreen(&level2, false);
+	RenderObjectOnScreen(&level3, false);
 }
 
 void SceneLevelSelect::UpdateDerived(double dt)
 {
-	//CUBE.IncrementScale(Vector3(dt, dt, dt));
+	for (Button* b : allButtons)	//for each button in the vector carryout the function
+	{
+		b->AnimateButton();
+	}
+
+
+	//changing of scenes
+	if (level1.GetOnClickEvent())
+	{
+		allButtons[buttonindex]->SetHover(false);
+		level1.SetOnClickEvent(false);	//reset bool before changing scene
+		RequestChangeScene(3);
+	}
+
 }
 
 void SceneLevelSelect::UpdateDerivedBounced(double dt)
 {
-	//CUBE.IncrementRotate(Vector3(0, 10, 0));
-	if (Application::IsKeyPressed(VK_LCONTROL))
+	if (Application::IsKeyPressed(VK_RETURN))
 	{
-		RequestChangeScene(0);
+		allButtons[buttonindex]->DoAction();
+	}
+
+	if (Application::IsKeyPressed(VK_DOWN))
+	{
+		allButtons[buttonindex]->SetHover(false);
+
+		if (buttonindex >= totalbuttons - 1)
+		{
+			buttonindex = 0;
+		}
+
+		else
+			buttonindex++;
+
+		allButtons[buttonindex]->SetHover(true);
+	}
+
+	if (Application::IsKeyPressed(VK_UP))
+	{
+		allButtons[buttonindex]->SetHover(false);
+
+
+		if (buttonindex <= 0)
+			buttonindex = totalbuttons - 1;
+		else
+			buttonindex--;
+
+		allButtons[buttonindex]->SetHover(true);
 	}
 }
 

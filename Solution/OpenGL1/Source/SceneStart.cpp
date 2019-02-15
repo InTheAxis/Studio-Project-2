@@ -4,7 +4,7 @@
 
 SceneStart::SceneStart()
 {
-	
+
 }
 
 SceneStart::~SceneStart()
@@ -14,10 +14,10 @@ SceneStart::~SceneStart()
 
 void SceneStart::InitDerived()
 {
-
-	play.Init(MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(20, 10, 0),  Vector3(0, 0, 0), Vector3(5, 1, 0));
-	levelSelect.Init(MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(20, 7.5, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
-	exit.Init(MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(20, 5, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
+	mouse.Init(MeshBuilder::GenerateCube(Color(Application::cursorX, Application::cursorY, 0)), "", Vector3(30, 20, 0), Vector3(0, 0, 0), Vector3(1, 1, 0));
+	play.Init(MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(30, 20, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
+	levelSelect.Init(MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(30, 17.5, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
+	exit.Init(MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(30, 15, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
 
 	decreaseSize = false;
 
@@ -29,6 +29,8 @@ void SceneStart::InitDerived()
 
 	buttonindex = 0;
 
+	allButtons[0]->SetHover(true);
+
 }
 
 void SceneStart::RenderDerived()
@@ -36,10 +38,12 @@ void SceneStart::RenderDerived()
 	RenderObjectOnScreen(&play, false);
 	RenderObjectOnScreen(&levelSelect, false);
 	RenderObjectOnScreen(&exit, false);
+	RenderObjectOnScreen(&mouse, false);
 }
 
 void SceneStart::UpdateDerived(double dt)
-{ 
+{
+	mouse.SetTranslate(Vector3(Application::cursorX/100, -Application::cursorY/100, 0));
 	for (Button* b : allButtons)	//for each button in the vector carryout the function
 	{
 		b->AnimateButton();
@@ -47,31 +51,10 @@ void SceneStart::UpdateDerived(double dt)
 
 	if (play.GetOnClickEvent())
 	{
+		allButtons[buttonindex]->SetHover(false);
+		play.SetOnClickEvent(false);
 		RequestChangeScene(2);
 	}
-
-	/*if (selectortranslateY == 10)
-	{
-		if (Play.GetScale().x >= 8)
-		{
-			decreaseSize = true;
-		}
-
-		else if (Play.GetScale().x <= 5)
-		{
-			decreaseSize = false;
-		}
-
-		if (decreaseSize)
-			Play.IncrementScale(Vector3(3 * -dt, -dt, 0)*1.5);
-
-		else if (!decreaseSize)
-			Play.IncrementScale(Vector3(3 * dt, dt, 0)*1.5);
-	}
-
-	else
-		Play.SetScale(Vector3(5, 1, 1));*/
-
 }
 
 void SceneStart::UpdateDerivedBounced(double dt)
@@ -85,57 +68,26 @@ void SceneStart::UpdateDerivedBounced(double dt)
 
 	if (Application::IsKeyPressed(VK_DOWN))
 	{
-		
-		/*selectortranslateY = Arrow.MoveSelector(15, selectortranslateY, -2.5, selector);
-		selector.SetTranslate(Vector3(15, selectortranslateY, 0));*/
-		if (buttonindex >= totalbuttons)
+		allButtons[buttonindex]->SetHover(false);
+		if (buttonindex >= totalbuttons-1)
 		{
 			buttonindex = 0;
 		}
 
 		else
-		buttonindex++;
+			buttonindex++;
+
+		allButtons[buttonindex]->SetHover(true);
 	}
 
 	if (Application::IsKeyPressed(VK_UP))
 	{
+		allButtons[buttonindex]->SetHover(false);
 		if (buttonindex <= 0)
 			buttonindex = totalbuttons - 1;
 		else
-		buttonindex--;
-		/*selectortranslateY = Arrow.MoveSelector(15, selectortranslateY, 2.5, selector);
-		selector.SetTranslate(Vector3(15, selectortranslateY, 0));*/
+			buttonindex--;
+
+		allButtons[buttonindex]->SetHover(true);
 	}
 }
-
-//float Button::MoveSelector(float x, float y, float distance, GameObject selector)
-//{
-//	if (distance >= 0)
-//	{
-//		if (y >= optionposY[0])
-//		{
-//			y = optionposY.back();
-//		}
-//
-//		else
-//			y += distance;
-//	}
-//
-//	if (distance <= 0)
-//	{
-//		if (y <= optionposY.back())
-//		{
-//			y = optionposY[0];
-//		}
-//
-//		else
-//			y += distance;
-//	}
-//	return y;
-//
-//}
-//
-//void Button::SetOptionPosY(float y)
-//{
-//	optionposY.push_back(y);
-//}

@@ -17,15 +17,12 @@ private:
 	LoadSceneButton play, levelSelect, exit;
 	bool decreaseSize;
 
-	//float MoveSelector(float x, float y, float distance, GameObject selector);
+	GameObject mouse;
 
 	std::vector<Button*> allButtons;
 	int buttonindex;
 	int totalbuttons;
-	/*const std::vector<float> optionposY =
-	{
-		10, 7.5f, 5
-	};*/
+
 };
 
 #endif // !SCENE_START
