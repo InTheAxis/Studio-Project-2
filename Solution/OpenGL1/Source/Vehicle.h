@@ -15,6 +15,8 @@ public:
 	void SetGear(int gear);
 	int GetGear();
 	float GetAngleY();
+	Vector3 GetOffset();
+	void SetOffset(Vector3 offset);
 	~Vehicle();
 protected:
 	float thrustForce, turningSpeed;
@@ -22,6 +24,7 @@ protected:
 	float angleY;
 	float wheelRadius;
 	const float MAX_FORCE = 20000.f;
+	Vector3 angleOffset;
 };
 
 #endif // !VEHICLE_H

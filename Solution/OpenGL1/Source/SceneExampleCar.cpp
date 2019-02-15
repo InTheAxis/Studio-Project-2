@@ -29,6 +29,7 @@ void SceneExampleCar::RenderDerived()
 
 void SceneExampleCar::UpdateDerived(double dt)
 {
+	car.SetOffset(car.GetRotate());
 	if (Application::IsKeyPressed(VK_UP))
 	{
 		car.MoveForward(1, dt);
@@ -50,11 +51,11 @@ void SceneExampleCar::UpdateDerived(double dt)
 	{
 		car.MoveRight(1, dt);
 	}
+	car.SetOffset(car.GetRotate() - car.GetOffset());
+	camera[0]->Update(dt, car.GetTranslate(), car.GetOffset()); //update camera
+
 	car.UpdateSuvat(dt);
 	car.UpdateRotation(dt);
-
-	if (!currentCam)
-		camera[0]->Update(dt, car.GetTranslate(), car.GetRotate()); //update camera
 }
 
 void SceneExampleCar::UpdateDerivedBounced(double dt)

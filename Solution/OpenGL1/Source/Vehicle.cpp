@@ -80,6 +80,16 @@ float Vehicle::GetAngleY()
 	return angleY;
 }
 
+Vector3 Vehicle::GetOffset()
+{
+	return angleOffset;
+}
+
+void Vehicle::SetOffset(Vector3 offset)
+{
+	this->angleOffset = offset;
+}
+
 Vehicle::~Vehicle()
 {
 }

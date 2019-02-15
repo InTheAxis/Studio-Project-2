@@ -13,7 +13,7 @@ void FixedCam::Update(double dt, Vector3 translate, Vector3 rotate)
 {
 	this->target = translate;
 
-	rotationMatrixP.SetToRotation(rotate.y * dt, 0, 1, 0);
+	rotationMatrixP.SetToRotation(rotate.y, 0, 1, 0);
 	this->position = rotationMatrixP * position;
 	this->offset = rotationMatrixP * offset;
 
