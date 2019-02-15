@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 ﻿  SceneExampleCar.cpp
   Vehicle.cpp
 c:\users\codea\desktop\sp2\solution\opengl1\source\vehicle.cpp(32): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   Generating Code...
   OpenGL1.vcxproj -> C:\Users\codea\Desktop\SP2\Solution\Debug\StudioProject2.exe
+=======
+﻿  SceneLevelSelect.cpp
+  SceneStart.cpp
+  Generating Code...
+  OpenGL1.vcxproj -> D:\Users\539\Desktop\ink-in-my-junk\Solution\Debug\StudioProject2.exe
+>>>>>>> 85c49d1aea8736e7cc212f0fd62345a49cbc6224
