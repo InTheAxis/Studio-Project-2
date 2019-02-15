@@ -29,7 +29,7 @@ void Vehicle::MoveRight(int dir, double dt)
 		this->forceRight = 0;
 	this->AddForceRight(Vector3(0, dir * turningSpeed * (float)dt, 0));
 
-	angleY = -1 * dir * forceRight * dt;
+	angleY = -1 * forceRight * dt;
 	rotationMatrix.SetToRotation(angleY, 0, 1, 0);
 	forward = rotationMatrix * forward;
 	this->rotate.y += angleY;
