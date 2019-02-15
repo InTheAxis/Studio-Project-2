@@ -13,6 +13,7 @@ c:\users\codea\desktop\sp2\solution\opengl1\debug\loadscenebutton.obj
 c:\users\codea\desktop\sp2\solution\opengl1\debug\loadobj.obj
 c:\users\codea\desktop\sp2\solution\opengl1\debug\light.obj
 c:\users\codea\desktop\sp2\solution\opengl1\debug\grid.obj
+c:\users\codea\desktop\sp2\solution\opengl1\debug\gameobject.obj
 c:\users\codea\desktop\sp2\solution\opengl1\debug\freecam.obj
 c:\users\codea\desktop\sp2\solution\opengl1\debug\fixedcam.obj
 c:\users\codea\desktop\sp2\solution\opengl1\debug\car.obj
@@ -30,11 +31,10 @@ c:\users\codea\desktop\sp2\solution\opengl1\debug\sceneexampleink.obj
 c:\users\codea\desktop\sp2\solution\opengl1\debug\sceneexamplecarink.obj
 c:\users\codea\desktop\sp2\solution\opengl1\debug\sceneexamplecar.obj
 c:\users\codea\desktop\sp2\solution\opengl1\debug\sceneexample.obj
-c:\users\codea\desktop\sp2\solution\opengl1\debug\gameobject.obj
+c:\users\codea\desktop\sp2\solution\opengl1\debug\scenelevel1.obj
 c:\users\codea\desktop\sp2\solution\debug\studioproject2.ilk
 c:\users\codea\desktop\sp2\solution\debug\studioproject2.exe
 c:\users\codea\desktop\sp2\solution\debug\studioproject2.pdb
-c:\users\codea\desktop\sp2\solution\opengl1\debug\sceneexamplecar.obj.enc
 c:\users\codea\desktop\sp2\solution\opengl1\debug\studioproject2.tlog\cl.command.1.tlog
 c:\users\codea\desktop\sp2\solution\opengl1\debug\studioproject2.tlog\cl.read.1.tlog
 c:\users\codea\desktop\sp2\solution\opengl1\debug\studioproject2.tlog\cl.write.1.tlog

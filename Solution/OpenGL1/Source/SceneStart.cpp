@@ -14,7 +14,7 @@ SceneStart::~SceneStart()
 
 void SceneStart::InitDerived()
 {
-
+	mouse.Init(MeshBuilder::GenerateCube(Color(Application::cursorX, Application::cursorY, 0)), "", Vector3(30, 20, 0), Vector3(0, 0, 0), Vector3(1, 1, 0));
 	play.Init(MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(30, 20, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
 	levelSelect.Init(MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(30, 17.5, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
 	exit.Init(MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(30, 15, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
@@ -38,10 +38,12 @@ void SceneStart::RenderDerived()
 	RenderObjectOnScreen(&play, false);
 	RenderObjectOnScreen(&levelSelect, false);
 	RenderObjectOnScreen(&exit, false);
+	RenderObjectOnScreen(&mouse, false);
 }
 
 void SceneStart::UpdateDerived(double dt)
 {
+	mouse.SetTranslate(Vector3(Application::cursorX/100, -Application::cursorY/100, 0));
 	for (Button* b : allButtons)	//for each button in the vector carryout the function
 	{
 		b->AnimateButton();
