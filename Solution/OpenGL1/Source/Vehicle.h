@@ -14,17 +14,15 @@ public:
 	void SetStats(float thrustForce, float turningSpeed, float wheelRadius);
 	void SetGear(int gear);
 	int GetGear();
-	float GetAngleY();
-	Vector3 GetOffset();
-	void SetOffset(Vector3 offset);
+	Vector3 GetAngleY(); //ignore x and y
 	~Vehicle();
 protected:
 	float thrustForce, turningSpeed;
 	int gearNumber;
 	float angleY;
 	float wheelRadius;
+
 	const float MAX_FORCE = 20000.f;
-	Vector3 angleOffset;
 };
 
 #endif // !VEHICLE_H
