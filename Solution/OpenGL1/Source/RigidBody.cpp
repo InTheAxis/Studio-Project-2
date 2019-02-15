@@ -73,10 +73,10 @@ void RigidBody::UpdateRotation(double dt)
 	this->theta = 0.5 * (omegaI + omegaF) * float(dt);
 	this->omegaI = omegaF;
 
-	std::cout << "I :" << omegaI << std::endl;
-	std::cout << "F :" << omegaF << std::endl;
-	std::cout << "A :" << alpha << std::endl;
-	std::cout << "T :" << theta << std::endl;
+	//std::cout << "I :" << omegaI << std::endl;
+	//std::cout << "F :" << omegaF << std::endl;
+	//std::cout << "A :" << alpha << std::endl;
+	//std::cout << "T :" << theta << std::endl;
 }
 
 RigidBody::~RigidBody()
