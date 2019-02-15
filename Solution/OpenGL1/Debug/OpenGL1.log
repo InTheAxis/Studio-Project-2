@@ -1,4 +1,4 @@
-﻿  SceneLevelSelect.cpp
-  SceneStart.cpp
-  Generating Code...
+﻿  SceneStart.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\scenestart.cpp(17): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\scenestart.cpp(46): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   OpenGL1.vcxproj -> D:\Users\539\Desktop\ink-in-my-junk\Solution\Debug\StudioProject2.exe
