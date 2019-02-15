@@ -1,2 +1,11 @@
-﻿  SceneExampleCar.cpp
+﻿  Application.cpp
+c:\program files (x86)\windows kits\10\include\10.0.17134.0\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
+  d:\users\539\desktop\ink-in-my-junk\solution\glfw\include\glfw\glfw3.h(98): note: see previous definition of 'APIENTRY'
+  Car.cpp
+  SceneExampleCar.cpp
+  SceneExampleCarInk.cpp
+  SceneManager.cpp
+  Vehicle.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\vehicle.cpp(31): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
   OpenGL1.vcxproj -> D:\Users\539\Desktop\ink-in-my-junk\Solution\Debug\StudioProject2.exe
