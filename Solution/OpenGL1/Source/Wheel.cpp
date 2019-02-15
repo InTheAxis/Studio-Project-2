@@ -4,7 +4,7 @@
 Wheel::Wheel()
 {
 	omegaI = omegaF = theta = 0;
-	radius = 1;
+	radius = 0.5f;
 }
 
 void Wheel::Roll(float u, float v, double dt)

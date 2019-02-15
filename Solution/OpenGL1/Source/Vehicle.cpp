@@ -7,7 +7,7 @@ Vehicle::Vehicle()
 	thrustForce = MAX_FORCE / 5;
 	turningSpeed = 20.f;
 	gearNumber = 1;
-	wheelRadius = 0.005f;
+	wheelRadius = 0.001f;
 }
 
 void Vehicle::MoveForward(int dir, double dt)

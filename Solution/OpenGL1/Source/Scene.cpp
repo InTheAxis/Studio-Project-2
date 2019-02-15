@@ -376,11 +376,11 @@ void Scene::Render()
 	if (DEBUG)
 	{
 		std::string temp = "FPS: " + std::to_string(fps);
-		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0.5f, 18.5f); //fps
+		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0.5f, 28.5f); //fps
 		temp = "COORDS: " + std::to_string((int)camera[currentCam]->position.x) + " "
 			+ std::to_string((int)camera[currentCam]->position.y) + " "
 			+ std::to_string((int)camera[currentCam]->position.z);
-		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0.5f, 17.5f); //coordinates
+		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0.5f, 27.5f); //coordinates
 	}
 
 }
@@ -453,7 +453,7 @@ void Scene::RenderObject(GameObject* go, bool enableLight)
 void Scene::RenderObjectOnScreen(GameObject* go, bool enableLight)
 {
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 40, 0, 20, -10, 10); //size of screen UI
+	ortho.SetToOrtho(0, 60, 0, 30, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
@@ -533,7 +533,7 @@ void Scene::RenderText(GameObject* go, std::string text, Color color)
 	for (unsigned i = 0; i < text.length(); ++i)
 	{
 		Mtx44 characterSpacing;
-		characterSpacing.SetToTranslation(i * 0.7f, 0, 0); //1.0f is the spacing of each character, you may change this value
+		characterSpacing.SetToTranslation(i * 0.8f, 0, 0); //1.0f is the spacing of each character, you may change this value
 		Mtx44 MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top() * characterSpacing;
 		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 		go->Render((unsigned)text[i] * 6, 6);
@@ -550,7 +550,7 @@ void Scene::RenderTextOnScreen(GameObject* go, std::string text, Color color, fl
 	glDisable(GL_DEPTH_TEST);
 
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 40, 0, 20, -10, 10); //size of screen UI
+	ortho.SetToOrtho(0, 60, 0, 30, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
@@ -571,7 +571,7 @@ void Scene::RenderTextOnScreen(GameObject* go, std::string text, Color color, fl
 	for (unsigned i = 0; i < text.length(); ++i)
 	{
 		Mtx44 characterSpacing;
-		characterSpacing.SetToTranslation(i * 0.7f, 0, 0); //1.0f is the spacing of each character, you may change this value
+		characterSpacing.SetToTranslation(i * 0.8f, 0, 0); //1.0f is the spacing of each character, you may change this value
 		Mtx44 MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top() * characterSpacing;
 		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 		go->Render((unsigned)text[i] * 6, 6);

@@ -13,7 +13,7 @@ void Camera::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 	this->right.y = 0;
 	this->right.Normalize();
 	this->up = defaultUp = right.Cross(view).Normalized();
-	this->prevCursorPos = Vector3(0, 0, 0);
+	this->prevCursorPos = Vector3(Application::cursorX, Application::cursorY, 0);
 
 	InitDerived();
 }
@@ -27,7 +27,7 @@ void Camera::ReInit(const Vector3& pos, const Vector3& target, const Vector3& up
 	this->right.y = 0;
 	this->right.Normalize();
 	this->up = right.Cross(view).Normalized();
-	this->prevCursorPos = Vector3(0, 0, 0);
+	this->prevCursorPos = Vector3(Application::cursorX, Application::cursorY, 0);
 
 	InitDerived();
 }
