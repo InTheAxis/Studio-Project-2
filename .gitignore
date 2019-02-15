@@ -6,3 +6,12 @@
 ipch
 
 .mtl
+
+/Solution/Common/Debug/*.obj
+/Solution/Common/Debug/*.pdb
+/Solution/Common/Debug/*.idb
+/Solution/Common/Debug/*.tlog
+/Solution/OpenGL1/Debug/*.obj
+/Solution/OpenGL1/Debug/*.pdb
+/Solution/OpenGL1/Debug/*.idb
+/Solution/OpenGL1/Debug/*.tlog
