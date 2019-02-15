@@ -148,6 +148,7 @@ protected:
 	bool captureMouse;
 	int numLights;
 	int currentCam;
+	Vector3 orthSize;
 
 	//for changing scenes
 	void RequestChangeScene(int index);
