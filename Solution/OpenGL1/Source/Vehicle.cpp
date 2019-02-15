@@ -34,6 +34,11 @@ void Vehicle::MoveRight(int dir, double dt)
 	this->rotate.y += angleY;
 }
 
+void Vehicle::Brake(double dt)
+{
+	this->AddKineticFriction(Vector3(0, 0, BRAKE_FORCE * (float)dt));
+}
+
 void Vehicle::SetStats(float thrustForce, float turningSpeed, float wheelRadius)
 {
 	this->thrustForce = thrustForce;

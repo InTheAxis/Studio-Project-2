@@ -9,6 +9,7 @@ public:
 	Vehicle();
 	void MoveForward(int dir, double dt);
 	void MoveRight(int dir, double dt);
+	void Brake(double dt);
 	virtual void RollFront(float u, float v, double dt) = 0;
 	virtual void RollBack(float u, float v, double dt) = 0;
 	void SetStats(float thrustForce, float turningSpeed, float wheelRadius);
@@ -22,6 +23,7 @@ protected:
 	float angleY;
 	float wheelRadius;
 	const float MAX_FORCE = 20000.f;
+	const float BRAKE_FORCE = 1.f;
 };
 
 #endif // !VEHICLE_H

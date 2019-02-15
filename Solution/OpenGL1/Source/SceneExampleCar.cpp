@@ -36,6 +36,7 @@ void SceneExampleCar::UpdateDerived(double dt)
 	else if (Application::IsKeyPressed(VK_DOWN))
 	{
 		car.MoveForward(-1, dt);
+		//car.Brake(dt);
 	}
 	else
 	{
@@ -49,6 +50,10 @@ void SceneExampleCar::UpdateDerived(double dt)
 	else if (Application::IsKeyPressed(VK_RIGHT))
 	{
 		car.MoveRight(1, dt);
+	}
+	else
+	{
+		//car.MoveRight(0, dt);
 	}
 	car.UpdateSuvat(dt);
 	car.UpdateRotation(dt);

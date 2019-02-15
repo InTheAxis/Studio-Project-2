@@ -19,15 +19,15 @@ protected:
 	float forceForward, forceRight;
 	float staticCoeff, maxStaticFriction, kineticFriction;
 	float mass;
-	float friction, maxFriction;
-
+	float REV_FORCE; //derived const
 	Mtx44 rotationMatrix;
+	const float REV_FORCE_MULTIPLIER = 0.8f;
+	const float GRAVITY = 9.8f;
+	const float PI = 3.142f;
 
 	void AddForceForward(Vector3 f); //add a force
 	void AddForceRight(Vector3 f);
-
-	const float GRAVITY = 9.8f;
-	const float PI = 3.142f;
+	void AddKineticFriction(Vector3 f);
 };
 
 #endif // !RIGIDBODY_H

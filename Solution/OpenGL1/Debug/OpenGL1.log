@@ -1,2 +1,7 @@
-﻿  SceneExampleCar.cpp
+﻿  RigidBody.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\rigidbody.cpp(43): warning C4552: '+': result of expression not used
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\rigidbody.cpp(55): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\rigidbody.cpp(83): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  SceneExampleCar.cpp
+  Generating Code...
   OpenGL1.vcxproj -> D:\Users\539\Desktop\ink-in-my-junk\Solution\Debug\StudioProject2.exe
