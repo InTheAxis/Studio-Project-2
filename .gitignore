@@ -15,3 +15,13 @@ Solution/OpenGL1/Debug/*.obj
 Solution/OpenGL1/Debug/*.pdb
 Solution/OpenGL1/Debug/*.idb
 Solution/OpenGL1/Debug/*.tlog
+
+Solution/Debug/*.lib
+Solution/Debug/*.pdb
+Solution/Debug/*.ilk
+Solution/Debug/*.exe
+
+Solution/Release/*.lib
+Solution/Release/*.pdb
+Solution/Release/*.ilk
+Solution/Release/*.exe
