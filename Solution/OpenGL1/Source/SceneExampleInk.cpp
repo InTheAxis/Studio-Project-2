@@ -17,7 +17,7 @@ void SceneExampleInk::InitDerived()
 	QUAD2.SetMaterial(dull);
 
 	std::cout << "Generating grid for level\n";
-	level.CreateLinkedList(QUAD2.GetVBO());
+	level.GenerateGrid(QUAD2.GetVBO());
 	std::cout << "Done!\n";
 }
 

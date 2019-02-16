@@ -4,33 +4,32 @@
 
 Paintable::Paintable()
 {
-	vbo = nullptr;
+	vboPtr = nullptr;
 	cellToColor = nullptr;
 }
 
-std::vector<Vertex>** Paintable::GetVBO()
+std::vector<Vertex>* Paintable::GetVBO()
 {
-	if (vbo == nullptr)
-		vbo = this->objectMesh->GetVBData();
-	return &(this->vbo);
+	if (vboPtr == nullptr)
+		vboPtr = this->objectMesh->GetVBData();
+	return this->vboPtr;
 }
 
 void Paintable::ChangeColor(Grid* currentGrid, Vector3 centerVert, Color color)
 {
-	//very laggy
-	//std::vector<GridCell**> temp = (currentGrid->FindCells((int)centerVert.x, (int)centerVert.z));
+	//todo
+	GridCell* targetCell = currentGrid->FindCell((int)centerVert.x, (int)centerVert.z);
+	if (targetCell != nullptr)
+	{
+		targetCell->ChangeColorCell(centerVert, color);
+		std::vector<GridCell*> adjCells = targetCell->GetAdjacents();
+		for (GridCell* &gc : adjCells)
+		{
+			gc->ChangeColorCell(centerVert, color);
+		}
+	}
 
-	//for (GridCell** gc : temp)
-	//{
-	//	if (gc != nullptr)
-	//		(*gc)->ChangeColorCell(centerVert, color);
-	//}
-
-	cellToColor = (currentGrid->FindCell((int)centerVert.x, (int)centerVert.z));
-	if (cellToColor != nullptr)
-		(*cellToColor)->ChangeColorCell(centerVert, color);
-
-	this->objectMesh->SetVBData(vbo);
+	this->objectMesh->SetVBData(vboPtr);
 	MeshBuilder::ReloadVBO(this->objectMesh);
 }
 

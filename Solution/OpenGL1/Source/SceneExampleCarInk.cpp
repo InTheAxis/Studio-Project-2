@@ -17,7 +17,7 @@ void SceneExampleCarInk::InitDerived()
 	paintLayer.SetMaterial(dull);
 
 	std::cout << "Generating grid for level\n";
-	level.CreateLinkedList(paintLayer.GetVBO());
+	level.GenerateGrid(paintLayer.GetVBO());
 	std::cout << "Done!\n";
 }
 
@@ -26,16 +26,15 @@ void SceneExampleCarInk::RenderDerived()
 	RenderObject(&floor);
 	RenderObject(&paintLayer);
 	RenderObject(&car);
-	RenderObject(&(car.wheels[0]));
 }
 
 void SceneExampleCarInk::UpdateDerived(double dt)
 {	
-	if (Application::IsKeyPressed(VK_UP))
+	if (Application::IsKeyPressed(VK_UP) && car.GetGear() > 0)
 	{
 		car.MoveForward(1, dt);
 	}
-	else if (Application::IsKeyPressed(VK_DOWN))
+	else if (Application::IsKeyPressed(VK_UP) && car.GetGear() == 0)
 	{
 		car.MoveForward(-1, dt);
 	}
@@ -43,25 +42,37 @@ void SceneExampleCarInk::UpdateDerived(double dt)
 	{
 		car.MoveForward(0, dt);
 	}
+
+	if (Application::IsKeyPressed(VK_DOWN))
+	{
+		car.Brake(true);
+	}
+	else
+	{
+		car.Brake(false);
+	}
+
 	//todo make actual turn
 	if (Application::IsKeyPressed(VK_LEFT))
 	{
 		car.MoveRight(-1, dt);
-	}		
+	}
 	else if (Application::IsKeyPressed(VK_RIGHT))
 	{
 		car.MoveRight(1, dt);
 	}
+	else
+	{
+		car.MoveRight(0, dt);
+	}
 	car.UpdateSuvat(dt);
 	car.UpdateRotation(dt);
-
+	
 	if (!currentCam)
 		camera[0]->Update(dt, car.GetTranslate(), car.GetRotate()); //update camera
 
-	if (Application::IsKeyPressed('F'))
-	{
-		paintLayer.ChangeColor(&level, car.GetTranslate(), Color(1, 0, 1));
-	}
+	 paintLayer.ChangeColor(&level, car.GetTranslate(), Color(1, 0, 1));
+
 }
 
 void SceneExampleCarInk::UpdateDerivedBounced(double dt)

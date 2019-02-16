@@ -12,12 +12,12 @@ class Paintable : public GameObject
 public:
 	Paintable();
 
-	std::vector<Vertex>** GetVBO();
+	std::vector<Vertex>* GetVBO();
 	void ChangeColor(Grid* currentGrid, Vector3 centerVert, Color color);
 
 	~Paintable();
 private:
-	std::vector<Vertex>* vbo;
+	std::vector<Vertex>* vboPtr;
 	Grid* currentGrid;
 	GridCell** cellToColor;
 };

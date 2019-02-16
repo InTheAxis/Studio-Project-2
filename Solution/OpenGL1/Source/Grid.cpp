@@ -4,92 +4,75 @@
 
 Grid::Grid()
 {
-	this->traversalIndex = 0;
-	this->head = tail = nullptr;
-	this->current = forTraversing= nullptr;
 }
 
-void Grid::CreateLinkedList(std::vector<Vertex>** vbo)
+void Grid::GenerateGrid(std::vector<Vertex>* vboPtr)
 {
-	head = new GridCell(-GRID_LENGTH_HALF, -GRID_LENGTH_HALF);
-	tail = forTraversing = current = head;
+	//init grid std::vector
+	GridCell* temp = nullptr;
 	for (int z = -GRID_LENGTH_HALF; z <= GRID_LENGTH_HALF; z += GRID_UNIT)
 	{
 		for (int x = -GRID_LENGTH_HALF; x <= GRID_LENGTH_HALF; x += GRID_UNIT)
 		{
- 			if (x == -GRID_LENGTH_HALF && z == -GRID_LENGTH_HALF) 
-				continue;
-			else
-				current = new GridCell(x, z);
-
-			tail->SetNext(current);
-			current->SetPrev(tail);
-
-			tail->PushToAdjacents(current);
-			current->PushToAdjacents(tail);
-
-			tail = current;
+			temp = new GridCell(x, z);
+			this->grid.emplace_back(temp);
 		}
 	}
-	current = head;
 
-	AssignCell(vbo);
+	//set adjacents
+	int indexes[9] = { 0 };
+	for (int z = -GRID_LENGTH_HALF; z <= GRID_LENGTH_HALF; z += GRID_UNIT)
+	{
+		for (int x = -GRID_LENGTH_HALF; x <= GRID_LENGTH_HALF; x += GRID_UNIT)
+		{
+			indexes[0] = CalcIndex(x, z);
+			if (x > -GRID_LENGTH_HALF)
+				indexes[1] = CalcIndex(x - 1, z);
+			if (x > -GRID_LENGTH_HALF && z > -GRID_LENGTH_HALF)
+				indexes[2] = CalcIndex(x - 1, z - 1);
+			if (z > -GRID_LENGTH_HALF)
+				indexes[3] = CalcIndex(x, z - 1);
+			
+			if (x < GRID_LENGTH_HALF)
+				indexes[4] = CalcIndex(x + 1, z);
+			if (x < GRID_LENGTH_HALF && z < GRID_LENGTH_HALF)
+				indexes[5] = CalcIndex(x + 1, z + 1);
+			if (z < GRID_LENGTH_HALF)
+				indexes[6] = CalcIndex(x, z + 1);
+			
+			if (x > -GRID_LENGTH_HALF && z < GRID_LENGTH_HALF)
+				indexes[2] = CalcIndex(x - 1, z + 1);
+			if (x < GRID_LENGTH_HALF && z > -GRID_LENGTH_HALF)
+				indexes[2] = CalcIndex(x + 1, z - 1);
+
+			for (int i = 1; i < 9; ++i)
+				grid[indexes[0]]->PushToAdjacents(grid[indexes[i]]);
+		}
+	}
+
+	//assign verts to cells
+	AssignCells(vboPtr);
 }
 
-GridCell** Grid::FindCell(int x, int z)
+GridCell* Grid::FindCell(int x, int z)
 {
 	if (x < -GRID_LENGTH_HALF || z < -GRID_LENGTH_HALF || x > GRID_LENGTH_HALF || z > GRID_LENGTH_HALF)
 		return nullptr;
 
-	int traverseAmount = 0;
-	traverseAmount = ((z + GRID_LENGTH_HALF) * (GRID_LENGTH_HALF * 2 + 1)) + (x + GRID_LENGTH_HALF);
-	traverseAmount = Math::Clamp(traverseAmount, 0, GRID_MAX_CELLS - 1);
-	std::cout << "Cell:" << traverseAmount << "   ";
-	
-	if (traversalIndex > traverseAmount)
-	{
-		//traverse forward
-		for (int i = 0; i < traversalIndex - traverseAmount; ++i)
-		{
-			current = current->GetPrev();
-		}
-	}
-	else if (traversalIndex < traverseAmount)
-	{
-		//traverse forward
-		for (int i = 0; i < traverseAmount - traversalIndex; ++i)
-		{
-			current = current->GetNext();
-		}
-	}
-
-	traversalIndex = traverseAmount;
-	return &current;
+	return grid[CalcIndex(x, z)];
 }
 
-std::vector<GridCell**> Grid::FindCells(int x, int z)
+void Grid::AssignCells(std::vector<Vertex>* vboPtr)
 {
-	std::vector<GridCell**> temp = { 
-		FindCell(x, z),
-		FindCell(x + 1, z),
-		FindCell(x + 1, z + 1),
-		FindCell(x + 1, z - 1),
-		FindCell(x, z - 1),
-		FindCell(x - 1, z),
-		FindCell(x - 1, z - 1),
-		FindCell(x - 1, z + 1),
-		FindCell(x, z + 1),
-	};
-	return temp;
+	for (Vertex &v : *vboPtr)
+	{
+		FindCell((int)v.pos.x, (int)v.pos.z)->PushVertToCell(&v);
+	}
 }
 
-void Grid::AssignCell(std::vector<Vertex>** vbo)
+int Grid::CalcIndex(int x, int z)
 {
-	current = head;
-	for (Vertex &v : **vbo)
-	{
-		(*FindCell((int)v.pos.x, (int)v.pos.z))->PushVertToCell(&v);
-	}
+	return ((z + GRID_LENGTH_HALF) * (GRID_LENGTH_HALF * 2 + 1)) + (x + GRID_LENGTH_HALF);
 }
 
 Grid::~Grid()

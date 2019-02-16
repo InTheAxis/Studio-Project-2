@@ -8,18 +8,14 @@ class Grid
 {
 public:
 	Grid();
-	void CreateLinkedList(std::vector<Vertex>** vbo); //where the loop throug the vbo is
-	GridCell** FindCell(int x, int z); //traverse list to find cell
-	std::vector<GridCell**> FindCells(int x, int z); //traverse list to find cella
+	void GenerateGrid(std::vector<Vertex>* vboPtr);
+	GridCell* FindCell(int x, int z); //traverse list to find cell
 	~Grid();
 private:
-	GridCell* head, *tail; //first cell and last cell
-	GridCell* forTraversing; //dont use for anything else
-	GridCell* current; //stores current cell that is occupied
-
-	int traversalIndex;
-
-	void AssignCell(std::vector<Vertex>** vbo);
+	std::vector<GridCell*> grid;
+	
+	void AssignCells(std::vector<Vertex>* vboPtr);
+	int CalcIndex(int x, int z);
 
 	const int GRID_LENGTH_HALF = 5;
 	const int GRID_UNIT = 1;

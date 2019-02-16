@@ -80,9 +80,9 @@ void RigidBody::UpdateSuvat(double dt)
 	this->s = v * float(dt); //update displacement
 	this->u = v; //update new initial speed
 
-	std::cout << "Drag: " << dragForce << std::endl;
-	std::cout << "Accel: " << a << std::endl;
-	std::cout << "FrameNum: " <<  frameNum << std::endl;
+	//std::cout << "Drag: " << dragForce << std::endl;
+	//std::cout << "Accel: " << a << std::endl;
+	//std::cout << "FrameNum: " <<  frameNum << std::endl;
 }
 
 void RigidBody::UpdateRotation(double dt)
