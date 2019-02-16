@@ -7,10 +7,10 @@ SceneExampleCarInk::SceneExampleCarInk()
 
 void SceneExampleCarInk::InitDerived()
 {
-	car.Init("OBJ//taxi.obj", "Image//taxi.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1.f, 1.f, 1.f));
+	car.Init("OBJ//taxi.obj", "Image//taxi.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0.1f, 0.1f, 0.1f));
 	car.CreateRigidBody(Vector3(0, 0, 10), 1200, 0.1f, 0.09f);
-	floor.Init("OBJ//ground-low.obj", "Image//color2.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
-	paintLayer.Init("OBJ//ground-high.obj", "", Vector3(0, 0.3f, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
+	floor.Init("OBJ//ground-low.obj", "Image//color2.tga");
+	paintLayer.Init("OBJ//ground-high.obj", "", Vector3(0, 0.25f, 0));
 
 	car.SetMaterial(shiny);
 	floor.SetMaterial(dull);
@@ -69,9 +69,12 @@ void SceneExampleCarInk::UpdateDerived(double dt)
 	car.UpdateRotation(dt);
 	
 	if (!currentCam)
-		camera[0]->Update(dt, car.GetTranslate(), car.GetRotate()); //update camera
+		camera[0]->Update(dt, car.GetTranslate(), car.GetAngle()); //update camera
 
 	 paintLayer.ChangeColor(&level, car.GetTranslate(), Color(1, 0, 1));
+
+	 if (Application::IsKeyPressed('F'))
+		 paintLayer.ChangeColor(&level, camera[1]->position, Color(1, 0, 1));
 
 }
 

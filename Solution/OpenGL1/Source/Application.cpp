@@ -59,7 +59,7 @@ void resize_callback(GLFWwindow* window, int w, int h)
 void Application::Init()
 {
 	//set seed for random
-	srand(static_cast<unsigned int>(time(NULL)));
+	Math::InitRNG();
 	
 	//Set the error callback
 	glfwSetErrorCallback(error_callback);
