@@ -1,4 +1,33 @@
-﻿  Vehicle.cpp
+﻿  Application.cpp
+c:\program files (x86)\windows kits\10\include\10.0.17134.0\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
+  c:\users\user\desktop\git repos\ink-in-my-junk\solution\glfw\include\glfw\glfw3.h(98): note: see previous definition of 'APIENTRY'
+  Button.cpp
+  Car.cpp
+  GameObject.cpp
+  LoadSceneButton.cpp
+  Paintable.cpp
+  RigidBody.cpp
+c:\users\user\desktop\git repos\ink-in-my-junk\solution\opengl1\source\rigidbody.cpp(69): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\user\desktop\git repos\ink-in-my-junk\solution\opengl1\source\rigidbody.cpp(99): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Scene.cpp
+c:\users\user\desktop\git repos\ink-in-my-junk\solution\opengl1\source\scene.cpp(273): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\user\desktop\git repos\ink-in-my-junk\solution\opengl1\source\scene.cpp(281): warning C4244: '=': conversion from 'double' to 'unsigned int', possible loss of data
+c:\users\user\desktop\git repos\ink-in-my-junk\solution\opengl1\source\scene.cpp(653): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  SceneEmpty.cpp
+  SceneExample.cpp
+  SceneExampleCar.cpp
+  SceneExampleCarInk.cpp
+  SceneExampleInk.cpp
+  SceneLevel1.cpp
+  SceneLevelSelect.cpp
+  SceneManager.cpp
+  SceneStart.cpp
+c:\users\user\desktop\git repos\ink-in-my-junk\solution\opengl1\source\scenestart.cpp(16): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\user\desktop\git repos\ink-in-my-junk\solution\opengl1\source\scenestart.cpp(100): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Vehicle.cpp
 c:\users\user\desktop\git repos\ink-in-my-junk\solution\opengl1\source\vehicle.cpp(38): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 c:\users\user\desktop\git repos\ink-in-my-junk\solution\opengl1\source\vehicle.cpp(99): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+  Wheel.cpp
+c:\users\user\desktop\git repos\ink-in-my-junk\solution\opengl1\source\wheel.cpp(15): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
   OpenGL1.vcxproj -> C:\Users\User\Desktop\Git Repos\ink-in-my-junk\Solution\Debug\StudioProject2.exe

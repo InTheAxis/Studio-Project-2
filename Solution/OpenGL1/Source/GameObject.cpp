@@ -14,9 +14,12 @@ void GameObject::Init(std::string filePathOBJ, std::string filePathTGA, Vector3 
 	this->objectMesh = MeshBuilder::GenerateOBJ(filePathOBJ);
 	this->AddTexture(filePathTGA); //load in a texture
 	this->ChangeTexture(0); //default 
-	this->translate = translate;
-	this->rotate = rotate;
-	this->scale = scale;
+	if (translate != NULL)
+		this->translate = translate;
+	if (rotate != NULL)
+		this->rotate = rotate;
+	if (scale != NULL)
+		this->scale = scale;
 }
 
 void GameObject::Init(Mesh* mesh, std::string filePathTGA, Vector3 translate, Vector3 rotate, Vector3 scale)
@@ -24,9 +27,12 @@ void GameObject::Init(Mesh* mesh, std::string filePathTGA, Vector3 translate, Ve
 	this->objectMesh = mesh;
 	this->AddTexture(filePathTGA); //load in a texture, put "" if none
 	this->ChangeTexture(0); //default 
-	this->translate = translate;
-	this->rotate = rotate;
-	this->scale = scale;
+	if (translate != NULL)
+		this->translate = translate;
+	if (rotate != NULL)
+		this->rotate = rotate;
+	if (scale != NULL)
+		this->scale = scale; 
 }
 
 void GameObject::Render()
