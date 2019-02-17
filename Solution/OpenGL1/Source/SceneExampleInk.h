@@ -12,8 +12,10 @@ public:
 	~SceneExampleInk();
 protected:
 	Grid level;
-	GameObject QUAD1;
-	Paintable QUAD2;
+	GameObject floor;
+	Paintable paintLayer;
+
+	Paint yellow, purple;
 
 	virtual void InitDerived();
 	virtual void RenderDerived();

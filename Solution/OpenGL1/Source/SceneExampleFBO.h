@@ -12,7 +12,7 @@ public:
 	~SceneExampleFBO();
 protected:
 
-	GameObject test1, test2;
+	GameObject test1, test2, frametest;
 	Car testCar;
 
 	virtual void InitDerived();

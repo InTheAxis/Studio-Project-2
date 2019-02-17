@@ -30,7 +30,7 @@ private:
 	int currentIndex;
 
 	//testing
-	SceneExampleFBO example;
+	SceneExampleInk example;
 
 	//actual
 	SceneEmpty empty;

@@ -1,2 +1,24 @@
-﻿  SceneExampleFBO.cpp
+﻿  Application.cpp
+c:\program files (x86)\windows kits\10\include\10.0.17134.0\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
+  c:\users\user\desktop\git repos\ink-in-my-junk\solution\glfw\include\glfw\glfw3.h(98): note: see previous definition of 'APIENTRY'
+  Button.cpp
+  LoadSceneButton.cpp
+  Scene.cpp
+c:\users\user\desktop\git repos\ink-in-my-junk\solution\opengl1\source\scene.cpp(78): warning C4838: conversion from 'char' to 'unsigned char' requires a narrowing conversion
+c:\users\user\desktop\git repos\ink-in-my-junk\solution\opengl1\source\scene.cpp(355): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\user\desktop\git repos\ink-in-my-junk\solution\opengl1\source\scene.cpp(363): warning C4244: '=': conversion from 'double' to 'unsigned int', possible loss of data
+c:\users\user\desktop\git repos\ink-in-my-junk\solution\opengl1\source\scene.cpp(735): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  SceneEmpty.cpp
+  SceneExample.cpp
+  SceneExampleCar.cpp
+  SceneExampleCarInk.cpp
+  SceneExampleFBO.cpp
+  SceneExampleInk.cpp
+  SceneLevel1.cpp
+  SceneLevelSelect.cpp
+  SceneManager.cpp
+  SceneStart.cpp
+c:\users\user\desktop\git repos\ink-in-my-junk\solution\opengl1\source\scenestart.cpp(16): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\user\desktop\git repos\ink-in-my-junk\solution\opengl1\source\scenestart.cpp(100): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
   OpenGL1.vcxproj -> C:\Users\User\Desktop\Git Repos\ink-in-my-junk\Solution\Debug\StudioProject2.exe

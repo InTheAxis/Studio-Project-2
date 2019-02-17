@@ -66,7 +66,7 @@ void Paintable::CalculateCoverage(std::vector<Color> vertColors, Paint* team1, P
 	totalNum = totalNum + numOfColor[0] + numOfColor[1];
 
 	team1->SetPercentage((float)numOfColor[0] / (float)totalNum * 100.0f);
-	team2->SetPercentage((float)numOfColor[0] / (float)totalNum * 100.0f);
+	team2->SetPercentage((float)numOfColor[1] / (float)totalNum * 100.0f);
 }
 
 Paintable::~Paintable()
