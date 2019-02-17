@@ -167,6 +167,7 @@
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
     <ClInclude Include="Source\MyMathExtended.h" />
+    <ClInclude Include="Source\Paint.h" />
     <ClInclude Include="Source\Paintable.h" />
     <ClInclude Include="Source\GridCell.h" />
     <ClInclude Include="Source\RigidBody.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
+    <ClCompile Include="Source\Paint.cpp" />
     <ClCompile Include="Source\Paintable.cpp" />
     <ClCompile Include="Source\GridCell.cpp" />
     <ClCompile Include="Source\RigidBody.cpp" />

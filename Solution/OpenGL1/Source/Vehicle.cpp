@@ -104,6 +104,11 @@ Vector3 Vehicle::GetAngle()
 	return Vector3(0, angleY, 0);
 }
 
+Paint* Vehicle::GetPaint()
+{
+	return &paint;
+}
+
 Vehicle::~Vehicle()
 {
 }

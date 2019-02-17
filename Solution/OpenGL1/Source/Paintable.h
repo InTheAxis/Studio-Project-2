@@ -3,6 +3,7 @@
 
 #include "GameObject.h"
 #include "Grid.h"
+#include "Paint.h"
 
 /*NOTE, ONLY USE SINGLE SURFACE AND HIGH POLY MESHES FOR THIS CLASS*/
 
@@ -14,6 +15,9 @@ public:
 
 	std::vector<Vertex>* GetVBO();
 	void ChangeColor(Grid* currentGrid, Vector3 centerVert, Color color);
+
+	//takes in the vertex colors, the two paints, and stores perecentage covered for each paint
+	static void CalculateCoverage(std::vector<Color> vertColors, Paint* team1, Paint* team2);
 
 	~Paintable();
 private:
