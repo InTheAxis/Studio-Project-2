@@ -14,7 +14,8 @@ void GridCell::ChangeColorCell(Vector3 centerVert, Color color)
 		//else 
 		Vector3 temp = Vector3(v->pos.x, 0, v->pos.z) - centerVert;
 		temp.y = 0; //temporary, so i dont have to go so close to ground to test, remove!
-		if (Math::Square(temp.x) + Math::Square(temp.y) + Math::Square(temp.z) < VERT_RANGE) // i dont want to square root
+		float dist = Math::Square(temp.x) + Math::Square(temp.y) + Math::Square(temp.z);
+		if (dist <= VERT_RANGE) // i dont want to square root
 		{
 			std::cout << "Repainting: " << v->pos.x << ", " << v->pos.z << "\n";
 			v->color = color;

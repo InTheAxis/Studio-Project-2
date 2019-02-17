@@ -120,6 +120,9 @@
     <ClInclude Include="Source\SceneLevel1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\MyMathExtended.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">

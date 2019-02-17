@@ -29,7 +29,7 @@ private:
 	int currentIndex;
 
 	//testing
-	SceneExampleCarInk example;
+	SceneExampleCar  example;
 
 	//actual
 	SceneEmpty empty;

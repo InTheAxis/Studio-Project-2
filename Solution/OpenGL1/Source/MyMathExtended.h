@@ -8,11 +8,6 @@ namespace MathExtended
 	{
 		return value + weight * (tragetValue - value);
 	}
-
-	inline float Perlin(float x, float y) //compute perlin noise, todo
-	{
-		return 0;
-	}
 }
 
 #endif

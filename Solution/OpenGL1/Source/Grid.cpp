@@ -41,9 +41,9 @@ void Grid::GenerateGrid(std::vector<Vertex>* vboPtr)
 				indexes[6] = CalcIndex(x, z + 1);
 			
 			if (x > -GRID_LENGTH_HALF && z < GRID_LENGTH_HALF)
-				indexes[2] = CalcIndex(x - 1, z + 1);
+				indexes[7] = CalcIndex(x - 1, z + 1);
 			if (x < GRID_LENGTH_HALF && z > -GRID_LENGTH_HALF)
-				indexes[2] = CalcIndex(x + 1, z - 1);
+				indexes[8] = CalcIndex(x + 1, z - 1);
 
 			for (int i = 1; i < 9; ++i)
 				grid[indexes[0]]->PushToAdjacents(grid[indexes[i]]);

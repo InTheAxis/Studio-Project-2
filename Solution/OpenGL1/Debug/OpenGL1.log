@@ -1,2 +1,4 @@
-﻿  SceneExampleCarInk.cpp
+﻿  Vehicle.cpp
+c:\users\user\desktop\git repos\ink-in-my-junk\solution\opengl1\source\vehicle.cpp(38): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\user\desktop\git repos\ink-in-my-junk\solution\opengl1\source\vehicle.cpp(99): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
   OpenGL1.vcxproj -> C:\Users\User\Desktop\Git Repos\ink-in-my-junk\Solution\Debug\StudioProject2.exe

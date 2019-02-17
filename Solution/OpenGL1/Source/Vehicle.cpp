@@ -15,7 +15,9 @@ Vehicle::Vehicle()
 void Vehicle::MoveForward(int dir, double dt)
 {
 	if (!dir)
+	{ 
 		this->forceForward = 0;
+	}
 	this->AddForceForward(Vector3(0, 0, dir * thrustForce * (float)dt));
 
 	this->translate += s * this->forward.Normalize();
@@ -26,9 +28,11 @@ void Vehicle::MoveForward(int dir, double dt)
 
 void Vehicle::MoveRight(int dir, double dt)
 {
-	if (v < 1 || u < 1) return;
-	if (!dir)
+	if (!dir || (!v || !u))
+	{
 		this->forceRight = 0;
+		this->angleY = 0;
+	}
 	this->AddForceRight(Vector3(0, dir * turningSpeed * (float)dt, 0));
 
 	angleY = -1 * forceRight * dt;

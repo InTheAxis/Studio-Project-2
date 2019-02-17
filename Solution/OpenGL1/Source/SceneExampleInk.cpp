@@ -33,6 +33,11 @@ void SceneExampleInk::UpdateDerived(double dt)
 	{
 		QUAD2.ChangeColor(&level, camera[currentCam]->position, Color(1,0,1));
 	}
+
+	if (Application::IsKeyPressed('G'))
+	{
+		QUAD2.ChangeColor(&level, camera[currentCam]->position, Color(1, 1, 1));
+	}
 }
 
 void SceneExampleInk::UpdateDerivedBounced(double dt)

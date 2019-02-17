@@ -7,7 +7,7 @@ SceneExampleCarInk::SceneExampleCarInk()
 
 void SceneExampleCarInk::InitDerived()
 {
-	car.Init("OBJ//taxi.obj", "Image//taxi.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0.1f, 0.1f, 0.1f));
+	car.Init("OBJ//taxi.obj", "Image//taxi.tga", Vector3(0, 0, 0));
 	car.CreateRigidBody(Vector3(0, 0, 10), 1200, 0.1f, 0.09f);
 	floor.Init("OBJ//ground-low.obj", "Image//color2.tga");
 	paintLayer.Init("OBJ//ground-high.obj", "", Vector3(0, 0.25f, 0));
@@ -74,7 +74,7 @@ void SceneExampleCarInk::UpdateDerived(double dt)
 	 paintLayer.ChangeColor(&level, car.GetTranslate(), Color(1, 0, 1));
 
 	 if (Application::IsKeyPressed('F'))
-		 paintLayer.ChangeColor(&level, camera[1]->position, Color(1, 0, 1));
+		 paintLayer.ChangeColor(&level, camera[1]->position, Color(1, 1, 0));
 
 }
 

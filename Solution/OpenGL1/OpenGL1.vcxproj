@@ -166,6 +166,7 @@
     <ClInclude Include="Source\Material.h" />
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
+    <ClInclude Include="Source\MyMathExtended.h" />
     <ClInclude Include="Source\Paintable.h" />
     <ClInclude Include="Source\GridCell.h" />
     <ClInclude Include="Source\RigidBody.h" />
