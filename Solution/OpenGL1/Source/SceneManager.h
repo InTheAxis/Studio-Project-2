@@ -7,6 +7,7 @@
 #include "SceneExampleCar.h"
 #include "SceneExampleInk.h"
 #include "SceneExampleCarInk.h"
+#include "SceneExampleFBO.h"
 //actual scenes
 #include "SceneEmpty.h"
 #include "SceneStart.h"
@@ -29,7 +30,7 @@ private:
 	int currentIndex;
 
 	//testing
-	SceneExampleCar  example;
+	SceneExampleFBO example;
 
 	//actual
 	SceneEmpty empty;

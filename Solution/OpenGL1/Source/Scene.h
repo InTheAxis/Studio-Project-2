@@ -124,6 +124,10 @@ protected:
 	unsigned m_programID;
 	unsigned m_parameters[U_TOTAL];
 	MS modelStack, viewStack, projectionStack;
+	unsigned m_frameBufferID;
+	unsigned m_frameBufferTexture;
+	unsigned m_renderBufferID;
+
 	//for changing scenes
 	int targetSceneIndex;
 	bool changingScene;
@@ -152,6 +156,9 @@ protected:
 
 	//for changing scenes
 	void RequestChangeScene(int index);
+
+	//for taking screenshots of custom fbo
+	void ScreenshotToTGA(unsigned fboID, std::string fileDest);
 
 	//helper functions to separate the init
 	void InitUniforms();

@@ -29,6 +29,38 @@ bool Scene::GetCaptureMouse()
 	return captureMouse;
 }
 
+void Scene::ScreenshotToTGA(unsigned fboID, std::string fileDest)
+{
+	//read from our custom fbo
+	glBindFramebuffer(GL_FRAMEBUFFER, fboID);
+	glReadBuffer(GL_COLOR_ATTACHMENT0);
+
+	int x = Application::RESOLUTION_X;
+	int y = Application::RESOLUTION_Y;
+	long imageSize = x * y * 3;
+	unsigned char *data = new unsigned char[imageSize];
+
+	//reading pixels adn assembling header
+	glReadPixels(0, 0, x, y, GL_BGR, GL_UNSIGNED_BYTE, data);
+	int xa = x % 256;
+	int xb = (x - xa) / 256; 
+	int ya = y % 256;
+	int yb = (y - ya) / 256;
+	unsigned char header[18] = { 0,0,2,0,0,0,0,0,0,0,0,0,(char)xa,(char)xb,(char)ya,(char)yb,24,0 };
+	
+	//write
+	std::fstream file(fileDest, std::ios::out | std::ios::binary);
+	file.write(reinterpret_cast<char *>(header), sizeof(char) * 18);
+	file.write(reinterpret_cast<char *>(data), sizeof(char)*imageSize);
+	file.close();
+
+	//clean up pointer
+	delete[] data;
+	data = nullptr;
+	//bind back default
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
 Scene::~Scene()
 {
 }
@@ -217,13 +249,33 @@ void Scene::Init()
 	// Generate a default VAO for now
 	glGenVertexArrays(1, &m_vertexArrayID);
 	glBindVertexArray(m_vertexArrayID);
+	/*Generate FBO*/
+	glGenFramebuffers(1, &m_frameBufferID);
+	glBindFramebuffer(GL_FRAMEBUFFER, m_frameBufferID);
+	//generate a rbo for depth testing
+	glGenRenderbuffers(1, &m_renderBufferID);
+	glBindRenderbuffer(GL_RENDERBUFFER, m_renderBufferID);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, Application::_RESOLUTION_X, Application::_RESOLUTION_Y);
+	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+	//generate texture
+	glGenTextures(1, &m_frameBufferTexture);
+	glBindTexture(GL_TEXTURE_2D, m_frameBufferTexture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, Application::_RESOLUTION_X, Application::_RESOLUTION_Y, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	//attach it current fbo
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_renderBufferID);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_frameBufferTexture, 0);
+	//check if fbo is complete
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		std::cout << "Framebuffer not complete!" << std::endl;
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	/*Load shaders and link to mvp*/
 	//Load vertex and fragment shaders
 	m_programID = LoadShaders("Shader//Texture.vertexshader", "Shader///Text.fragmentshader");
 	//init uniforms, get programId
 	InitUniforms();
-	// Get a handle for our "MVP" uniform
-	m_parameters[U_MVP] = glGetUniformLocation(m_programID, "MVP");
 
 	//init required game objects
 	InitGameObjects();

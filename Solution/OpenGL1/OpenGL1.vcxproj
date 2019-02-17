@@ -175,6 +175,7 @@
     <ClInclude Include="Source\SceneExample.h" />
     <ClInclude Include="Source\SceneExampleCar.h" />
     <ClInclude Include="Source\SceneExampleCarInk.h" />
+    <ClInclude Include="Source\SceneExampleFBO.h" />
     <ClInclude Include="Source\SceneExampleInk.h" />
     <ClInclude Include="Source\SceneLevel1.h" />
     <ClInclude Include="Source\SceneLevelSelect.h" />
@@ -210,6 +211,7 @@
     <ClCompile Include="Source\SceneExample.cpp" />
     <ClCompile Include="Source\SceneExampleCar.cpp" />
     <ClCompile Include="Source\SceneExampleCarInk.cpp" />
+    <ClCompile Include="Source\SceneExampleFBO.cpp" />
     <ClCompile Include="Source\SceneExampleInk.cpp" />
     <ClCompile Include="Source\SceneLevel1.cpp" />
     <ClCompile Include="Source\SceneLevelSelect.cpp" />
