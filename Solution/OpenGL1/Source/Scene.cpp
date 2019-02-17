@@ -29,7 +29,34 @@ bool Scene::GetCaptureMouse()
 	return captureMouse;
 }
 
-void Scene::ScreenshotToTGA(unsigned fboID, std::string fileDest)
+std::vector<Color> Scene::ReadFromFBO(unsigned fboID)
+{
+	//read from our custom fbo
+	glBindFramebuffer(GL_FRAMEBUFFER, fboID);
+	glReadBuffer(GL_COLOR_ATTACHMENT0);
+
+	int x = 800;//Application::RESOLUTION_X;
+	int y = 600;// Application::RESOLUTION_Y;
+	long textureSize = x * y * 3;
+	std::vector<GLfloat> data(textureSize);
+	std::vector<Color> ret(x * y);
+
+	//reading pixels, returning BGR
+	glReadPixels(0, 0, x, y, GL_BGR, GL_FLOAT, &data[0]);
+
+	//assigning results in data to rgb Color struct format to return 
+	for (int i = 0; i < textureSize; i += 3)
+	{
+		ret[i / 3] = Color(data[i + 2], data[i + 1], data[i]);
+	}
+
+	//bind back default
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	
+	return ret;
+}
+
+void Scene::WriteFromFBO(unsigned fboID, std::string fileDest)
 {
 	//read from our custom fbo
 	glBindFramebuffer(GL_FRAMEBUFFER, fboID);
@@ -40,8 +67,10 @@ void Scene::ScreenshotToTGA(unsigned fboID, std::string fileDest)
 	long imageSize = x * y * 3;
 	unsigned char *data = new unsigned char[imageSize];
 
-	//reading pixels adn assembling header
+	//reading pixels 
 	glReadPixels(0, 0, x, y, GL_BGR, GL_UNSIGNED_BYTE, data);
+	
+	//assembling header
 	int xa = x % 256;
 	int xb = (x - xa) / 256; 
 	int ya = y % 256;
@@ -49,7 +78,7 @@ void Scene::ScreenshotToTGA(unsigned fboID, std::string fileDest)
 	unsigned char header[18] = { 0,0,2,0,0,0,0,0,0,0,0,0,(char)xa,(char)xb,(char)ya,(char)yb,24,0 };
 	
 	//write
-	std::fstream file(fileDest, std::ios::out | std::ios::binary);
+	std::ofstream file(fileDest, std::ios::out | std::ios::binary);
 	file.write(reinterpret_cast<char *>(header), sizeof(char) * 18);
 	file.write(reinterpret_cast<char *>(data), sizeof(char)*imageSize);
 	file.close();
@@ -57,6 +86,7 @@ void Scene::ScreenshotToTGA(unsigned fboID, std::string fileDest)
 	//clean up pointer
 	delete[] data;
 	data = nullptr;
+
 	//bind back default
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

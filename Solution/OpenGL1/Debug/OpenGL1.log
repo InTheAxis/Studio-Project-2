@@ -1,6 +1,2 @@
-﻿  Scene.cpp
-c:\users\user\desktop\git repos\ink-in-my-junk\solution\opengl1\source\scene.cpp(49): warning C4838: conversion from 'char' to 'unsigned char' requires a narrowing conversion
-c:\users\user\desktop\git repos\ink-in-my-junk\solution\opengl1\source\scene.cpp(325): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\user\desktop\git repos\ink-in-my-junk\solution\opengl1\source\scene.cpp(333): warning C4244: '=': conversion from 'double' to 'unsigned int', possible loss of data
-c:\users\user\desktop\git repos\ink-in-my-junk\solution\opengl1\source\scene.cpp(705): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+﻿  SceneExampleFBO.cpp
   OpenGL1.vcxproj -> C:\Users\User\Desktop\Git Repos\ink-in-my-junk\Solution\Debug\StudioProject2.exe

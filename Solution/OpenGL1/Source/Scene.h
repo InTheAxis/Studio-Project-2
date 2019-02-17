@@ -157,8 +157,9 @@ protected:
 	//for changing scenes
 	void RequestChangeScene(int index);
 
-	//for taking screenshots of custom fbo
-	void ScreenshotToTGA(unsigned fboID, std::string fileDest);
+	//read and write from frame buffer object
+	std::vector<Color> ReadFromFBO(unsigned fboID);
+	void WriteFromFBO(unsigned fboID, std::string fileDest);
 
 	//helper functions to separate the init
 	void InitUniforms();
