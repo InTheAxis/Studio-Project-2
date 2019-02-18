@@ -114,8 +114,10 @@ public:
 	void Update(double dt);
 	void Render();
 	void Exit();
-	//for changing scenes
+	//for sceneManager to use, don't call in scene!!!
 	bool GetChangeSceneEvent(int* outIndex);
+	std::vector<GameObject*> RetriveDontDestroy();
+	void PushToDontDestroy(GameObject* go);
 	//for capturing mouse
 	bool GetCaptureMouse();
 
@@ -168,6 +170,8 @@ protected:
 
 	//for changing scenes
 	void RequestChangeScene(int index);
+	void RequestDontDestroy(GameObject* go);
+	GameObject* GetDontDestroyGameObject(std::string name);
 
 	//read and write from frame buffer object
 	std::vector<Color> ReadFromFBO(unsigned fboID);
@@ -193,6 +197,9 @@ protected:
 	virtual void UpdateDerived(double dt) = 0;
 	virtual void UpdateDerivedBounced(double dt) = 0;
 	virtual void RenderFrameBuffer(); //optional to override
+
+private:
+	std::vector<GameObject*> dontDestroy;
 };
 
 #endif

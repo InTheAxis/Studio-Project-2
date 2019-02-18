@@ -28,6 +28,8 @@ void SceneGame::InitDerived()
 
 	buttonIndex = 0;
 	allButtons[0]->SetHover(true);
+
+	RequestDontDestroy(&car);
 }
 
 void SceneGame::RenderDerived()

@@ -11,6 +11,7 @@ GameObject::GameObject()
 
 void GameObject::Init(std::string name, std::string filePathOBJ, std::string filePathTGA, Vector3 translate, Vector3 rotate, Vector3 scale)
 {
+	this->name = name;
 	this->objectMesh = MeshBuilder::GenerateOBJ(filePathOBJ);
 	this->AddTexture(filePathTGA); //load in a texture
 	this->ChangeTexture(0); //default 
@@ -24,6 +25,7 @@ void GameObject::Init(std::string name, std::string filePathOBJ, std::string fil
 
 void GameObject::Init(std::string name, Mesh* mesh, std::string filePathTGA, Vector3 translate, Vector3 rotate, Vector3 scale)
 {
+	this->name = name;
 	this->objectMesh = mesh;
 	this->AddTexture(filePathTGA); //load in a texture, put "" if none
 	this->ChangeTexture(0); //default 
@@ -70,6 +72,11 @@ Material* GameObject::GetMaterial()
 void GameObject::SetMaterial(Material m)
 {
 	objectMesh->material = m;
+}
+
+std::string GameObject::GetName()
+{
+	return this->name;
 }
 
 Vector3 GameObject::GetTranslate()

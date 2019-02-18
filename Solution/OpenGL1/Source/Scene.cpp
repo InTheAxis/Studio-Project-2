@@ -13,6 +13,31 @@ void Scene::RequestChangeScene(int index)
 	this->changingScene = true;
 }
 
+void Scene::RequestDontDestroy(GameObject * go)
+{
+	this->dontDestroy.emplace_back(go);
+}
+
+GameObject * Scene::GetDontDestroyGameObject(std::string name)
+{
+	for (GameObject* &go : dontDestroy)
+	{
+		if (go->GetName() == name)
+			return go;
+	}
+	return nullptr;
+}
+
+std::vector<GameObject*> Scene::RetriveDontDestroy()
+{
+	return dontDestroy;
+}
+
+void Scene::PushToDontDestroy(GameObject * go)
+{
+	this->dontDestroy.emplace_back(go);
+}
+
 bool Scene::GetChangeSceneEvent(int* outIndex)
 {
 	if (changingScene)
