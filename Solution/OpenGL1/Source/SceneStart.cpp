@@ -15,15 +15,15 @@ void SceneStart::InitDerived()
 {
 	prevCursorXY = currentCursorXY = (Vector3(Application::cursorX, Application::cursorY, 0));
 
-	cursor.Init(MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(orthSize.x * 0.5f, orthSize.y * 0.5f, 10), Vector3(0, 0, 0), Vector3(1, 1, 0));
-	play.Init(MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(30, 20, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
-	customisation.Init(MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(30, 17.5, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
-	exit.Init(MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(30, 15, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
+	cursor.Init("cursor", MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(orthSize.x * 0.5f, orthSize.y * 0.5f, 10), Vector3(0, 0, 0), Vector3(1, 1, 0));
+	play.Init("play", MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(30, 20, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
+	garage.Init("garage", MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(30, 17.5, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
+	exit.Init("exit", MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(30, 15, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
 
 	decreaseSize = false;
 
 	allButtons.push_back(&play);
-	allButtons.push_back(&customisation);
+	allButtons.push_back(&garage);
 	allButtons.push_back(&exit);
 
 	totalbuttons = 3;
@@ -36,7 +36,7 @@ void SceneStart::InitDerived()
 void SceneStart::RenderDerived()
 {
 	RenderObjectOnScreen(&play, false);
-	RenderObjectOnScreen(&customisation, false);
+	RenderObjectOnScreen(&garage, false);
 	RenderObjectOnScreen(&exit, false);
 	RenderObjectOnScreen(&cursor, false);
 }
@@ -57,7 +57,7 @@ void SceneStart::UpdateDerived(double dt)
 		RequestChangeScene(2);
 	}
 
-	if (customisation.GetOnClickEvent())
+	if (garage.GetOnClickEvent())
 	{
 		allButtons[buttonindex]->SetHover(false);
 		play.SetOnClickEvent(false);

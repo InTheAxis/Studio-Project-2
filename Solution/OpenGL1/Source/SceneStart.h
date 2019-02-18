@@ -16,7 +16,7 @@ protected:
 private:
 	void MoveMouse(double dt);
 
-	LoadSceneButton play, customisation, exit;
+	LoadSceneButton play, garage, exit;
 	bool decreaseSize;
 
 	GameObject cursor;

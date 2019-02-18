@@ -7,8 +7,8 @@ SceneExampleFBO::SceneExampleFBO()
 
 void SceneExampleFBO::InitDerived()
 {
-	test1.Init(MeshBuilder::GenerateCube(Color(1, 1, 0, 1)), "", NULL, NULL, Vector3(10, 10, 10));
-	test2.Init(MeshBuilder::GenerateCube(Color(1, 0, 1, 1)), "", Vector3(0, 2, -10), NULL, Vector3(10, 10, 10));
+	test1.Init("test1", MeshBuilder::GenerateCube(Color(1, 1, 0, 1)), "", NULL, NULL, Vector3(10, 10, 10));
+	test2.Init("test2", MeshBuilder::GenerateCube(Color(1, 0, 1, 1)), "", Vector3(0, 2, -10), NULL, Vector3(10, 10, 10));
 	testCar.GetPaint()->SetPaintColor(Color(1, 1, 0));
 }
 

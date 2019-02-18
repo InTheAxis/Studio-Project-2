@@ -12,10 +12,10 @@ class GameObject
 {
 public:
 	GameObject();
-	//init obj
-	void Init(std::string filePathOBJ, std::string filePathTGA = "", Vector3 translate = NULL, Vector3 rotate = NULL, Vector3 scale = NULL);
+	//init obj, name same as variable
+	void Init(std::string name, std::string filePathOBJ, std::string filePathTGA = "", Vector3 translate = NULL, Vector3 rotate = NULL, Vector3 scale = NULL);
 	//init primitive with texture, put "" for filepath if no texture
-	void Init(Mesh* mesh, std::string filePathTGA = "", Vector3 translate = NULL, Vector3 rotate = NULL, Vector3 scale = NULL);
+	void Init(std::string name, Mesh* mesh, std::string filePathTGA = "", Vector3 translate = NULL, Vector3 rotate = NULL, Vector3 scale = NULL);
 	
 	//basically just calls the Mesh::Render
 	void Render();
@@ -30,6 +30,7 @@ public:
 	void ChangeTexture(int textureIndex); //setter for textureID
 	Material* GetMaterial(); //getter for mesh->material
 	void SetMaterial(Material);
+	std::string GetName();
 	Vector3 GetTranslate();
 	Vector3 GetRotate();
 	Vector3 GetScale();
@@ -46,6 +47,7 @@ protected:
 	std::vector<unsigned> textureIDs;
 
 	Vector3 translate, rotate, scale;
+	std::string name;
 };
 
 #endif // !GAMEOBJECT_H

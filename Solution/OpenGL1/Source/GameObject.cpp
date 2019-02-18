@@ -9,7 +9,7 @@ GameObject::GameObject()
 	this->scale = Vector3(1, 1, 1);
 }
 
-void GameObject::Init(std::string filePathOBJ, std::string filePathTGA, Vector3 translate, Vector3 rotate, Vector3 scale)
+void GameObject::Init(std::string name, std::string filePathOBJ, std::string filePathTGA, Vector3 translate, Vector3 rotate, Vector3 scale)
 {
 	this->objectMesh = MeshBuilder::GenerateOBJ(filePathOBJ);
 	this->AddTexture(filePathTGA); //load in a texture
@@ -22,7 +22,7 @@ void GameObject::Init(std::string filePathOBJ, std::string filePathTGA, Vector3 
 		this->scale = scale;
 }
 
-void GameObject::Init(Mesh* mesh, std::string filePathTGA, Vector3 translate, Vector3 rotate, Vector3 scale)
+void GameObject::Init(std::string name, Mesh* mesh, std::string filePathTGA, Vector3 translate, Vector3 rotate, Vector3 scale)
 {
 	this->objectMesh = mesh;
 	this->AddTexture(filePathTGA); //load in a texture, put "" if none

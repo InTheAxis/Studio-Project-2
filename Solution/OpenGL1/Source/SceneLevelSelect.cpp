@@ -13,9 +13,9 @@ SceneLevelSelect::~SceneLevelSelect()
 
 void SceneLevelSelect::InitDerived()
 {
-	level1.Init(MeshBuilder::GenerateCube(Color(0, 1, 0)), "", Vector3(30, 20, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
-	level2.Init(MeshBuilder::GenerateCube(Color(0, 1, 0)), "", Vector3(30, 17.5, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
-	level3.Init(MeshBuilder::GenerateCube(Color(0, 1, 0)), "", Vector3(30, 15, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
+	level1.Init("level1", MeshBuilder::GenerateCube(Color(0, 1, 0)), "", Vector3(30, 20, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
+	level2.Init("level2", MeshBuilder::GenerateCube(Color(0, 1, 0)), "", Vector3(30, 17.5, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
+	level3.Init("level3", MeshBuilder::GenerateCube(Color(0, 1, 0)), "", Vector3(30, 15, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
 
 	allButtons.push_back(&level1);
 	allButtons.push_back(&level2);

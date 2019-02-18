@@ -15,14 +15,14 @@ SceneGame::~SceneGame()
 void SceneGame::InitDerived()
 {
 
-	resumeButton.Init(MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(30, 20, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
-	exitButton.Init(MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(30, 17.5, 0), Vector3(0, 0, 0), Vector3(1, 1, 0));
+	resumeButton.Init("resumeButton", MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(30, 20, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
+	exitButton.Init("exitButton", MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(30, 17.5, 0), Vector3(0, 0, 0), Vector3(1, 1, 0));
 
 	allButtons.push_back(&resumeButton);
 	allButtons.push_back(&exitButton);
 
-	car.Init("OBJ//toilet.obj", "Image//toilet.tga", Vector3(2, 0, 0));
-	skybox.Init("OBJ//skybox.obj", "Image//skybox.tga", Vector3(0, -50, 0), Vector3(0, 0, 0), Vector3(100, 100, 100));
+	car.Init("car", "OBJ//toilet.obj", "Image//toilet.tga", Vector3(2, 0, 0));
+	skybox.Init("skybox", "OBJ//skybox.obj", "Image//skybox.tga", Vector3(0, -50, 0), Vector3(0, 0, 0), Vector3(100, 100, 100));
 	
 	car.SetMaterial(shiny);
 

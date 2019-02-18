@@ -8,17 +8,16 @@ SceneGarage::SceneGarage()
 
 void SceneGarage::InitDerived()
 {
-	TAXI.Init("OBJ//TAXI.obj", "Image//Red.tga", Vector3(0, 0, 0), Vector3(0,0,0), Vector3(0.1,0.1,0.1));
-	TRUCK.Init("OBJ//TRUCK.obj", "Image//Red.tga", Vector3(0, 0, 0));
-	BACKGROUND.Init("OBJ//BACKGROUND.obj", "Image//Background.tga", Vector3(0, 0, 0));
-	ARROW.Init("OBJ//ARROW.obj", "Image//Red.tga", Vector3(0, 0, 0));
+	TAXI.Init("taxi", "OBJ//TAXI.obj", "Image//Red.tga", Vector3(0, 0, 0), Vector3(0,0,0), Vector3(0.1,0.1,0.1));
+	TRUCK.Init("truck", "OBJ//TRUCK.obj", "Image//Red.tga", Vector3(0, 0, 0));
+	BACKGROUND.Init("bg","OBJ//BACKGROUND.obj", "Image//Background.tga", Vector3(0, 0, 0));
+	ARROW.Init("arrow", "OBJ//ARROW.obj", "Image//Red.tga", Vector3(0, 0, 0));
 
-	TEXT.Init(MeshBuilder::GenerateText(16, 16), "Image//Fonts//calibri.tga");
 	camera[0]->Init(Vector3(0, 3, 5), Vector3(0, 0.5f, 0), Vector3(0, 1, 0)); //Camera Initialisation
 
 	// F1.Init("OBJ//F1.obj", "Image//F1.tga", Vector3(0, -20, 0));
 
-	ToiletTest.Init("OBJ//toilet.obj", "Image//Red.tga", Vector3(0, 0, 0));   //Placeholder
+	ToiletTest.Init("test", "OBJ//toilet.obj", "Image//Red.tga", Vector3(0, 0, 0));   //Placeholder
 
 	TAXI.AddTexture("Image//Green.tga"); 
 	TAXI.AddTexture("Image//Blue.tga");  

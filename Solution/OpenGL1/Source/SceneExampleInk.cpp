@@ -10,8 +10,8 @@ SceneExampleInk::SceneExampleInk()
 void SceneExampleInk::InitDerived()
 {
 
-	floor.Init("OBJ//ground-low.obj", "Screenshots//test.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
-	paintLayer.Init("OBJ//ground-high.obj", "", Vector3(0, 0.3f, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
+	floor.Init("floor", "OBJ//ground-low.obj", "Screenshots//test.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
+	paintLayer.Init("paint", "OBJ//ground-high.obj", "", Vector3(0, 0.3f, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
 
 	floor.SetMaterial(dull);
 	paintLayer.SetMaterial(dull);
