@@ -8,6 +8,7 @@ LoadSceneButton::~LoadSceneButton()
 {
 }
 
+
 void LoadSceneButton::DoAction()
 {
 	this->onClick = true;
