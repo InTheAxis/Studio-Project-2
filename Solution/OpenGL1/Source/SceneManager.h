@@ -13,7 +13,7 @@
 #include "SceneStart.h"
 #include "SceneLevelSelect.h"
 #include "SceneGame.h"
-#include "SceneGarage.h"
+#include "SceneCustomisation.h"
 
 class SceneManager
 {
@@ -38,7 +38,7 @@ private:
 	SceneStart startMenu;
 	SceneLevelSelect levels;
 	SceneGame game;
-	SceneGarage garage;
+	SceneCustomisation garage;
 
 	enum gameScenes
 	{
