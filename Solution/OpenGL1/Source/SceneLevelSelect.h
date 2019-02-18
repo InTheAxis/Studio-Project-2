@@ -3,6 +3,7 @@
 
 #include "Scene.h"
 #include "LoadSceneButton.h"
+#include "Cursor.h"
 
 class SceneLevelSelect : public Scene
 {
@@ -16,6 +17,7 @@ protected:
 	virtual void UpdateDerivedBounced(double dt);
 private:
 	GameObject title;
+	Cursor mouse;
 	LoadSceneButton level1, level2, level3;
 	std::vector<Button*> allButtons;
 	int buttonindex;

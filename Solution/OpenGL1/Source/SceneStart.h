@@ -3,6 +3,7 @@
 
 #include "Scene.h"
 #include "LoadSceneButton.h"
+#include "Cursor.h"
 class SceneStart : public Scene
 {
 public:
@@ -14,12 +15,10 @@ protected:
 	virtual void UpdateDerived(double dt);
 	virtual void UpdateDerivedBounced(double dt);
 private:
-	void MoveMouse(double dt);
-
 	LoadSceneButton play, garage, exit;
 	bool decreaseSize;
 
-	GameObject cursor;
+	Cursor mouse;
 
 	std::vector<Button*> allButtons;
 	int buttonindex, totalbuttons;

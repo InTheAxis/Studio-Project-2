@@ -14,7 +14,7 @@ SceneManager::SceneManager()
 	allScenes[START] = &startMenu;
 	allScenes[LEVEL_SELECT] = &levels;
 	allScenes[LEVEL_1] = &game;
-	allScenes[CUSTOMISATION_SCREEN] = &garage;
+	allScenes[GARAGE_SCREEN] = &garage;
 }
 
 Scene* SceneManager::GetFirstScene()

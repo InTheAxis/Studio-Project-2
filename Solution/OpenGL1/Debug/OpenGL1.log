@@ -1,15 +1,9 @@
-﻿  Application.cpp
-c:\program files (x86)\windows kits\10\include\10.0.17134.0\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
-  d:\users\539\downloads\ink-in-my-junk\solution\glfw\include\glfw\glfw3.h(98): note: see previous definition of 'APIENTRY'
-  SceneGarage.cpp
+﻿  SceneGarage.cpp
 d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(11): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(90): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(95): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(102): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(107): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(114): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(119): warning C4305: 'argument': truncation from 'double' to 'float'
-  SceneManager.cpp
-  Generating Code...
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(88): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(93): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(100): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(105): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(112): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(117): warning C4305: 'argument': truncation from 'double' to 'float'
   OpenGL1.vcxproj -> D:\Users\539\Downloads\ink-in-my-junk\Solution\Debug\StudioProject2.exe

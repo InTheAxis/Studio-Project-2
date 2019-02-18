@@ -23,6 +23,8 @@ protected:
 	bool hover;	// check if cursor hovering over button
 	bool onClick; //if button is triggered
 
+
+
 };
 
 #endif
