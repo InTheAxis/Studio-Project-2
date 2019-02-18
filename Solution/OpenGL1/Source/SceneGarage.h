@@ -5,11 +5,11 @@
 #include "Paintable.h"
 
 
-class SceneCustomisation : public Scene
+class SceneGarage : public Scene
 {
 public:
-	SceneCustomisation();
-	~SceneCustomisation();
+	SceneGarage();
+	~SceneGarage();
 
 	enum Vehicle
 	{

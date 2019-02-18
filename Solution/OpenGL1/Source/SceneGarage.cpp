@@ -1,12 +1,12 @@
 #include "SceneCustomisation.h"
 
 
-SceneCustomisation::SceneCustomisation()
+SceneGarage::SceneGarage()
 {
 
 }
 
-void SceneCustomisation::InitDerived()
+void SceneGarage::InitDerived()
 {
 	TAXI.Init("OBJ//TAXI.obj", "Image//Red.tga", Vector3(0, 0, 0), Vector3(0,0,0), Vector3(0.1,0.1,0.1));
 	TRUCK.Init("OBJ//TRUCK.obj", "Image//Red.tga", Vector3(0, 0, 0));
@@ -55,7 +55,7 @@ void SceneCustomisation::InitDerived()
 	Selected = 0;
 }
 
-void SceneCustomisation::RenderDerived() 
+void SceneGarage::RenderDerived() 
 {
 	RenderObject(&BACKGROUND);
 
@@ -109,7 +109,7 @@ void SceneCustomisation::RenderDerived()
 }
 
 bool car = false;
-void SceneCustomisation::UpdateDerived(double dt)  //Keeps the vehicles in rotation
+void SceneGarage::UpdateDerived(double dt)  //Keeps the vehicles in rotation
 {  
 	if (CurrentVehicle == 0)
 		if (TAXI.GetScale() != Vector3(1,1,1))
@@ -125,7 +125,7 @@ void SceneCustomisation::UpdateDerived(double dt)  //Keeps the vehicles in rotat
 	ToiletTest.IncrementRotate(Vector3(0, 1, 0));
 }
 
-void SceneCustomisation::UpdateDerivedBounced(double dt)
+void SceneGarage::UpdateDerivedBounced(double dt)
 {
 	//==================== Vehicle Switching ========================
 	if (Application::IsKeyPressed(VK_UP))
@@ -215,7 +215,7 @@ void SceneCustomisation::UpdateDerivedBounced(double dt)
 	//==============================================================
 }
 
-SceneCustomisation::~SceneCustomisation()
+SceneGarage::~SceneGarage()
 {
 
 }

@@ -31,14 +31,14 @@ private:
 	int currentIndex;
 
 	//testing
-	SceneExampleInk example;
+	SceneExampleGame example;
 
 	//actual
 	SceneEmpty empty;
 	SceneStart startMenu;
 	SceneLevelSelect levels;
-	SceneLevel1 level1;
-	SceneCustomisation custom;
+	SceneGame game;
+	SceneGarage garage;
 
 	enum gameScenes
 	{
