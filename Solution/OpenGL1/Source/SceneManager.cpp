@@ -10,7 +10,7 @@ SceneManager::SceneManager()
 		allScenes[i] = &empty;
 	}
 
-	allScenes[0] = &example;
+	allScenes[0] = &startMenu;
 	allScenes[START] = &startMenu;
 	allScenes[LEVEL_SELECT] = &levels;
 	allScenes[LEVEL_1] = &game;

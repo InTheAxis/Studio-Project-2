@@ -16,6 +16,8 @@ GLFWwindow* m_window;
 const unsigned char FPS = 60; // FPS of this game
 const unsigned int frameTime = 1000 / FPS; // time for each frame
 double Application::cursorX = RESOLUTION_X * 0.5f, Application::cursorY = RESOLUTION_Y * 0.5f; //cursor xy
+bool Application::leftMouseClick = false, Application::rightMouseClick = false;
+
 
 //Define an error callback
 static void error_callback(int error, const char* description)
@@ -38,9 +40,11 @@ static void cursor_position_callback(GLFWwindow* window, double cursorX, double 
 	Application::cursorY = cursorY;
 }
 
+
+
 bool Application::IsKeyPressed(unsigned short key)
 {
-    return ((GetAsyncKeyState(key) & 0x8001) != 0);
+	return ((GetAsyncKeyState(key) & 0x8001) != 0);
 }
 
 Application::Application()
@@ -56,11 +60,25 @@ void resize_callback(GLFWwindow* window, int w, int h)
 	glViewport(0, 0, w, h); //update opengl the new window size
 }
 
+static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+{
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+		Application::leftMouseClick = true;
+	else
+		Application::leftMouseClick = false;
+
+	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+		Application::rightMouseClick = true;
+	else
+		Application::rightMouseClick = false;
+}
+
 void Application::Init()
 {
+	
 	//set seed for random
 	Math::InitRNG();
-	
+
 	//Set the error callback
 	glfwSetErrorCallback(error_callback);
 
@@ -84,7 +102,7 @@ void Application::Init()
 	//If the window couldn't be created
 	if (!m_window)
 	{
-		fprintf( stderr, "Failed to open GLFW window.\n" );
+		fprintf(stderr, "Failed to open GLFW window.\n");
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
@@ -101,18 +119,23 @@ void Application::Init()
 	//Sets mouse callback
 	glfwSetCursorPosCallback(m_window, cursor_position_callback);
 	glfwSetCursorPos(m_window, Application::cursorX, Application::cursorY);
+	glfwSetMouseButtonCallback(m_window, mouse_button_callback);
 
 	glewExperimental = true; // Needed for core profile
 	//Initialize GLEW
 	GLenum err = glewInit();
 
 	//If GLEW hasn't initialized
-	if (err != GLEW_OK) 
+	if (err != GLEW_OK)
 	{
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
 		//return -1;
 	}
+
+	
 }
+
+
 
 void Application::Run()
 {
@@ -136,7 +159,7 @@ void Application::Run()
 		glfwSwapBuffers(m_window);
 		//Get and organize events, like keyboard and mouse input, window resizing, etc...
 		glfwPollEvents();
-        m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.  
+		m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.  
 
 		sceneMan.SetCurrentScene(&scene);		//give scenemanager the current scene
 		sceneMan.PollForSceneChangeEvent();		//check if any scene changes and then change scene

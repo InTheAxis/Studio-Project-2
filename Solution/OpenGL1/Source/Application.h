@@ -17,6 +17,7 @@ public:
 	static bool IsKeyPressed(unsigned short key);
 
 	static double cursorX, cursorY;
+	static bool rightMouseClick, leftMouseClick;
 	const static int _RESOLUTION_X = 1080;
 	const static int _RESOLUTION_Y = 720;
 private:

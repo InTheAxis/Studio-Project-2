@@ -56,10 +56,29 @@ void SceneLevelSelect::UpdateDerived(double dt)
 		RequestChangeScene(3);
 	}
 
+	if (Application::leftMouseClick)
+	{
+		for (int i = 0; i < allButtons.size(); ++i)
+		{
+			if (allButtons[i]->GetHover())
+			{
+				allButtons[i]->DoAction();
+				break;
+			}
+
+			else
+			{
+
+			}
+		}
+	}
+
 }
 
 void SceneLevelSelect::UpdateDerivedBounced(double dt)
 {
+	
+
 	if (Application::IsKeyPressed(VK_RETURN))
 	{
 		allButtons[buttonindex]->DoAction();
