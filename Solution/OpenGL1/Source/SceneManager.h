@@ -12,7 +12,7 @@
 #include "SceneEmpty.h"
 #include "SceneStart.h"
 #include "SceneLevelSelect.h"
-#include "SceneLevel1.h"
+#include "SceneGame.h"
 #include "SceneCustomisation.h"
 
 class SceneManager
