@@ -126,10 +126,10 @@
     <ClInclude Include="Source\Paint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SceneCustomisation.h">
+    <ClInclude Include="Source\SceneGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SceneGame.h">
+    <ClInclude Include="Source\SceneGarage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -233,10 +233,10 @@
     <ClCompile Include="Source\Paint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SceneCustomisation.cpp">
+    <ClCompile Include="Source\SceneGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SceneGame.cpp">
+    <ClCompile Include="Source\SceneGarage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
