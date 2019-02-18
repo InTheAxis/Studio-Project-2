@@ -14,18 +14,20 @@ protected:
 	virtual void UpdateDerived(double dt);
 	virtual void UpdateDerivedBounced(double dt);
 private:
-	LoadSceneButton play, levelSelect, exit;
+	void MoveMouse(double dt);
+
+	LoadSceneButton play, customisation, exit;
 	bool decreaseSize;
 
-	//float MoveSelector(float x, float y, float distance, GameObject selector);
+	GameObject cursor;
 
 	std::vector<Button*> allButtons;
-	int buttonindex;
-	int totalbuttons;
-	/*const std::vector<float> optionposY =
-	{
-		10, 7.5f, 5
-	};*/
+	int buttonindex, totalbuttons;
+
+	Vector3 prevCursorXY, currentCursorXY;
+	Vector3 deltaPosCursor; 
+	const float MOUSE_SENS = 0.1f;
+
 };
 
 #endif // !SCENE_START

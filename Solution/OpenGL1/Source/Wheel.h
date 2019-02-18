@@ -2,16 +2,16 @@
 #define WHEEL_H
 
 #include "GameObject.h"
-#include "Car.h"
 
 class Wheel : public GameObject
 {
 public:
 	Wheel();
-	void Roll(double dt);
+	void Roll(float u, float v, double dt);
+	void SetRadius(float);
 	~Wheel();
-protected:
-
+private:
+	float omegaI, omegaF, theta, radius;
 };
 
 

@@ -13,14 +13,16 @@ class GameObject
 public:
 	GameObject();
 	//init obj
-	void Init(std::string filePathOBJ, std::string filePathTGA = "", Vector3 translate = Vector3(0, 0, 0), Vector3 rotate = Vector3(0, 0, 0), Vector3 scale = Vector3(1, 1, 1));
+	void Init(std::string filePathOBJ, std::string filePathTGA = "", Vector3 translate = NULL, Vector3 rotate = NULL, Vector3 scale = NULL);
 	//init primitive with texture, put "" for filepath if no texture
-	void Init(Mesh* mesh, std::string filePathTGA = "", Vector3 translate = Vector3(0, 0, 0), Vector3 rotate = Vector3(0, 0, 0), Vector3 scale = Vector3(1, 1, 1));
+	void Init(Mesh* mesh, std::string filePathTGA = "", Vector3 translate = NULL, Vector3 rotate = NULL, Vector3 scale = NULL);
 	
 	//basically just calls the Mesh::Render
 	void Render();
 	void Render(unsigned offset, unsigned count);
 	
+	//virtual void RenderChildren(); //put stuff that is under this object's hierachy here
+
 	void AddTexture(std::string filePathTGA); //adds a tga to a list of textures
 
 	//getter setters

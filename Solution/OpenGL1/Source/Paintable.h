@@ -2,6 +2,8 @@
 #define PAINTABLE_H
 
 #include "GameObject.h"
+#include "Grid.h"
+#include "Paint.h"
 
 /*NOTE, ONLY USE SINGLE SURFACE AND HIGH POLY MESHES FOR THIS CLASS*/
 
@@ -11,12 +13,17 @@ class Paintable : public GameObject
 public:
 	Paintable();
 
-	void ChangeColor(Vector3 centerVert);
+	std::vector<Vertex>* GetVBO();
+	void ChangeColor(Grid* currentGrid, Vector3 centerVert, Color color);
+
+	//takes in the vertex colors, the two paints, and stores perecentage covered for each paint
+	static void CalculateCoverage(std::vector<Color> vertColors, Paint* team1, Paint* team2);
 
 	~Paintable();
 private:
-
-	const float VERT_RANGE = 1;
+	std::vector<Vertex>* vboPtr;
+	Grid* currentGrid;
+	GridCell** cellToColor;
 };
 
 #endif // !PAINTABLE_H

@@ -13,7 +13,7 @@ void SceneEmpty::InitDerived()
 
 void SceneEmpty::RenderDerived()
 {
-	RenderTextOnScreen(&TEXT, "LOADING", Color(1, 1, 1), 1, 0, 0);
+	RenderTextOnScreen(&TEXT, "LOADING", Color(1, 1, 1), 1, orthSize.x * 0.5f - 3, orthSize.y * 0.5f);
 }
 
 void SceneEmpty::UpdateDerived(double dt)

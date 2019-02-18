@@ -17,7 +17,7 @@ void LoadSceneButton::AnimateButton()
 {
 	if (hover)
 	{
-		SetScale(Vector3(8, 3, 0));
+		SetScale(Vector3(8, 2, 0));
 	}
 
 	else

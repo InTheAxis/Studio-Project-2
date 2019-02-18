@@ -3,6 +3,9 @@
 
 #include "timer.h"
 
+#define RESOLUTION_X _RESOLUTION_X
+#define RESOLUTION_Y _RESOLUTION_Y
+
 class Application
 {
 public:
@@ -14,6 +17,8 @@ public:
 	static bool IsKeyPressed(unsigned short key);
 
 	static double cursorX, cursorY;
+	const static int _RESOLUTION_X = 1080;
+	const static int _RESOLUTION_Y = 720;
 private:
 	//Declare a window object
 	StopWatch m_timer;

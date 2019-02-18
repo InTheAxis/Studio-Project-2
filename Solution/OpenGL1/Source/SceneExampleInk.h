@@ -3,6 +3,7 @@
 
 #include "Scene.h"
 #include "Paintable.h"
+#include "Grid.h"
 
 class SceneExampleInk : public Scene
 {
@@ -10,8 +11,11 @@ public:
 	SceneExampleInk();
 	~SceneExampleInk();
 protected:
-	GameObject QUAD1;
-	Paintable QUAD2;
+	Grid level;
+	GameObject floor;
+	Paintable paintLayer;
+
+	Paint yellow, purple;
 
 	virtual void InitDerived();
 	virtual void RenderDerived();

@@ -124,6 +124,10 @@ protected:
 	unsigned m_programID;
 	unsigned m_parameters[U_TOTAL];
 	MS modelStack, viewStack, projectionStack;
+	unsigned m_frameBufferID;
+	unsigned m_frameBufferTexture;
+	unsigned m_renderBufferID;
+
 	//for changing scenes
 	int targetSceneIndex;
 	bool changingScene;
@@ -148,9 +152,14 @@ protected:
 	bool captureMouse;
 	int numLights;
 	int currentCam;
+	Vector3 orthSize;
 
 	//for changing scenes
 	void RequestChangeScene(int index);
+
+	//read and write from frame buffer object
+	std::vector<Color> ReadFromFBO(unsigned fboID);
+	void WriteFromFBO(unsigned fboID, std::string fileDest);
 
 	//helper functions to separate the init
 	void InitUniforms();
@@ -170,6 +179,8 @@ protected:
 	virtual void RenderDerived() = 0;
 	virtual void UpdateDerived(double dt) = 0;
 	virtual void UpdateDerivedBounced(double dt) = 0;
+
+	bool pause;
 };
 
 #endif

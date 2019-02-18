@@ -4,6 +4,7 @@ Scene::Scene()
 {
 	targetSceneIndex = 999;
 	changingScene = false;
+	pause = false;
 }
 
 void Scene::RequestChangeScene(int index)
@@ -26,6 +27,68 @@ bool Scene::GetChangeSceneEvent(int* outIndex)
 bool Scene::GetCaptureMouse()
 {
 	return captureMouse;
+}
+
+std::vector<Color> Scene::ReadFromFBO(unsigned fboID)
+{
+	//read from our custom fbo
+	glBindFramebuffer(GL_FRAMEBUFFER, fboID);
+	glReadBuffer(GL_COLOR_ATTACHMENT0);
+
+	int x = 800;//Application::RESOLUTION_X;
+	int y = 600;// Application::RESOLUTION_Y;
+	long textureSize = x * y * 3;
+	std::vector<GLfloat> data(textureSize);
+	std::vector<Color> ret(x * y);
+
+	//reading pixels, returning BGR
+	glReadPixels(0, 0, x, y, GL_BGR, GL_FLOAT, &data[0]);
+
+	//assigning results in data to rgb Color struct format to return 
+	for (int i = 0; i < textureSize; i += 3)
+	{
+		ret[i / 3] = Color(data[i + 2], data[i + 1], data[i]);
+	}
+
+	//bind back default
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	
+	return ret;
+}
+
+void Scene::WriteFromFBO(unsigned fboID, std::string fileDest)
+{
+	//read from our custom fbo
+	glBindFramebuffer(GL_FRAMEBUFFER, fboID);
+	glReadBuffer(GL_COLOR_ATTACHMENT0);
+
+	int x = Application::RESOLUTION_X;
+	int y = Application::RESOLUTION_Y;
+	long imageSize = x * y * 3;
+	unsigned char *data = new unsigned char[imageSize];
+
+	//reading pixels 
+	glReadPixels(0, 0, x, y, GL_BGR, GL_UNSIGNED_BYTE, data);
+	
+	//assembling header
+	int xa = x % 256;
+	int xb = (x - xa) / 256; 
+	int ya = y % 256;
+	int yb = (y - ya) / 256;
+	unsigned char header[18] = { 0,0,2,0,0,0,0,0,0,0,0,0,(char)xa,(char)xb,(char)ya,(char)yb,24,0 };
+	
+	//write
+	std::ofstream file(fileDest, std::ios::out | std::ios::binary);
+	file.write(reinterpret_cast<char *>(header), sizeof(char) * 18);
+	file.write(reinterpret_cast<char *>(data), sizeof(char)*imageSize);
+	file.close();
+
+	//clean up pointer
+	delete[] data;
+	data = nullptr;
+
+	//bind back default
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 Scene::~Scene()
@@ -216,13 +279,33 @@ void Scene::Init()
 	// Generate a default VAO for now
 	glGenVertexArrays(1, &m_vertexArrayID);
 	glBindVertexArray(m_vertexArrayID);
+	/*Generate FBO*/
+	glGenFramebuffers(1, &m_frameBufferID);
+	glBindFramebuffer(GL_FRAMEBUFFER, m_frameBufferID);
+	//generate a rbo for depth testing
+	glGenRenderbuffers(1, &m_renderBufferID);
+	glBindRenderbuffer(GL_RENDERBUFFER, m_renderBufferID);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, Application::_RESOLUTION_X, Application::_RESOLUTION_Y);
+	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+	//generate texture
+	glGenTextures(1, &m_frameBufferTexture);
+	glBindTexture(GL_TEXTURE_2D, m_frameBufferTexture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, Application::_RESOLUTION_X, Application::_RESOLUTION_Y, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	//attach it current fbo
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_renderBufferID);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_frameBufferTexture, 0);
+	//check if fbo is complete
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		std::cout << "Framebuffer not complete!" << std::endl;
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	/*Load shaders and link to mvp*/
 	//Load vertex and fragment shaders
 	m_programID = LoadShaders("Shader//Texture.vertexshader", "Shader///Text.fragmentshader");
 	//init uniforms, get programId
 	InitUniforms();
-	// Get a handle for our "MVP" uniform
-	m_parameters[U_MVP] = glGetUniformLocation(m_programID, "MVP");
 
 	//init required game objects
 	InitGameObjects();
@@ -242,8 +325,8 @@ void Scene::Init()
 
 void Scene::InitGameObjects()
 {
-	AXES.Init(MeshBuilder::GenerateAxes());
-	LIGHTBALL.Init(MeshBuilder::GenerateCube(Color(1, 1, 1)));
+	AXES.Init(MeshBuilder::GenerateAxes(10000, 5000, 10000));
+	LIGHTBALL.Init(MeshBuilder::GenerateCube(Color(1, 1, 0.9f)));
 	TEXT.Init(MeshBuilder::GenerateText(16, 16), "Image//Fonts//calibri.tga");
 }
 
@@ -258,6 +341,7 @@ void Scene::InitSceneVariables()
 	elapsedTime = bounceTime = 0.0;
 	lightOn = true;
 	currentCam = 1;
+	orthSize = Vector3(60, 30, 0);
 }
 
 void Scene::Update(double dt)
@@ -376,11 +460,11 @@ void Scene::Render()
 	if (DEBUG)
 	{
 		std::string temp = "FPS: " + std::to_string(fps);
-		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0.5f, 18.5f); //fps
+		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0.5f, 28.5f); //fps
 		temp = "COORDS: " + std::to_string((int)camera[currentCam]->position.x) + " "
 			+ std::to_string((int)camera[currentCam]->position.y) + " "
 			+ std::to_string((int)camera[currentCam]->position.z);
-		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0.5f, 17.5f); //coordinates
+		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0.5f, 27.5f); //coordinates
 	}
 
 }
@@ -453,7 +537,7 @@ void Scene::RenderObject(GameObject* go, bool enableLight)
 void Scene::RenderObjectOnScreen(GameObject* go, bool enableLight)
 {
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 40, 0, 20, -10, 10); //size of screen UI
+	ortho.SetToOrtho(0, orthSize.x, 0, orthSize.y, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
@@ -533,7 +617,7 @@ void Scene::RenderText(GameObject* go, std::string text, Color color)
 	for (unsigned i = 0; i < text.length(); ++i)
 	{
 		Mtx44 characterSpacing;
-		characterSpacing.SetToTranslation(i * 0.7f, 0, 0); //1.0f is the spacing of each character, you may change this value
+		characterSpacing.SetToTranslation(i * 0.8f, 0, 0); //1.0f is the spacing of each character, you may change this value
 		Mtx44 MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top() * characterSpacing;
 		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 		go->Render((unsigned)text[i] * 6, 6);
@@ -550,7 +634,7 @@ void Scene::RenderTextOnScreen(GameObject* go, std::string text, Color color, fl
 	glDisable(GL_DEPTH_TEST);
 
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 40, 0, 20, -10, 10); //size of screen UI
+	ortho.SetToOrtho(0, orthSize.x, 0, orthSize.y, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
@@ -571,7 +655,7 @@ void Scene::RenderTextOnScreen(GameObject* go, std::string text, Color color, fl
 	for (unsigned i = 0; i < text.length(); ++i)
 	{
 		Mtx44 characterSpacing;
-		characterSpacing.SetToTranslation(i * 0.7f, 0, 0); //1.0f is the spacing of each character, you may change this value
+		characterSpacing.SetToTranslation(i * 0.8f, 0, 0); //1.0f is the spacing of each character, you may change this value
 		Mtx44 MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top() * characterSpacing;
 		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 		go->Render((unsigned)text[i] * 6, 6);

@@ -1,6 +1,13 @@
-﻿  Application.cpp
-c:\program files (x86)\windows kits\10\include\10.0.17134.0\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
-  d:\users\539\desktop\ink-in-my-junk\solution\glfw\include\glfw\glfw3.h(98): note: see previous definition of 'APIENTRY'
-  SceneManager.cpp
+﻿  SceneCustomisation.cpp
+d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenecustomisation.cpp(11): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenecustomisation.cpp(100): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenecustomisation.cpp(101): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenecustomisation.cpp(105): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenecustomisation.cpp(106): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenecustomisation.cpp(116): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenecustomisation.cpp(118): warning C4305: 'argument': truncation from 'double' to 'float'
+  SceneStart.cpp
+d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenestart.cpp(16): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenestart.cpp(107): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   Generating Code...
-  OpenGL1.vcxproj -> D:\Users\539\Desktop\ink-in-my-junk\Solution\Debug\StudioProject2.exe
+  OpenGL1.vcxproj -> D:\Users\539\Downloads\ink-in-my-junk\Solution\Debug\StudioProject2.exe

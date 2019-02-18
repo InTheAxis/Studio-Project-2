@@ -14,7 +14,6 @@ void SceneCustomisation::InitDerived()
 	ARROW.Init("OBJ//ARROW.obj", "Image//Red.tga", Vector3(0, 0, 0));
 
 	TEXT.Init(MeshBuilder::GenerateText(16, 16), "Image//Fonts//calibri.tga");
-
 	camera[0]->Init(Vector3(0, 3, 5), Vector3(0, 0.5f, 0), Vector3(0, 1, 0)); //Camera Initialisation
 
 	// F1.Init("OBJ//F1.obj", "Image//F1.tga", Vector3(0, -20, 0));

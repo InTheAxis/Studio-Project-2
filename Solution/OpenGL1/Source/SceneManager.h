@@ -6,10 +6,14 @@
 //test scenes
 #include "SceneExampleCar.h"
 #include "SceneExampleInk.h"
+#include "SceneExampleCarInk.h"
+#include "SceneExampleFBO.h"
 //actual scenes
 #include "SceneEmpty.h"
 #include "SceneStart.h"
 #include "SceneLevelSelect.h"
+#include "SceneLevel1.h"
+#include "SceneCustomisation.h"
 
 class SceneManager
 {
@@ -27,12 +31,14 @@ private:
 	int currentIndex;
 
 	//testing
-	SceneExampleCar example;
-	
+	SceneExampleInk example;
+
 	//actual
 	SceneEmpty empty;
 	SceneStart startMenu;
 	SceneLevelSelect levels;
+	SceneLevel1 level1;
+	SceneCustomisation custom;
 
 	enum gameScenes
 	{
@@ -42,6 +48,8 @@ private:
 		LEVEL_1,
 		RESULTS,
 		PAUSE,
+		CUSTOMISATION_SCREEN,
+
 		NUM_OF_SCENES
 	};
 	Scene* allScenes[NUM_OF_SCENES];

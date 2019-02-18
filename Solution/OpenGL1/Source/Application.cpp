@@ -15,7 +15,7 @@
 GLFWwindow* m_window;
 const unsigned char FPS = 60; // FPS of this game
 const unsigned int frameTime = 1000 / FPS; // time for each frame
-double Application::cursorX = 0, Application::cursorY = 0; //cursor xy
+double Application::cursorX = RESOLUTION_X * 0.5f, Application::cursorY = RESOLUTION_Y * 0.5f; //cursor xy
 
 //Define an error callback
 static void error_callback(int error, const char* description)
@@ -59,7 +59,7 @@ void resize_callback(GLFWwindow* window, int w, int h)
 void Application::Init()
 {
 	//set seed for random
-	srand(static_cast<unsigned int>(time(NULL)));
+	Math::InitRNG();
 	
 	//Set the error callback
 	glfwSetErrorCallback(error_callback);
@@ -79,7 +79,7 @@ void Application::Init()
 
 
 	//Create a window and create its OpenGL context
-	m_window = glfwCreateWindow(1080, 720, "Test Window", NULL, NULL);
+	m_window = glfwCreateWindow(RESOLUTION_X, RESOLUTION_Y, "Test Window", NULL, NULL);
 
 	//If the window couldn't be created
 	if (!m_window)
@@ -100,6 +100,7 @@ void Application::Init()
 
 	//Sets mouse callback
 	glfwSetCursorPosCallback(m_window, cursor_position_callback);
+	glfwSetCursorPos(m_window, Application::cursorX, Application::cursorY);
 
 	glewExperimental = true; // Needed for core profile
 	//Initialize GLEW
