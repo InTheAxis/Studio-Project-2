@@ -1,9 +1,9 @@
-﻿  SceneGarage.cpp
-d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(11): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(88): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(93): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(100): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(105): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(112): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(117): warning C4305: 'argument': truncation from 'double' to 'float'
-  OpenGL1.vcxproj -> D:\Users\539\Downloads\ink-in-my-junk\Solution\Debug\StudioProject2.exe
+﻿  SceneGame.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\scenegame.cpp(82): warning C4018: '<': signed/unsigned mismatch
+  SceneLevelSelect.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\scenelevelselect.cpp(61): warning C4018: '<': signed/unsigned mismatch
+  SceneStart.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\scenestart.cpp(16): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\scenestart.cpp(71): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  OpenGL1.vcxproj -> D:\Users\539\Desktop\ink-in-my-junk\Solution\Debug\StudioProject2.exe

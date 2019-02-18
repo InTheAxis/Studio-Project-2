@@ -62,15 +62,29 @@ void SceneStart::UpdateDerived(double dt)
 	if (garage.GetOnClickEvent())
 	{
 		allButtons[buttonindex]->SetHover(false);
-		play.SetOnClickEvent(false);
+		garage.SetOnClickEvent(false);
 		RequestChangeScene(6);
 	}
 
+	if (Application::leftMouseClick)
+	{
+		for (int i = 0; i < allButtons.size(); ++i)
+		{
+			if (allButtons[i]->GetHover())
+			{
+				allButtons[i]->DoAction();
+				break;
+			}
+
+
+		}
+	}
 }
 
 void SceneStart::UpdateDerivedBounced(double dt)
 {
 	//selector controls
+	
 
 	if (Application::IsKeyPressed(VK_RETURN))
 	{

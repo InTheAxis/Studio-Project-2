@@ -2,6 +2,7 @@
 #define SCENE_GAME_H
 #include "Scene.h"
 #include "LoadSceneButton.h"
+#include "Cursor.h"
 
 class SceneGame :public Scene
 {
@@ -15,6 +16,7 @@ protected:
 	virtual void UpdateDerivedBounced(double dt);
 	virtual void RenderFrameBuffer();
 private:
+	Cursor mouse;
 	LoadSceneButton resumeButton, exitButton;
 	GameObject car;
 	GameObject skybox;
