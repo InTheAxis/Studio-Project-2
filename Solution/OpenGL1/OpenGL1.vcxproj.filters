@@ -129,7 +129,7 @@
     <ClInclude Include="Source\SceneGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SceneGarage.h">
+    <ClInclude Include="Source\SceneCustomisation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -236,7 +236,7 @@
     <ClCompile Include="Source\SceneGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SceneGarage.cpp">
+    <ClCompile Include="Source\SceneCustomisation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

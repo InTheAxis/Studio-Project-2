@@ -172,7 +172,7 @@
     <ClInclude Include="Source\GridCell.h" />
     <ClInclude Include="Source\RigidBody.h" />
     <ClInclude Include="Source\Scene.h" />
-    <ClInclude Include="Source\SceneGarage.h" />
+    <ClInclude Include="Source\SceneCustomisation.h" />
     <ClInclude Include="Source\SceneEmpty.h" />
     <ClInclude Include="Source\SceneExample.h" />
     <ClInclude Include="Source\SceneExampleCar.h" />
@@ -210,7 +210,7 @@
     <ClCompile Include="Source\GridCell.cpp" />
     <ClCompile Include="Source\RigidBody.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
-    <ClCompile Include="Source\SceneGarage.cpp" />
+    <ClCompile Include="Source\SceneCustomisation.cpp" />
     <ClCompile Include="Source\SceneEmpty.cpp" />
     <ClCompile Include="Source\SceneExample.cpp" />
     <ClCompile Include="Source\SceneExampleCar.cpp" />

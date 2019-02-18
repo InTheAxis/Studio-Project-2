@@ -5,11 +5,11 @@
 #include "Paintable.h"
 
 
-class SceneGarage : public Scene
+class SceneCustomisation : public Scene
 {
 public:
-	SceneGarage();
-	~SceneGarage();
+	SceneCustomisation();
+	~SceneCustomisation();
 
 	enum Vehicle
 	{
@@ -29,28 +29,6 @@ public:
 		C_AQUA,
 
 		C_TOTAL
-	};
-	enum TextColor
-	{
-		S_RED = 0,
-		S_GREEN, 
-		S_BLUE, 
-		S_YELLOW,
-		S_PURPLE,
-		S_AQUA,
-
-		S_TOTAL
-	};
-	enum ArrowColor
-	{
-		A_RED = 0,
-		A_GREEN,
-		A_BLUE,
-		A_YELLOW,
-		A_PURPLE,
-		A_AQUA,
-
-		A_TOTAL
 	};
 
 protected:
@@ -76,8 +54,6 @@ protected:
 	int CurrentColor;
 
 	bool Selected;
-	int CurrentColorText;
-	int CurrentColorArrow;
 };
 
 #endif 
