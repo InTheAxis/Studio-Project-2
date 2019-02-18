@@ -1,16 +1,11 @@
-# Database
-*.opendb
-*.db
-*.db-shm
-*.db-wal
-ipch
-
-.mtl
+*.mtl
 
 Solution/Common/Debug/*.obj
 Solution/Common/Debug/*.pdb
 Solution/Common/Debug/*.idb
 Solution/Common/Debug/*.tlog
+Solution/Common/Debug/*.log
+Solution/OpenGL1/Debug/*.log
 Solution/OpenGL1/Debug/*.obj
 Solution/OpenGL1/Debug/*.pdb
 Solution/OpenGL1/Debug/*.idb
@@ -25,6 +20,8 @@ Solution/Common/Release/*.obj
 Solution/Common/Release/*.pdb
 Solution/Common/Release/*.idb
 Solution/Common/Release/*.tlog
+Solution/Common/Release/*.log
+Solution/OpenGL1/Release/*.log
 Solution/OpenGL1/Release/*.obj
 Solution/OpenGL1/Release/*.pdb
 Solution/OpenGL1/Release/*.idb
