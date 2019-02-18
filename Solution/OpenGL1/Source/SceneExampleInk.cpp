@@ -10,8 +10,8 @@ SceneExampleInk::SceneExampleInk()
 void SceneExampleInk::InitDerived()
 {
 
-	floor.Init("OBJ//ground-low.obj", "Screenshots//test.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
-	paintLayer.Init("OBJ//ground-high.obj", "", Vector3(0, 0.3f, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
+	floor.Init("floor", "OBJ//ground-low.obj", "Screenshots//test.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
+	paintLayer.Init("paint", "OBJ//ground-high.obj", "", Vector3(0, 0.3f, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
 
 	floor.SetMaterial(dull);
 	paintLayer.SetMaterial(dull);
@@ -24,14 +24,13 @@ void SceneExampleInk::InitDerived()
 	purple.SetPaintColor(Color(1, 0, 1));
 }
 
-void SceneExampleInk::RenderDerived()
+void SceneExampleInk::RenderFrameBuffer()
 {
-	glBindFramebuffer(GL_FRAMEBUFFER, m_frameBufferID);
-	glClearColor(0, 0, 0, 0);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	RenderObject(&paintLayer, false);
-	
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+void SceneExampleInk::RenderDerived()
+{	
 	RenderObject(&floor);
 	RenderObject(&paintLayer);
 }

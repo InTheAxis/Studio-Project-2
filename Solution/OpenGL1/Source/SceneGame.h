@@ -1,25 +1,28 @@
-#ifndef SCENELEVEL1
-#define SCENELEVEL1
+#ifndef SCENE_GAME_H
+#define SCENE_GAME_H
 #include "Scene.h"
 #include "LoadSceneButton.h"
 
-class SceneLevel1 :public Scene
+class SceneGame :public Scene
 {
 public:
-	SceneLevel1();
-	~SceneLevel1();
+	SceneGame();
+	~SceneGame();
 protected:
 	virtual void InitDerived();
 	virtual void RenderDerived();
 	virtual void UpdateDerived(double dt);
 	virtual void UpdateDerivedBounced(double dt);
+	virtual void RenderFrameBuffer();
 private:
-	LoadSceneButton resume, exit;
+	LoadSceneButton resumeButton, exitButton;
 	GameObject car;
 	GameObject skybox;
 	std::vector<Button*> allButtons;
-	int buttonindex;
-	int totalbuttons;
+	
+	int buttonIndex;
+
+	const int NUM_OF_BUTTONS = 2;
 };
 
 #endif

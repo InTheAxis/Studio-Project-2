@@ -16,7 +16,7 @@ public:
 	void SetOrthSize(Vector3);
 	void Move(double dt);
 	void CheckHover();	
-	void AddButton(std::vector<Button*> allButtons);
+	void SetAllButton(std::vector<Button*> allButtons);
 	Button* GetButton(int index);
 
 private:

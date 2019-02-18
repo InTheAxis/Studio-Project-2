@@ -72,7 +72,7 @@ void Cursor::CheckHover()
 		
 }
 
-void Cursor::AddButton(std::vector<Button*> allButtons)
+void Cursor::SetAllButton(std::vector<Button*> allButtons)
 {
 	this->allButtons = allButtons;
 }

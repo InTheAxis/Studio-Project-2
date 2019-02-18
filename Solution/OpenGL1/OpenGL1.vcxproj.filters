@@ -66,9 +66,6 @@
     <ClInclude Include="Source\SceneStart.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SceneLevelSelect.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\RigidBody.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -117,9 +114,6 @@
     <ClInclude Include="Source\SceneExampleCar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SceneLevel1.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\MyMathExtended.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -129,10 +123,16 @@
     <ClInclude Include="Source\Paint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SceneCustomisation.h">
+    <ClInclude Include="Source\SceneGame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneGarage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Cursor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneLevelSelect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -230,16 +230,16 @@
     <ClCompile Include="Source\SceneExampleCar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SceneLevel1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\SceneExampleFBO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Paint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SceneCustomisation.cpp">
+    <ClCompile Include="Source\SceneGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneGarage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Cursor.cpp">

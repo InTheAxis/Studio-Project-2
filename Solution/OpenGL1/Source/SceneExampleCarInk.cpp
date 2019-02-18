@@ -7,10 +7,10 @@ SceneExampleCarInk::SceneExampleCarInk()
 
 void SceneExampleCarInk::InitDerived()
 {
-	car.Init("OBJ//taxi.obj", "Image//taxi.tga", Vector3(0, 0, 0));
+	car.Init("car", "OBJ//taxi.obj", "Image//taxi.tga", Vector3(0, 0, 0));
 	car.CreateRigidBody(Vector3(0, 0, 10), 1200, 0.1f, 0.09f);
-	floor.Init("OBJ//ground-low.obj", "Image//color2.tga");
-	paintLayer.Init("OBJ//ground-high.obj", "", Vector3(0, 0.25f, 0));
+	floor.Init("floor", "OBJ//ground-low.obj", "Image//color2.tga");
+	paintLayer.Init("paintLayer", "OBJ//ground-high.obj", "", Vector3(0, 0.25f, 0));
 
 	car.SetMaterial(shiny);
 	floor.SetMaterial(dull);

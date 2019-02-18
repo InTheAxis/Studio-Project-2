@@ -13,6 +13,31 @@ void Scene::RequestChangeScene(int index)
 	this->changingScene = true;
 }
 
+void Scene::RequestDontDestroy(GameObject * go)
+{
+	this->dontDestroy.emplace_back(go);
+}
+
+GameObject * Scene::GetDontDestroyGameObject(std::string name)
+{
+	for (GameObject* &go : dontDestroy)
+	{
+		if (go->GetName() == name)
+			return go;
+	}
+	return nullptr;
+}
+
+std::vector<GameObject*> Scene::RetriveDontDestroy()
+{
+	return dontDestroy;
+}
+
+void Scene::PushToDontDestroy(GameObject * go)
+{
+	this->dontDestroy.emplace_back(go);
+}
+
 bool Scene::GetChangeSceneEvent(int* outIndex)
 {
 	if (changingScene)
@@ -177,6 +202,21 @@ void Scene::InitUniforms()
 	glUseProgram(m_programID);
 }
 
+void Scene::InitCameras()
+{
+	/*Default Initialisation of cameras*/
+	follower.SetOffset(Vector3(0, 10, -10));
+	topDown.SetOffset(Vector3(0, 0, 0));
+
+	camera[FIXED_FOLLOWER] = &follower;
+	camera[FIXED_TOP_DOWN] = &topDown;
+	camera[FREE_DEBUG] = &freeRoam;
+
+	camera[FIXED_FOLLOWER]->Init(Vector3(0, 10, 0), Vector3(0, 0, -1), Vector3(0, 1, 0));
+	camera[FIXED_TOP_DOWN]->Init(Vector3(0, 20, 0), Vector3(0, 0, 0), Vector3(0, 0, 1));
+	camera[FREE_DEBUG]->Init(Vector3(0, 10, -20), Vector3(0, 0, -1), Vector3(0, 1, 0));
+}
+
 void Scene::InitLights()
 {
 	glUniform1i(m_parameters[U_NUMLIGHTS], 1);
@@ -260,9 +300,7 @@ void Scene::InitLights()
 
 void Scene::Init()
 {
-	/*Default Initialisation of cameras*/
-	camera[0]->Init(Vector3(0, 10, -20), Vector3(0, 0, 0), Vector3(0, 1, 0));
-	camera[1]->Init(Vector3(0, 10, -20), Vector3(0, 0, -1), Vector3(0, 1, 0));
+	
 	/*Windows Console Settings*/
 	SetConsoleMode(GetStdHandle(STD_INPUT_HANDLE), ENABLE_MOUSE_INPUT);
 	/*OpenGL Settings*/
@@ -315,6 +353,8 @@ void Scene::Init()
 	//camera.Init(Vector3(0, 10, -20), Vector3(-1, 25, 0), Vector3(0, 1, 0));
 	//init lights
 	InitLights();
+	//default init cams
+	InitCameras();
 	//init projection matrix
 	Mtx44 projection;
 	projection.SetToPerspective(45.f, 4.f / 3.f, 0.1f, 10000.f);  //FOV, Aspect Ratio, Near plane, Far plane
@@ -325,9 +365,9 @@ void Scene::Init()
 
 void Scene::InitGameObjects()
 {
-	AXES.Init(MeshBuilder::GenerateAxes(10000, 5000, 10000));
-	LIGHTBALL.Init(MeshBuilder::GenerateCube(Color(1, 1, 0.9f)));
-	TEXT.Init(MeshBuilder::GenerateText(16, 16), "Image//Fonts//calibri.tga");
+	AXES.Init("axes", MeshBuilder::GenerateAxes(10000, 5000, 10000));
+	LIGHTBALL.Init("lightball", MeshBuilder::GenerateCube(Color(1, 1, 0.9f)));
+	TEXT.Init("text", MeshBuilder::GenerateText(16, 16), "Image//Fonts//calibri.tga");
 }
 
 void Scene::InitSceneVariables()
@@ -340,19 +380,28 @@ void Scene::InitSceneVariables()
 	fps = 0;
 	elapsedTime = bounceTime = 0.0;
 	lightOn = true;
-	currentCam = 1;
+	currentCam = FREE_DEBUG;
 	orthSize = Vector3(60, 30, 0);
 }
 
 void Scene::Update(double dt)
 {
 	/*frequent priority checks*/
-
-	//0 is fixed, 1 is free
-	if (!currentCam)
-		camera[0]->Update(dt, Vector3(0, 10, -10), Vector3(0, 0, 0)); //default values, overwrite this
-	else
-		camera[1]->Update(dt, Vector3(0, 10, -10), Vector3(Application::cursorX, Application::cursorY, 0)); //update camera
+	if (!pause)
+	{
+		switch (currentCam)
+		{
+		case FIXED_FOLLOWER:
+			camera[FIXED_FOLLOWER]->Update(dt, Vector3(0, 10, -10), Vector3(0, 0, 0)); //default values, overwrite this
+			break;
+		case FIXED_TOP_DOWN:
+			//never moves?
+			break;
+		case FREE_DEBUG:
+			camera[FREE_DEBUG]->Update(dt, Vector3(0, 10, -10), Vector3(Application::cursorX, Application::cursorY, 0)); //update camera
+			break;
+		}
+	}
 
 	UpdateDerived(dt);
 	/*Bounced checks*/
@@ -367,71 +416,77 @@ void Scene::Update(double dt)
 	{
 		DEBUG = !DEBUG;
 	}
-	if (Application::IsKeyPressed('1'))
+	if (DEBUG)
 	{
-		glEnable(GL_CULL_FACE);
+		if (Application::IsKeyPressed('1'))
+		{
+			glEnable(GL_CULL_FACE);
+		}
+		else if (Application::IsKeyPressed('2'))
+		{
+			glDisable(GL_CULL_FACE);
+		}
+		if (Application::IsKeyPressed('3'))
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); //default fill mode
+		}
+		else if (Application::IsKeyPressed('4'))
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
+		}
+		//noclip toggle for free roam cam
+		if (Application::IsKeyPressed('5'))
+		{
+			freeRoam.ToggleNoClip();
+		}
+		//light toggle
+		if (Application::IsKeyPressed('6'))
+		{
+			lightOn = !lightOn;
+		}
+		//toggle mouse capture
+		if (Application::IsKeyPressed('7'))
+		{
+			captureMouse = !captureMouse;
+		}
+		//cycle through cameras
+		if (Application::IsKeyPressed('8'))
+		{
+			currentCam++;
+			currentCam %= 3;
+		}
+		//inversion toggle for free roam cam
+		if (Application::IsKeyPressed('9'))
+		{
+			freeRoam.ToggleInvert(1, 0);
+		}
+		if (Application::IsKeyPressed('0'))
+		{
+			freeRoam.ToggleInvert(0, 1);
+		}
 	}
-	else if (Application::IsKeyPressed('2'))
-	{
-		glDisable(GL_CULL_FACE);
-	}
-	if (Application::IsKeyPressed('3'))
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); //default fill mode
-	}
-	else if (Application::IsKeyPressed('4'))
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
-	}
-
-	//noclip toggle
-	if (Application::IsKeyPressed('5'))
-	{
-		dynamic_cast<FreeCam*>(camera[1])->ToggleNoClip();
-	}
-
-	//light toggle
-	if (Application::IsKeyPressed('6'))
-	{
-		lightOn = !lightOn;
-	}
-
-	//toggle mouse capture
-	if (Application::IsKeyPressed('7'))
-	{
-		captureMouse = !captureMouse;
-	}
-
-	if (Application::IsKeyPressed('8'))
-	{
-		currentCam = !currentCam;
-	}
-	if (Application::IsKeyPressed('9'))
-	{
-		dynamic_cast<FreeCam*>(camera[1])->ToggleInvert(1, 0);
-	}
-	if (Application::IsKeyPressed('0'))
-	{
-		dynamic_cast<FreeCam*>(camera[1])->ToggleInvert(0, 1);
-	}
-
-	//reset 
-	if (Application::IsKeyPressed('R'))
-	{
-		//shouldnt have moved so this is unneeded
-		//for (int i = 0; i < 5; ++i) //5 lights
-		//{
-		//	lights[i].position = lights[i].defaultPos;
-		//}
-
-		camera[currentCam]->Reset();
-	}
-
 	UpdateDerivedBounced(dt);
+}
+
+void Scene::RenderFrameBuffer()
+{
+	//to be overriden, template below
+	/*
+	
+	RenderTextOnScreen(&TEXT, "HELLO", Color(1, 1, 1), 1, orthSize.x * 0.5f - 3, orthSize.y * 0.5f);
+	
+	*/
 }
 
 void Scene::Render()
 {
+	//rendering to fbo
+	glBindFramebuffer(GL_FRAMEBUFFER, m_frameBufferID); //bind
+	glClearColor(0, 0, 0, 0); //set clearColor
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear
+	RenderFrameBuffer(); //render
+	glBindFramebuffer(GL_FRAMEBUFFER, 0); //bind default
+
 	//set background color
 	glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 	// Clear color and depth buffer every frame
@@ -465,6 +520,8 @@ void Scene::Render()
 			+ std::to_string((int)camera[currentCam]->position.y) + " "
 			+ std::to_string((int)camera[currentCam]->position.z);
 		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0.5f, 27.5f); //coordinates
+		temp = "CAMERA: " + std::to_string(currentCam);
+		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0.5f, 26.5f); //camera
 	}
 
 }

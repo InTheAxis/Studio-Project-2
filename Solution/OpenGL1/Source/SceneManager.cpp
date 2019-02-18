@@ -13,8 +13,8 @@ SceneManager::SceneManager()
 	allScenes[0] = &example;
 	allScenes[START] = &startMenu;
 	allScenes[LEVEL_SELECT] = &levels;
-	allScenes[LEVEL_1] = &level1;
-	allScenes[CUSTOMISATION_SCREEN] = &custom;
+	allScenes[LEVEL_1] = &game;
+	allScenes[CUSTOMISATION_SCREEN] = &garage;
 }
 
 Scene* SceneManager::GetFirstScene()
@@ -39,6 +39,12 @@ void SceneManager::PollForSceneChangeEvent()
 	int index = 999;
 	if (allScenes[currentIndex]->GetChangeSceneEvent(&index))
 	{
+		for (GameObject* &go : allScenes[currentIndex]->RetriveDontDestroy())
+		{
+			std::cout << "Storing \"" << go->GetName() << "\" in memory ";
+			std::cout << "from Scene index: " << currentIndex << "\n";
+			allScenes[index]->PushToDontDestroy(go);
+		}
 		currentIndex = index;
 		ChangeScene(index);
 	}

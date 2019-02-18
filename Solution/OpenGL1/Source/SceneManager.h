@@ -12,8 +12,8 @@
 #include "SceneEmpty.h"
 #include "SceneStart.h"
 #include "SceneLevelSelect.h"
-#include "SceneLevel1.h"
-#include "SceneCustomisation.h"
+#include "SceneGame.h"
+#include "SceneGarage.h"
 
 class SceneManager
 {
@@ -31,14 +31,14 @@ private:
 	int currentIndex;
 
 	//testing
-	SceneExampleInk example;
+	SceneGame example;
 
 	//actual
 	SceneEmpty empty;
 	SceneStart startMenu;
 	SceneLevelSelect levels;
-	SceneLevel1 level1;
-	SceneCustomisation custom;
+	SceneGame game;
+	SceneGarage garage;
 
 	enum gameScenes
 	{
