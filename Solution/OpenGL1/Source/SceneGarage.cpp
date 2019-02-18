@@ -48,7 +48,11 @@ void SceneGarage::InitDerived()
 void SceneGarage::RenderDerived()
 {
 	RenderObject(&BACKGROUND);
+
 	RenderObjectOnScreen(&ARROW);
+	ARROW.SetScale(Vector3(16,12.5,3));
+	ARROW.SetTranslate(Vector3(30,-4.5f,0));
+	
 
 	//============================ Vehicle Switching ==============================
 	if (CurrentVehicle == V_TAXI)
@@ -67,14 +71,14 @@ void SceneGarage::RenderDerived()
 	//================================ Text =======================================
 	if (Selected == 0) //If Vehicle mode
 	{
-		RenderTextOnScreen(&TEXT, SVehicle, Color(0, 1, 0), 2.1f, 11.3f, 12.6f);
-		RenderTextOnScreen(&TEXT, SColor, Color(1, 0, 0), 1.5f, 17.5f, 1.5f);
+		RenderTextOnScreen(&TEXT, SVehicle, Color(0, 1, 0), 2.1f, 11.3f, 12.5f);
+		RenderTextOnScreen(&TEXT, SColor, Color(1, 0, 0), 1.5f, 17.4f, 1.6f);
 
 	}
 	else if (Selected == 1) //If Colour mode
 	{
-		RenderTextOnScreen(&TEXT, SColor, Color(0, 1, 0), 2.1f, 11.6f, 1.f);
-		RenderTextOnScreen(&TEXT, SVehicle, Color(1, 0, 0), 1.5f, 17.f, 17.5f);
+		RenderTextOnScreen(&TEXT, SColor, Color(0, 1, 0), 2.1f, 11.8f, 1.f);
+		RenderTextOnScreen(&TEXT, SVehicle, Color(1, 0, 0), 1.5f, 17.2f, 17.7f);
 	}
 }
 

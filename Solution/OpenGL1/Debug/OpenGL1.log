@@ -1,9 +1,2 @@
-﻿  SceneGarage.cpp
-d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(11): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(88): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(93): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(100): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(105): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(112): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\users\539\downloads\ink-in-my-junk\solution\opengl1\source\scenegarage.cpp(117): warning C4305: 'argument': truncation from 'double' to 'float'
+﻿  SceneManager.cpp
   OpenGL1.vcxproj -> D:\Users\539\Downloads\ink-in-my-junk\Solution\Debug\StudioProject2.exe
