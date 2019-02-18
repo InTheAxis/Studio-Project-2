@@ -34,3 +34,8 @@ void FixedCam::Reset()
 FixedCam::~FixedCam()
 {
 }
+
+void FixedCam::SetOffset(Vector3 o)
+{
+	this->offset = o;
+}

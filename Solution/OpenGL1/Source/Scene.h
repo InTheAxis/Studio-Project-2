@@ -118,6 +118,15 @@ public:
 	bool GetChangeSceneEvent(int* outIndex);
 	//for capturing mouse
 	bool GetCaptureMouse();
+
+	enum CAMERAS
+	{
+		FIXED_FOLLOWER = 0, //need to init and update in own scene with following target
+		FIXED_TOP_DOWN, //top down view of 0,0,0
+		FREE_DEBUG, //free roam camera with mouse control
+		NUM_OF_CAMS
+	};
+
 protected:
 	//essentials for opengl
 	unsigned m_vertexArrayID;
@@ -133,7 +142,9 @@ protected:
 	bool changingScene;
 
 	//other objects required
-	Camera* camera[2] = { new FixedCam, new FreeCam };
+	FixedCam topDown, follower;
+	FreeCam freeRoam;
+	Camera* camera[NUM_OF_CAMS];
 	Light lights[5];
 
 	//essential gameobjects
@@ -153,6 +164,7 @@ protected:
 	int numLights;
 	int currentCam;
 	Vector3 orthSize;
+	bool pause;
 
 	//for changing scenes
 	void RequestChangeScene(int index);
@@ -163,6 +175,7 @@ protected:
 
 	//helper functions to separate the init
 	void InitUniforms();
+	void InitCameras();
 	void InitLights();
 	void InitGameObjects();
 	void InitSceneVariables();
@@ -179,8 +192,7 @@ protected:
 	virtual void RenderDerived() = 0;
 	virtual void UpdateDerived(double dt) = 0;
 	virtual void UpdateDerivedBounced(double dt) = 0;
-
-	bool pause;
+	virtual void RenderFrameBuffer(); //optional to override
 };
 
 #endif

@@ -24,14 +24,13 @@ void SceneExampleInk::InitDerived()
 	purple.SetPaintColor(Color(1, 0, 1));
 }
 
-void SceneExampleInk::RenderDerived()
+void SceneExampleInk::RenderFrameBuffer()
 {
-	glBindFramebuffer(GL_FRAMEBUFFER, m_frameBufferID);
-	glClearColor(0, 0, 0, 0);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	RenderObject(&paintLayer, false);
-	
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+void SceneExampleInk::RenderDerived()
+{	
 	RenderObject(&floor);
 	RenderObject(&paintLayer);
 }

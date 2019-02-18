@@ -13,14 +13,14 @@ public:
 
 	FixedCam();
 	~FixedCam();
+	void SetOffset(Vector3);
 	virtual void Update(double dt, Vector3 translate, Vector3 rotate);
 	virtual void Reset();
 
 private:
 	virtual void InitDerived();
 	
-	Vector3 offset = Vector3(0, 10, -10);
-
+	Vector3 offset;
 	Mtx44 rotationMatrixP;
 };
 
