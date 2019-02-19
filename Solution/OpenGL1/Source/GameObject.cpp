@@ -7,6 +7,7 @@ GameObject::GameObject()
 	this->translate = Vector3(0, 0, 0);
 	this->rotate = Vector3(0, 0, 0);
 	this->scale = Vector3(1, 1, 1);
+	this->pivot = Vector3(0, 0, 0);
 }
 
 void GameObject::Init(std::string name, std::string filePathOBJ, std::string filePathTGA, Vector3 translate, Vector3 rotate, Vector3 scale)
@@ -68,6 +69,16 @@ void GameObject::ChangeTexture(int textureIndex)
 {
 	if (textureIDs.size() <= 0) return;
 	objectMesh->textureID = this->textureIDs[textureIndex];
+}
+
+void GameObject::TranslatePivot(Vector3 translate)
+{
+	this->pivot += translate;
+}
+
+Vector3 GameObject::GetPivot()
+{
+	return this->pivot;
 }
 
 Material* GameObject::GetMaterial()

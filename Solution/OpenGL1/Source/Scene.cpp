@@ -549,13 +549,16 @@ void Scene::RenderObject(GameObject* go, bool enableLight)
 	modelStack.PushMatrix();
 	//trs
 	modelStack.Translate(go->GetTranslate().x, go->GetTranslate().y, go->GetTranslate().z);
-	if (go->GetRotate().x != 0)
-		modelStack.Rotate(go->GetRotate().x, 1, 0, 0);
-	if (go->GetRotate().y != 0)
-		modelStack.Rotate(go->GetRotate().y, 0, 1, 0);
-	if (go->GetRotate().z != 0)
-		modelStack.Rotate(go->GetRotate().z, 0, 0, 1);
 	modelStack.Scale(go->GetScale().x, go->GetScale().y, go->GetScale().z);
+		modelStack.PushMatrix();
+		modelStack.Translate(go->GetPivot().x, go->GetPivot().y, go->GetPivot().z);
+		if (go->GetRotate().x != 0)
+			modelStack.Rotate(go->GetRotate().x, 1, 0, 0);
+		if (go->GetRotate().y != 0)
+			modelStack.Rotate(go->GetRotate().y, 0, 1, 0);
+		if (go->GetRotate().z != 0)
+			modelStack.Rotate(go->GetRotate().z, 0, 0, 1);
+		modelStack.Translate(-go->GetPivot().x, -go->GetPivot().y, -go->GetPivot().z);
 
 	Mtx44 mvp = projectionStack.Top() * viewStack.Top() * modelStack.Top();
 	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &mvp.a[0]); //update the shader with new MVP
@@ -608,6 +611,7 @@ void Scene::RenderObject(GameObject* go, bool enableLight)
 		}
 		modelStack.PopMatrix();
 
+	modelStack.PopMatrix(); //for rotate
 	modelStack.PopMatrix();
 }
 

@@ -27,6 +27,8 @@ public:
 	//getter setters
 	unsigned GetTextureID(); //getter for mesh->textureID
 	void ChangeTexture(int textureIndex); //setter for textureID
+	void TranslatePivot(Vector3 translate);
+	Vector3 GetPivot();
 	Material* GetMaterial(); //getter for mesh->material
 	void SetMaterial(Material);
 	std::string GetName();
@@ -47,7 +49,7 @@ protected:
 	std::vector<unsigned> textureIDs;
 	std::vector<GameObject*> children;
 
-	Vector3 translate, rotate, scale;
+	Vector3 translate, rotate, scale, pivot;
 	std::string name;
 };
 
