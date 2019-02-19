@@ -12,7 +12,7 @@ void SceneExampleCar::InitDerived()
 	floor.Init("floor", "OBJ//ground-low-flat.obj", "Image//color2.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1.f, 1.f, 1.f));
 	ramp.Init("ramp", "OBJ//ground-low-flat.obj", "Image//color2.tga", Vector3(-10, 0, 0), Vector3(0, 0, -45.f), Vector3(1.f, 1.f, 1.f));
 
-	car.DefineBoxCollider(Vector3(2, 2, 2));
+	car.DefineSphereCollider(Vector3(5, 1, 5));
 
 	car.SetMaterial(shiny);
 	floor.SetMaterial(dull);

@@ -425,6 +425,8 @@ void Scene::Update(double dt)
 	}
 	if (DEBUG)
 	{
+		glLineWidth(5); //to make lines easier to see
+		
 		if (Application::IsKeyPressed('1'))
 		{
 			glEnable(GL_CULL_FACE);
@@ -472,6 +474,8 @@ void Scene::Update(double dt)
 			freeRoam.ToggleInvert(0, 1);
 		}
 	}
+	else glLineWidth(1); //reset
+
 	UpdateDerivedBounced(dt);
 }
 
