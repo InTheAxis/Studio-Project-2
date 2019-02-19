@@ -27,17 +27,18 @@ public:
 	//getter setters
 	unsigned GetTextureID(); //getter for mesh->textureID
 	void ChangeTexture(int textureIndex); //setter for textureID
-	void TranslatePivot(Vector3 translate);
-	Vector3 GetPivot();
 	Material* GetMaterial(); //getter for mesh->material
 	void SetMaterial(Material);
 	std::string GetName();
 	std::vector<GameObject*> GetChildren(); //getter for children
 	Vector3 GetTranslate();
 	Vector3 GetRotate();
+	Vector3 GetPivotRotate();
+	Vector3 GetPivotPos();
 	Vector3 GetScale();
 	void SetTranslate(Vector3);
 	void SetRotate(Vector3);
+	void SetRotateAndPivot(Vector3 rotate, Vector3 pivotPos);
 	void SetScale(Vector3);
 	void IncrementTranslate(Vector3); //add to translate
 	void IncrementRotate(Vector3); //add to rotate
@@ -49,7 +50,7 @@ protected:
 	std::vector<unsigned> textureIDs;
 	std::vector<GameObject*> children;
 
-	Vector3 translate, rotate, scale, pivot;
+	Vector3 translate, rotate, scale, rotateOnPivot, pivotPosition;
 	std::string name;
 };
 
