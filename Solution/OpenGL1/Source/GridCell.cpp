@@ -5,7 +5,7 @@ GridCell::GridCell(float upleftX, float upleftZ)
 	this->upleft = Vector3(upleftX, 0, upleftZ);
 }
 
-void GridCell::ChangeColorCell(Vector3 centerVert, Color color)
+void GridCell::ChangeColorCell(Vector3 centerVert, Color color, float range)
 {
 	for (Vertex* &v : this->cell)
 	{
@@ -15,7 +15,7 @@ void GridCell::ChangeColorCell(Vector3 centerVert, Color color)
 		Vector3 temp = Vector3(v->pos.x, 0, v->pos.z) - centerVert;
 		temp.y = 0; //temporary, so i dont have to go so close to ground to test, remove!
 		float dist = Math::Square(temp.x) + Math::Square(temp.y) + Math::Square(temp.z);
-		if (dist <= VERT_RANGE) // i dont want to square root
+		if (dist <= Math::Square(range)) // i dont want to square root
 		{
 			std::cout << "Repainting: " << v->pos.x << ", " << v->pos.z << "\n";
 			v->color = color;
@@ -40,7 +40,7 @@ void GridCell::PushToAdjacents(GridCell* cell)
 		}
 	}
 	if (!exists)
-		this->adjacents.push_back(cell);
+		this->adjacents.emplace_back(cell);
 }
 
 void GridCell::PushVertToCell(Vertex* v)

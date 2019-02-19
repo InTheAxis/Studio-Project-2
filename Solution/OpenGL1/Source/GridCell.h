@@ -9,7 +9,7 @@ class GridCell
 public:
 	GridCell(float upleftX, float upleftZ);
 	
-	void ChangeColorCell(Vector3 centerVert, Color color);
+	void ChangeColorCell(Vector3 centerVert, Color color, float range = 0.6f);
 	
 	//getter setters
 	std::vector<GridCell*> GetAdjacents();
@@ -22,8 +22,6 @@ private:
 	std::vector<GridCell*> adjacents; //adjacent 8 cells
 	std::vector<Vertex*> cell; //the part of the vbo i want to search
 	Vector3 upleft;
-
-	const float VERT_RANGE = 0.6f * 0.6f; //square of the radius i want
 };
 
 #endif //! PAINTABLE_CEL_H

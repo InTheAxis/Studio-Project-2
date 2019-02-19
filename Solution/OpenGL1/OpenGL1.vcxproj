@@ -160,6 +160,7 @@
     <ClInclude Include="Source\FreeCam.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\Grid.h" />
+    <ClInclude Include="Source\GridChunk.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\LoadOBJ.h" />
     <ClInclude Include="Source\LoadSceneButton.h" />
@@ -200,6 +201,7 @@
     <ClCompile Include="Source\FreeCam.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\Grid.cpp" />
+    <ClCompile Include="Source\GridChunk.cpp" />
     <ClCompile Include="Source\Light.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
     <ClCompile Include="Source\LoadSceneButton.cpp" />

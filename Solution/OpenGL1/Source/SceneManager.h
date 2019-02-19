@@ -31,7 +31,7 @@ private:
 	int currentIndex;
 
 	//testing
-	SceneGame example;
+	SceneExampleInk example;
 
 	//actual
 	SceneEmpty empty;
