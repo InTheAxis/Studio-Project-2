@@ -22,14 +22,20 @@ void SceneGame::InitDerived()
 	allButtons.push_back(&resumeButton);
 	allButtons.push_back(&exitButton);
 
-	car.Init("car", "OBJ//toilet.obj", "Image//toilet.tga", Vector3(2, 0, 0));
+	car.Init("car", "OBJ//taxi.obj", "Image//taxi.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1.f, 1.f, 1.f));
+	car.CreateRigidBody(Vector3(0, 0, 10), 1200, 0.1f, 0.09f);
+	car.SetMaterial(shiny);
+
+	speedboost.Init("speedboost", MeshBuilder::GenerateCube(Color(0, 0, 0)), "", Vector3(0, 0.5, 5), Vector3(0, 0, 0), Vector3(1, 1, 1));
+
 	skybox.Init("skybox", "OBJ//skybox.obj", "Image//skybox.tga", Vector3(0, -50, 0), Vector3(0, 0, 0), Vector3(100, 100, 100));
 	
-	car.SetMaterial(shiny);
+
+
+	
 
 	mouse.SetOrthSize(orthSize);
 	mouse.SetAllButton(allButtons);
-
 	buttonIndex = 0;
 
 	RequestDontDestroy(&car);
@@ -41,6 +47,10 @@ void SceneGame::RenderDerived()
 
 	RenderObject(&skybox, false);
 
+	if(!speedboost.GetPickedUp())
+		RenderObject(&speedboost, false);
+
+
 	if (this->pause)
 	{
 		RenderObjectOnScreen(&resumeButton, false);
@@ -51,48 +61,98 @@ void SceneGame::RenderDerived()
 
 void SceneGame::UpdateDerived(double dt)
 {
-	if (!pause) return;
-
-	mouse.Move(dt);
-	mouse.CheckHover();
-
-	for (Button* b : allButtons)	//for each button in the vector carryout the function
+	
+	if (!pause)
 	{
-		b->AnimateButton();
-	}
+		speedboost.CheckAbsorption(car.GetTranslate());
 
-	//changing of scenes
+		speedboost.ApplyEffect(&car,dt);
 
-	if (exitButton.GetOnClickEvent())
-	{
-		allButtons[buttonIndex]->SetHover(false);
-		exitButton.SetOnClickEvent(false);
-		pause = false;
-		RequestChangeScene(1);//test
-	}
+		
 
-	if (resumeButton.GetOnClickEvent())
-	{
-		resumeButton.SetOnClickEvent(false);
-		pause = false;
-	}
-
- if (Application::leftMouseClick)
-	{
-		for (int i = 0; i < allButtons.size(); ++i)
+		if (Application::IsKeyPressed(VK_UP) && car.GetGear() > 0)
 		{
-			if (allButtons[i]->GetHover())
-			{
-				allButtons[i]->DoAction();
-				break;
-			}
+			car.MoveForward(1, dt);
+		}
+		else if (Application::IsKeyPressed(VK_UP) && car.GetGear() == 0)
+		{
+			car.MoveForward(-1, dt);
+		}
+		else
+		{
+			car.MoveForward(0, dt);
+		}
 
-			else
-			{
+		if (Application::IsKeyPressed(VK_DOWN))
+		{
+			car.Brake(true);
+		}
+		else
+		{
+			car.Brake(false);
+		}
 
+		//todo make actual turn
+		if (Application::IsKeyPressed(VK_LEFT))
+		{
+			car.MoveRight(-1, dt);
+		}
+		else if (Application::IsKeyPressed(VK_RIGHT))
+		{
+			car.MoveRight(1, dt);
+		}
+		else
+		{
+			car.MoveRight(0, dt);
+		}
+		car.UpdateSuvat(dt);
+		car.UpdateRotation(dt);
+	}
+
+	else
+	{
+		mouse.Move(dt);
+		mouse.CheckHover();
+
+		for (Button* b : allButtons)	//for each button in the vector carryout the function
+		{
+			b->AnimateButton();
+		}
+
+		//changing of scenes
+
+		if (exitButton.GetOnClickEvent())
+		{
+			allButtons[buttonIndex]->SetHover(false);
+			exitButton.SetOnClickEvent(false);
+			pause = false;
+			RequestChangeScene(1);//test
+		}
+
+		if (resumeButton.GetOnClickEvent())
+		{
+			resumeButton.SetOnClickEvent(false);
+			pause = false;
+		}
+
+		if (Application::leftMouseClick)
+		{
+			for (int i = 0; i < allButtons.size(); ++i)
+			{
+				if (allButtons[i]->GetHover())
+				{
+					allButtons[i]->DoAction();
+					break;
+				}
+
+				else
+				{
+
+				}
 			}
 		}
 	}
+	
 
 }
 
@@ -135,6 +195,8 @@ void SceneGame::UpdateDerivedBounced(double dt)
 
 		
 	}
+
+	
 
 	if (Application::IsKeyPressed(VK_ESCAPE))
 	{

@@ -138,6 +138,12 @@
     <ClInclude Include="Source\GridChunk.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Collectibles.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SpeedBoost.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
@@ -249,6 +255,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\GridChunk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SpeedBoost.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Collectibles.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
