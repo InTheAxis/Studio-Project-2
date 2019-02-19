@@ -1,3 +1,6 @@
+*.VC
+*.db-shm
+*.db-wal
 *.opendb
 *.mtl
 
