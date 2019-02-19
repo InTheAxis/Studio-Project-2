@@ -4,21 +4,21 @@
 
 Vehicle::Vehicle()
 {
-	thrustForce = MAX_FORCE / 5;
-	turningSpeed = 20.f;
+	engineForce = 20000;
+	turningForce = 4500;
+	brakeFriction = 5000;
 	gearNumber = 1;
 	wheelRadius = 0.001f;
 	angleY = 0.0f;
-	InitMaxThrustForce(MAX_FORCE);
 }
 
 void Vehicle::MoveForward(int dir, double dt)
 {
 	if (!dir)
-	{ 
+	{
 		this->forceForward = 0;
 	}
-	this->AddForceForward(Vector3(0, 0, dir * thrustForce * (float)dt));
+	this->AddForceForward(Vector3(0, 0, dir * engineForce));
 
 	this->translate += s * this->forward.Normalize();
 
@@ -28,14 +28,14 @@ void Vehicle::MoveForward(int dir, double dt)
 
 void Vehicle::MoveRight(int dir, double dt)
 {
-	if (!dir || (!v || !u))
+	if (!dir)
 	{
 		this->forceRight = 0;
 		this->angleY = 0;
 	}
-	this->AddForceRight(Vector3(0, dir * turningSpeed * (float)dt, 0));
+	this->AddForceRight(Vector3(0, 0, dir * turningForce));
 
-	angleY = -1 * forceRight * dt;
+	angleY = Math::RadianToDegree(-theta);
 	rotationMatrix.SetToRotation(angleY, 0, 1, 0);
 	forward = rotationMatrix * forward;
 	this->rotate.y += angleY;
@@ -44,49 +44,48 @@ void Vehicle::MoveRight(int dir, double dt)
 void Vehicle::Brake(bool brake)
 {
 	if (brake)
-		this->AddBrakeFriction(Vector3(0, 0, BRAKE_FRICTION));
+		this->AddBrakeFriction(Vector3(0, 0, brakeFriction));
 	else
 		this->AddBrakeFriction(Vector3(0, 0, 0));
 }
 
-void Vehicle::SetStats(float thrustForce, float turningSpeed, float wheelRadius)
+void Vehicle::SetStats(float engineForce, float brakeFriction, float turningForce, float wheelRadius)
 {
-	this->thrustForce = thrustForce;
-	this->turningSpeed = turningSpeed;
+	this->engineForce = engineForce;
+	this->brakeFriction = brakeFriction;
+	this->turningForce = turningForce;
 	this->wheelRadius = wheelRadius;
 }
 
 void Vehicle::SetGear(int gear)
 {
-	if (gear >= 0 && gear < 6)
+	if (gear >= 0 && gear <= 5)
 	{
 		this->gearNumber = gear;
 	}
 
-	switch (gearNumber) {
+	/*switch (gearNumber) {
 	case 0:
-		thrustForce = MAX_FORCE / 5;
+		engineForce = engineForce;
 		break;
 	case 1:
-		thrustForce = MAX_FORCE / 5;
+		engineForce = engineForce / 5;
 		break;
 	case 2:
-		thrustForce = (MAX_FORCE / 5) * 2;
+		engineForce = (engineForce / 5) * 2;
 		break;
 	case 3:
-		thrustForce = (MAX_FORCE / 5) * 3;
+		engineForce = (engineForce / 5) * 3;
 		break;
 	case 4:
-		thrustForce = (MAX_FORCE / 5) * 4;
+		engineForce = (engineForce / 5) * 4;
 		break;
 	case 5:
-		thrustForce = MAX_FORCE;
+		engineForce = engineForce;
 		break;
 	default:
-		thrustForce = MAX_FORCE / 5;
 		break;
-	}
-	InitMaxThrustForce(MAX_FORCE);
+	}*/
 }
 
 int Vehicle::GetGear()
@@ -94,9 +93,19 @@ int Vehicle::GetGear()
 	return gearNumber;
 }
 
-int Vehicle::GetThrustForce()
+float Vehicle::GetEngineForce()
 {
-	return thrustForce;
+	return engineForce;
+}
+
+float Vehicle::GetBrakeFriction()
+{
+	return brakeFriction;
+}
+
+float Vehicle::GetTurningForce()
+{
+	return turningForce;
 }
 
 Vector3 Vehicle::GetAngle()
