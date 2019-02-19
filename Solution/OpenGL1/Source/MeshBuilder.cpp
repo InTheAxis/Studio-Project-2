@@ -313,6 +313,43 @@ Mesh* MeshBuilder::GenerateCube(Color color)
 	return mesh;
 }
 
+Mesh * MeshBuilder::GenerateLines(std::vector<Vector3> &lineStart, std::vector<Vector3> &lineEnd, Color color)
+{
+	Vertex v;
+	std::vector<Vertex> vertex_buffer_data;
+	v.color = color;
+	v.normal = Vector3(0, 1, 0).Normalize();
+	v.texCoord.Set(0, 0);
+
+	for (int i = 0; i < lineStart.size() && i < lineEnd.size(); ++i)
+	{
+		v.pos.Set(lineStart[i].x, lineStart[i].y, lineStart[i].z);
+		vertex_buffer_data.push_back(v);
+		v.pos.Set(lineEnd[i].x, lineEnd[i].y, lineEnd[i].z);
+		vertex_buffer_data.push_back(v);
+	}
+
+	std::vector<GLuint> index_buffer_data;
+	for (int i = 0; i < (lineStart.size() * 2) && i < (lineEnd.size() * 2); ++i)
+	{
+		index_buffer_data.push_back(i);
+	}
+
+	Mesh *mesh = new Mesh;
+
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
+	glBufferData(GL_ARRAY_BUFFER, vertex_buffer_data.size() * sizeof(Vertex), &vertex_buffer_data[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->indexBuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_data.size() * sizeof(GLuint), &index_buffer_data[0], GL_STATIC_DRAW);
+
+	mesh->indexSize = index_buffer_data.size();
+	mesh->SetVBData(&vertex_buffer_data);
+
+	mesh->mode = Mesh::DRAW_LINES;
+
+	return mesh;
+}
+
 void MeshBuilder::ReloadVBO(Mesh* targetMesh)
 {
 	glBindBuffer(GL_ARRAY_BUFFER, targetMesh->vertexBuffer);

@@ -8,9 +8,14 @@ class Collidable : public GameObject
 {
 public:
 	Collidable();
+	//define a collider shape, which assumes object is initialised axis aligned
+	void DefineBoxCollider(Vector3 size);
+	void DefineSphereCollider(Vector3 radius);
+
+	void UpdateCollider();
 	~Collidable();
 protected:
-	Collider collider;
+	Collider* collider;
 };
 
 #endif
