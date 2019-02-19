@@ -20,10 +20,9 @@ public:
 	//basically just calls the Mesh::Render
 	void Render();
 	void Render(unsigned offset, unsigned count);
-	
-	//virtual void RenderChildren(); //put stuff that is under this object's hierachy here
 
 	void AddTexture(std::string filePathTGA); //adds a tga to a list of textures
+	void AddChild(GameObject*); //attach a child to this gameobject
 
 	//getter setters
 	unsigned GetTextureID(); //getter for mesh->textureID
@@ -31,6 +30,7 @@ public:
 	Material* GetMaterial(); //getter for mesh->material
 	void SetMaterial(Material);
 	std::string GetName();
+	std::vector<GameObject*> GetChildren(); //getter for children
 	Vector3 GetTranslate();
 	Vector3 GetRotate();
 	Vector3 GetScale();
@@ -45,6 +45,7 @@ public:
 protected:
 	Mesh* objectMesh;
 	std::vector<unsigned> textureIDs;
+	std::vector<GameObject*> children;
 
 	Vector3 translate, rotate, scale;
 	std::string name;

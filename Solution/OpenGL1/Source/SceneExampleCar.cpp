@@ -19,7 +19,7 @@ void SceneExampleCar::RenderDerived()
 {
 	RenderObject(&floor);
 	RenderObject(&car);
-	RenderObject(&(car.wheels[0]));
+	//RenderObject(&(car.wheels[0]));
 
 	if (DEBUG)
 	{

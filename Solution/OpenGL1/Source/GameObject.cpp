@@ -50,7 +50,13 @@ void GameObject::Render(unsigned offset, unsigned count)
 void GameObject::AddTexture(std::string filePathTGA)
 {
 	if (filePathTGA == "") return;
-	this->textureIDs.push_back(LoadTGA(filePathTGA.c_str())); 
+	this->textureIDs.emplace_back(LoadTGA(filePathTGA.c_str())); 
+}
+
+void GameObject::AddChild(GameObject* go)
+{
+	if (go != this)
+		this->children.emplace_back(go);
 }
 
 unsigned GameObject::GetTextureID()
@@ -77,6 +83,11 @@ void GameObject::SetMaterial(Material m)
 std::string GameObject::GetName()
 {
 	return this->name;
+}
+
+std::vector<GameObject*> GameObject::GetChildren()
+{
+	return this->children;
 }
 
 Vector3 GameObject::GetTranslate()

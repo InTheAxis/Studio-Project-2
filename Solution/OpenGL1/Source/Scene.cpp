@@ -599,6 +599,15 @@ void Scene::RenderObject(GameObject* go, bool enableLight)
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
+		//children
+		modelStack.PushMatrix();
+		std::vector<GameObject*> temp = go->GetChildren();
+		for (GameObject* child : temp)
+		{
+			RenderObject(child, enableLight);
+		}
+		modelStack.PopMatrix();
+
 	modelStack.PopMatrix();
 }
 
@@ -664,6 +673,15 @@ void Scene::RenderObjectOnScreen(GameObject* go, bool enableLight)
 	{
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
+
+		//children
+		modelStack.PushMatrix();
+		std::vector<GameObject*> temp = go->GetChildren();
+		for (GameObject* child : temp)
+		{
+			RenderObject(child, enableLight);
+		}
+		modelStack.PopMatrix();
 
 	projectionStack.PopMatrix();
 	viewStack.PopMatrix();
