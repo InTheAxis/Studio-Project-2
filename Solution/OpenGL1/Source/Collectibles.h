@@ -20,7 +20,7 @@ protected:
 	float maxActiveTime;
 	float activeTime;
 	
-	bool PickedUp;
+	bool pickedUp;
 
 	const float PICKUP_RANGE = 0.5f;
 

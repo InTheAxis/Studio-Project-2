@@ -8,6 +8,8 @@
 #include "LoadTGA.h"
 #include "Vector3.h"
 
+//A base class for everything that can render
+
 class GameObject
 {
 public:

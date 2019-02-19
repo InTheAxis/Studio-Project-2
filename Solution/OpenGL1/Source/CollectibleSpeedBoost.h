@@ -2,11 +2,11 @@
 #define SPEEDBOOST_H
 #include "Collectibles.h"
 
-class SpeedBoost :public Collectibles
+class CollectibleSpeedBoost :public Collectibles
 {
 public:
-	SpeedBoost();
-	~SpeedBoost();
+	CollectibleSpeedBoost();
+	~CollectibleSpeedBoost();
 	virtual bool CheckAbsorption(Vector3 objectLocation);
 	virtual void ApplyEffect(GameObject *object,double dt);
 

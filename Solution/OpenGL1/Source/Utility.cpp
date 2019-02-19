@@ -1,5 +1,6 @@
 #include "Utility.h"
 
+//operator overloading for position
 Position operator*(const Mtx44 &lhs, const Position &rhs)
 {
 	float b[4];
@@ -13,25 +14,5 @@ Position operator*(const Mtx44 &lhs, const Position &rhs)
 	return Position(b[0], b[1], b[2]);
 }
 
-Plane::Plane()
-{
-}
+/*Gilbert-Johnson-Keerthi Distance Alg*/
 
-Plane::~Plane()
-{
-}
-
-Plane::Plane(Vector3 n, Vector3 p)
-{
-	this->normal = n;
-	this->point = p;
-}
-
-float Plane::DistancePointPlane(Vector3 targetPoint)
-{
-	normal.Normalize();
-	float distPlaneFromO = this->point.Dot(normal);
-	float distPointfromO = targetPoint.Dot(normal);
-
-	return distPointfromO - distPlaneFromO;
-}

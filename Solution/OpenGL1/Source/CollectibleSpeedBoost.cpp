@@ -1,20 +1,20 @@
-#include "SpeedBoost.h"
+#include "CollectibleSpeedBoost.h"
 
-SpeedBoost::SpeedBoost()
+CollectibleSpeedBoost::CollectibleSpeedBoost()
 {
-	PickedUp = false;
+	pickedUp = false;
 	maxActiveTime = 10.f;
 	activeTime=0;
 }
 
-SpeedBoost::~SpeedBoost()
+CollectibleSpeedBoost::~CollectibleSpeedBoost()
 {
 }
 
-bool SpeedBoost::CheckAbsorption(Vector3 objectLocation)
+bool CollectibleSpeedBoost::CheckAbsorption(Vector3 objectLocation)
 {
 	/*std::cout << PickedUp << std::endl;*/
-	if (!PickedUp)
+	if (!pickedUp)
 	{
 		bool Xwithin = false;
 		bool Zwithin = false;
@@ -41,7 +41,7 @@ bool SpeedBoost::CheckAbsorption(Vector3 objectLocation)
 		// if object is touching powerup
 		if (Xwithin && Zwithin)
 		{
-			PickedUp = true;
+			pickedUp = true;
 			activeTime = maxActiveTime;
 			return true;
 		}
@@ -53,17 +53,17 @@ bool SpeedBoost::CheckAbsorption(Vector3 objectLocation)
 
 }
 
-void SpeedBoost::ApplyEffect(GameObject *object,double dt)
+void CollectibleSpeedBoost::ApplyEffect(GameObject *object,double dt)
 {
 	std::cout << activeTime << std::endl;
-	if (PickedUp)
+	if (pickedUp)
 	{
 		activeTime -= dt;
 		//add effect here
 		/*object->IncrementTranslate(Vector3(0, 0, 0.25));*/
 
 		if(activeTime<=0)
-			PickedUp = false;
+			pickedUp = false;
 	}
 	
 	else

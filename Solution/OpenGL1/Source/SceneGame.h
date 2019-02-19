@@ -3,7 +3,7 @@
 #include "Scene.h"
 #include "LoadSceneButton.h"
 #include "Cursor.h"
-#include "SpeedBoost.h"
+#include "CollectibleSpeedBoost.h"
 #include "Car.h"
 
 class SceneGame :public Scene
@@ -23,7 +23,7 @@ private:
 	Car car;
 	GameObject skybox;
 
-	SpeedBoost speedboost;
+	CollectibleSpeedBoost speedboost;
 
 	std::vector<Button*> allButtons;
 	
