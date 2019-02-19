@@ -186,6 +186,7 @@ protected:
 
 	//helper render functions
 	void RenderLights();
+	void RenderLoading();
 	void RenderObject(GameObject* go, bool enableLight = true);
 	void RenderObjectOnScreen(GameObject* go, bool enableLight = true);
 	void RenderText(GameObject* go, std::string text, Color color);

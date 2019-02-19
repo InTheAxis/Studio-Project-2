@@ -502,28 +502,32 @@ void Scene::Render()
 	Mtx44 mvp = projectionStack.Top() * viewStack.Top() * modelStack.Top();
 	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &mvp.a[0]); //>update the shader with new MVP
 
-	//axes
-	if (DEBUG)
-		RenderObject(&AXES, false);
-	//lights
-	RenderLights();
-
-	//for dervied classes
-	RenderDerived();
-
-	//UI
-	if (DEBUG)
+	if (changingScene)
+		RenderLoading();
+	else
 	{
-		std::string temp = "FPS: " + std::to_string(fps);
-		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0.5f, 28.5f); //fps
-		temp = "COORDS: " + std::to_string((int)camera[currentCam]->position.x) + " "
-			+ std::to_string((int)camera[currentCam]->position.y) + " "
-			+ std::to_string((int)camera[currentCam]->position.z);
-		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0.5f, 27.5f); //coordinates
-		temp = "CAMERA: " + std::to_string(currentCam);
-		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0.5f, 26.5f); //camera
-	}
+		//axes
+		if (DEBUG)
+			RenderObject(&AXES, false);
+		//lights
+		RenderLights();
 
+		//for dervied classes
+		RenderDerived();
+
+		//UI
+		if (DEBUG)
+		{
+			std::string temp = "FPS: " + std::to_string(fps);
+			RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0.5f, 28.5f); //fps
+			temp = "COORDS: " + std::to_string((int)camera[currentCam]->position.x) + " "
+				+ std::to_string((int)camera[currentCam]->position.y) + " "
+				+ std::to_string((int)camera[currentCam]->position.z);
+			RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0.5f, 27.5f); //coordinates
+			temp = "CAMERA: " + std::to_string(currentCam);
+			RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0.5f, 26.5f); //camera
+		}
+	}
 }
 
 void Scene::Exit()
@@ -859,4 +863,9 @@ void Scene::RenderLights()
 	}
 
 	modelStack.PopMatrix();
+}
+
+void Scene::RenderLoading()
+{
+	RenderTextOnScreen(&TEXT, "LOADING", Color(1, 1, 1), 1, orthSize.x * 0.5f - 3, orthSize.y * 0.5f);
 }
