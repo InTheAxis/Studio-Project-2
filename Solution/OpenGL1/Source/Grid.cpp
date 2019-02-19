@@ -65,6 +65,9 @@ void Grid::GenerateGrid(std::vector<Vertex>* vboPtr)
 			allChunks.emplace_back(tempChunk);
 		}
 	}
+
+	//assign cells to chunks
+	AssignCellsChunks();
 }
 
 GridCell* Grid::FindCell(int x, int z)
@@ -77,12 +80,12 @@ GridCell* Grid::FindCell(int x, int z)
 
 GridChunk * Grid::FindChunk(int x, int z)
 {
-	return nullptr;
+	return allChunks[CalcIndexForChunks(x, z)];
 }
 
 void Grid::AssignVertsCells(std::vector<Vertex>* vboPtr)
 {
-	bool error;
+	bool error = false;
 	for (Vertex &v : *vboPtr)
 	{
 		if (Math::FAbs(v.pos.x) > GRID_LENGTH_HALF || Math::FAbs(v.pos.z) > GRID_LENGTH_HALF)
@@ -102,14 +105,15 @@ int Grid::CalcIndexForCells(int x, int z)
 void Grid::AssignCellsChunks()
 {
 	for (GridCell* &gc : allCells)
-	{
-
+	{	
+		Vector3 upleftChunk = gc->GetUpleft();
+		FindChunk(upleftChunk.x, upleftChunk.z)->PushToChunkCells(gc);
 	}
 }
 
 int Grid::CalcIndexForChunks(int x, int z)
 {
-	return 0;
+	return (abs(z) % CHUNK_LENGTH * CHUNK_LENGTH + abs(x) % CHUNK_LENGTH);
 }
 
 Grid::~Grid()
