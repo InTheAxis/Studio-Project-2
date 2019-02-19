@@ -1,7 +1,7 @@
-*.VC
-*.db-shm
-*.db-wal
-*.opendb
+*.VC.db
+*.VC.db-shm
+*.VC.db-wal
+*.VC.opendb
 *.mtl
 
 Solution/Common/Debug/*.obj
