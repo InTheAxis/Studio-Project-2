@@ -24,9 +24,9 @@ void Collider::UpdateHull(Vector3 translate, Vector3 rotate)
 		hullPoints[i] += translate;
 
 		if (i < hullPoints.size() * 0.5f)
-			lineStart.emplace_back(hullPoints[i] - translate);
+			lineStart.emplace_back(hullPoints[i]);
 		else
-			lineEnd.emplace_back(hullPoints[i] - translate);
+			lineEnd.emplace_back(hullPoints[i]);
 	}
 
 	this->objectMesh = MeshBuilder::GenerateLines(lineStart, lineEnd, Color(1.f, 0.f, 1.f));

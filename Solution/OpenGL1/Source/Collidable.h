@@ -12,6 +12,8 @@ public:
 	void DefineBoxCollider(Vector3 size);
 	void DefineSphereCollider(Vector3 radius);
 
+	Collider* GetCollider(); //temporary, only need this to render the collider lol
+
 	void UpdateCollider();
 	~Collidable();
 protected:

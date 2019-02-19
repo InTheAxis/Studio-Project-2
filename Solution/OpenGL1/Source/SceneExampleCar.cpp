@@ -27,6 +27,7 @@ void SceneExampleCar::RenderDerived()
 
 	if (DEBUG)
 	{
+		RenderObject(car.GetCollider());
 		std::string temp = "Car Pos: " + std::to_string(car.GetTranslate().x) + ", " + std::to_string(car.GetTranslate().z);
 		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0, 0);
 	}

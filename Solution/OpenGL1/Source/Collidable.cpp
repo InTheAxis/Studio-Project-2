@@ -28,7 +28,6 @@ void Collidable::DefineBoxCollider(Vector3 size)
 	this->collider->SetScale(halfSize);
 	for (int i = 0; i < 8; ++i)
 		this->collider->PushToHullPoints(points[i]);
-	this->AddChild(collider);
 }
 
 void Collidable::DefineSphereCollider(Vector3 radius)
@@ -49,7 +48,11 @@ void Collidable::DefineSphereCollider(Vector3 radius)
 	this->collider->SetScale(radius);
 	for (int i = 0; i < 6; ++i)
 		this->collider->PushToHullPoints(points[i]);
-	this->AddChild(collider);
+}
+
+Collider * Collidable::GetCollider()
+{
+	return this->collider;
 }
 
 
