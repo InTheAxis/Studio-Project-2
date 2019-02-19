@@ -60,8 +60,8 @@ std::vector<Color> Scene::ReadFromFBO(unsigned fboID)
 	glBindFramebuffer(GL_FRAMEBUFFER, fboID);
 	glReadBuffer(GL_COLOR_ATTACHMENT0);
 
-	int x = 800;//Application::RESOLUTION_X;
-	int y = 600;// Application::RESOLUTION_Y;
+	int x = Application::RESOLUTION_X;
+	int y = Application::RESOLUTION_Y;
 	long textureSize = x * y * 3;
 	std::vector<GLfloat> data(textureSize);
 	std::vector<Color> ret(x * y);
@@ -89,23 +89,30 @@ void Scene::WriteFromFBO(unsigned fboID, std::string fileDest)
 
 	int x = Application::RESOLUTION_X;
 	int y = Application::RESOLUTION_Y;
-	long imageSize = x * y * 3;
-	unsigned char *data = new unsigned char[imageSize];
+	GLuint imageSize = x * y * 4;
+	GLubyte *data = new GLubyte[imageSize];
 
 	//reading pixels 
-	glReadPixels(0, 0, x, y, GL_BGR, GL_UNSIGNED_BYTE, data);
+	glReadPixels(0, 0, x, y, GL_BGRA, GL_UNSIGNED_BYTE, data);
 	
 	//assembling header
 	int xa = x % 256;
 	int xb = (x - xa) / 256; 
 	int ya = y % 256;
 	int yb = (y - ya) / 256;
-	unsigned char header[18] = { 0,0,2,0,0,0,0,0,0,0,0,0,(char)xa,(char)xb,(char)ya,(char)yb,24,0 };
-	
+	GLubyte header[18] = { 0,0,2,0,0,0,0,0,0,0,0,0,(char)xa,(char)xb,(char)ya,(char)yb,32,0 };
+
+	//removing black(clear color), setting as transparent
+	for (int i = 3; i < imageSize; i += 4)
+	{
+		if ((int)data[i - 3] == 0 && (int)data[i - 2] == 0 && (int)data[i - 1] == 0)
+			data[i] = (unsigned char)(0);
+	}
+
 	//write
 	std::ofstream file(fileDest, std::ios::out | std::ios::binary);
-	file.write(reinterpret_cast<char *>(header), sizeof(char) * 18);
-	file.write(reinterpret_cast<char *>(data), sizeof(char)*imageSize);
+	file.write((char*)(header), sizeof(GLubyte) * 18);
+	file.write((char*)(data), sizeof(GLubyte)*imageSize);
 	file.close();
 
 	//clean up pointer
