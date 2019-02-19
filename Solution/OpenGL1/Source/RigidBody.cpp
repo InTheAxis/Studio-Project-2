@@ -5,17 +5,16 @@
 RigidBody::RigidBody()
 {
 	this->forward = up = right = Vector3(0, 0, 0);
-	this->s = u = v = a = 0;
-	this->theta = omegaI = omegaF = alpha = 0;
+	this->mass = s = u = v = a = 0;
+	this->theta = omega = 0;
+	this->staticCoeff = maxStaticFriction = kineticFriction = brakeFriction = 0;
+	this->maxDrag = dragForce = 0;
 	this->forceForward = forceRight = 0;
-	this->mass = staticCoeff = maxStaticFriction = kineticFriction = brakeFriction = 0;
 	this->REV_FORCE = 0;
-	this->maxDrag = 0;
-	this->dragForce = 10;
-	this->frameNum = 1;
 	this->rotationMatrix.SetToIdentity();
 }
 
+//rmb to set stats first
 void RigidBody::CreateRigidBody(Vector3 forward, float mass, float staticCoeff, float kineticCoeff)
 {
 	this->forward = forward;
@@ -23,7 +22,6 @@ void RigidBody::CreateRigidBody(Vector3 forward, float mass, float staticCoeff, 
 	this->staticCoeff = staticCoeff;
 	this->kineticFriction = kineticCoeff * GRAVITY * mass;
 	this->maxStaticFriction = staticCoeff * GRAVITY * mass;
-
 	this->REV_FORCE = maxStaticFriction * REV_FORCE_MULTIPLIER;
 
 	if (maxStaticFriction < kineticCoeff)
@@ -32,12 +30,12 @@ void RigidBody::CreateRigidBody(Vector3 forward, float mass, float staticCoeff, 
 
 void RigidBody::AddForceForward(Vector3 f)
 {
-	forceForward += f.z;
+	forceForward = f.z;
 }
 
 void RigidBody::AddForceRight(Vector3 f)
 {
-	forceRight += f.y;
+	forceRight = f.z;
 }
 
 void RigidBody::AddBrakeFriction(Vector3 f)
@@ -45,59 +43,60 @@ void RigidBody::AddBrakeFriction(Vector3 f)
 	brakeFriction = f.z;
 }
 
-void RigidBody::InitMaxThrustForce(float thrustForce)
-{
-	maxDrag = thrustForce - (kineticFriction + brakeFriction);
-}
-
-//int maxDrag = max force -friction
-//maxDrag = maxDrag / frameNum + maxDrag / frameNum + maxDrag / frameNum ....
-//frameNum = currentNum * 2 , OR currentNum << 1 
-
 void RigidBody::UpdateSuvat(double dt)
 {
 	//calc fnet and hence accel
-	if ((Math::FAbs(forceForward) + REV_FORCE) > maxStaticFriction) //if static friction overcome start moving
+	if (Math::FAbs(forceForward) + REV_FORCE > maxStaticFriction) //if static friction overcome start moving
 	{
-		frameNum *=  2;
-		dragForce += (dragForce / frameNum);
-		
-		this->a = (forceForward - (kineticFriction + brakeFriction + dragForce)) / mass;
+		//update accel
+		this->a = (forceForward - kineticFriction - dragForce - brakeFriction) / mass;
+		if (Math::FAbs(a) < 0.01f)
+			a = 0;
+
+		//update maxDrag
+		this->maxDrag = int(forceForward - kineticFriction); //since both should be constant
+		if (dragForce != maxDrag)
+		{
+			//update drag
+			dragForce = MathExtended::Lerpf(dragForce, maxDrag, DRAG_RATE);
+		}
 	}
 	else if (forceForward == 0) //means no pedal, friction shld kick in to slow down car
 	{
 		int direction = v / (Math::FAbs(v)); //1 or -1
-		if (Math::FAbs(v) > 0.1f)
+		if (Math::FAbs(v) > 0.01f) //if within this range assume 0
 		{
-			this->a = (-1 * direction * (kineticFriction + brakeFriction)) / mass;
+			//update accel in opp dir
+			this->a = (-1 * direction * (kineticFriction + brakeFriction + 0.8f * dragForce)) / mass;
+
+			if (dragForce != 0)
+			{
+				//update drag
+				dragForce = -MathExtended::Lerpf(-dragForce, 0, DRAG_RATE);
+			}
 		}
 		else
 		{
+			dragForce = 0;
 			u = v = a = 0;
 		}
 	}
 	this->v = u + a * float(dt); //calc final speed
 	this->s = v * float(dt); //update displacement
 	this->u = v; //update new initial speed
-
-	//std::cout << "Drag: " << dragForce << std::endl;
-	//std::cout << "Accel: " << a << std::endl;
-	//std::cout << "FrameNum: " <<  frameNum << std::endl;
 }
 
 void RigidBody::UpdateRotation(double dt)
 {
-	if (Math::FAbs(forceRight) > maxStaticFriction)
+	if (Math::FAbs(forceRight) > 0 && Math::FAbs(v) > 2.2f)
 	{
-		this->alpha = (forceRight - kineticFriction) / mass;
+		omega = v / ((mass * Math::Square(v)) / forceRight);
+		theta = omega * dt;
 	}
-	else
+	else if (Math::FAbs(theta) < 0.03f)
 	{
-		omegaI = omegaF = alpha = 0;
+		omega = theta = 0;
 	}
-	this->omegaF = omegaI + alpha * float(dt);
-	this->theta = 0.5 * (omegaI + omegaF) * float(dt);
-	this->omegaI = omegaF;
 }
 
 RigidBody::~RigidBody()

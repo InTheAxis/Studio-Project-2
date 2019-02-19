@@ -13,23 +13,23 @@ public:
 	void Brake(bool brake);
 	
 	//getter setters
-	void SetStats(float thrustForce, float turningSpeed, float wheelRadius);
+	void SetStats(float engineForce, float brakeFriction, float turningForce, float wheelRadius);
 	void SetGear(int gear);
 	int GetGear();
-	int GetThrustForce();
-	Vector3 GetAngle(); //ignore x and y
+	float GetEngineForce();
+	float GetBrakeFriction();
+	float GetTurningForce();
+	Vector3 GetAngle(); //ignore x and z
 	Paint* GetPaint();
 
 	virtual void RollFront(float u, float v, double dt) = 0;
 	virtual void RollBack(float u, float v, double dt) = 0;
 	~Vehicle();
 protected:
-	float thrustForce, turningSpeed;
+	float engineForce, brakeFriction, turningForce;
 	int gearNumber;
-	float angleY;
 	float wheelRadius;
-	const float MAX_FORCE = 20000.f;
-	const float BRAKE_FRICTION = 10000.f;
+	float angleY;
 
 	Paint paint;
 };

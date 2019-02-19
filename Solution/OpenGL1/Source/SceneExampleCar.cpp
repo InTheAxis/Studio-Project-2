@@ -9,7 +9,7 @@ void SceneExampleCar::InitDerived()
 {
 	car.Init("car", "OBJ//taxi.obj", "Image//taxi.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1.f, 1.f, 1.f));
 	car.CreateRigidBody(Vector3(0, 0, 10), 1200, 0.1f, 0.09f);
-	floor.Init("floor", "OBJ//ground-low-flat.obj", "Image//color2.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
+	floor.Init("floor", "OBJ//ground-low-flat.obj", "Image//color2.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1.f, 1.f, 1.f));
 
 	car.SetMaterial(shiny);
 	floor.SetMaterial(dull);
@@ -23,8 +23,8 @@ void SceneExampleCar::RenderDerived()
 
 	if (DEBUG)
 	{
-		std::string temp = "Gear number: " + std::to_string(car.GetGear());
-		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0, 0); //fps
+		std::string temp = "Car Pos: " + std::to_string(car.GetTranslate().x) + ", " + std::to_string(car.GetTranslate().z);
+		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0, 0);
 	}
 }
 
