@@ -3,6 +3,8 @@
 #include "Scene.h"
 #include "LoadSceneButton.h"
 #include "Cursor.h"
+#include "SpeedBoost.h"
+#include "Car.h"
 
 class SceneGame :public Scene
 {
@@ -18,8 +20,11 @@ protected:
 private:
 	Cursor mouse;
 	LoadSceneButton resumeButton, exitButton;
-	GameObject car;
+	Car car;
 	GameObject skybox;
+
+	SpeedBoost speedboost;
+
 	std::vector<Button*> allButtons;
 	
 	int buttonIndex;
