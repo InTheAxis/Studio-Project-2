@@ -13,8 +13,8 @@ public:
 protected:
 	GameObject floor;
 	GameObject ramp;
-	Car car;
-	Collidable test, test2;
+	Car car, test2;
+	Collidable test;
 
 	bool collide;
 
