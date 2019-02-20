@@ -18,6 +18,7 @@ public:
 	void CheckHover();	
 	void SetAllButton(std::vector<Button*> allButtons);
 	Button* GetButton(int index);
+	void ResetMousePos();
 
 private:
 	Vector3 prevCursorXY, currentCursorXY;
@@ -26,7 +27,8 @@ private:
 	Vector3 orthSize;
 	std::vector<Button*> allButtons;
 	int totalbuttons;
-
+	const float button_Xrange=4;
+	const float button_Yrange = 1;
 };
 
 #endif

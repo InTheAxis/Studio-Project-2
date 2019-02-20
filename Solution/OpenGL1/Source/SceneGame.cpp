@@ -126,6 +126,7 @@ void SceneGame::UpdateDerived(double dt)
 			allButtons[buttonIndex]->SetHover(false);
 			exitButton.SetOnClickEvent(false);
 			pause = false;
+			mouse.ResetMousePos();
 			RequestChangeScene(1);//test
 		}
 

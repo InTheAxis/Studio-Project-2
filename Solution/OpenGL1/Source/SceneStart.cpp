@@ -13,8 +13,6 @@ SceneStart::~SceneStart()
 
 void SceneStart::InitDerived()
 {
-	prevCursorXY = currentCursorXY = (Vector3(Application::cursorX, Application::cursorY, 0));
-
 	mouse.Init("mouse", MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(orthSize.x * 0.5f, orthSize.y * 0.5f, 10), Vector3(0, 0, 0), Vector3(1, 1, 0));
 	play.Init("play", MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(30, 20, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
 	garage.Init("garage", MeshBuilder::GenerateCube(Color(1, 0, 1)), "", Vector3(30, 17.5, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
@@ -56,6 +54,7 @@ void SceneStart::UpdateDerived(double dt)
 	{
 		allButtons[buttonindex]->SetHover(false);
 		play.SetOnClickEvent(false);
+		mouse.ResetMousePos();
 		RequestChangeScene(2);
 	}
 
@@ -63,6 +62,7 @@ void SceneStart::UpdateDerived(double dt)
 	{
 		allButtons[buttonindex]->SetHover(false);
 		garage.SetOnClickEvent(false);
+		mouse.ResetMousePos();
 		RequestChangeScene(6);
 	}
 

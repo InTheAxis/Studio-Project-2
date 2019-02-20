@@ -28,6 +28,7 @@ void SceneLevelSelect::InitDerived()
 
 	mouse.SetOrthSize(orthSize);
 	mouse.SetAllButton(allButtons);
+	mouse.ResetMousePos();
 }
 
 void SceneLevelSelect::RenderDerived()
@@ -53,6 +54,7 @@ void SceneLevelSelect::UpdateDerived(double dt)
 	{
 		allButtons[buttonindex]->SetHover(false);
 		level1.SetOnClickEvent(false);	//reset bool before changing scene
+		mouse.ResetMousePos();
 		RequestChangeScene(3);
 	}
 

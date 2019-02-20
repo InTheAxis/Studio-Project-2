@@ -2,8 +2,6 @@
 
 Cursor::Cursor()
 {
-	prevCursorXY = currentCursorXY = (Vector3(Application::cursorX, Application::cursorY, 0));
-	//totalbuttons = 0;
 }
 
 Cursor::~Cursor()
@@ -56,12 +54,12 @@ void Cursor::CheckHover()
 			Xwithin = false;
 			Ywithin = false;
 
-			if ((translate.x > ((allButtons[i]->GetTranslate().x) - 4))
-				&& (translate.x < ((allButtons[i]->GetTranslate().x) + 4)))
+			if ((translate.x > ((allButtons[i]->GetTranslate().x) - button_Xrange))
+				&& (translate.x < ((allButtons[i]->GetTranslate().x) + button_Xrange)))
 				Xwithin = !Xwithin;
 
-			if ((translate.y > ((allButtons[i]->GetTranslate().y) - 1))
-				&& (translate.y < ((allButtons[i]->GetTranslate().y) + 1)))
+			if ((translate.y > ((allButtons[i]->GetTranslate().y) - button_Yrange))
+				&& (translate.y < ((allButtons[i]->GetTranslate().y) + button_Yrange)))
 				Ywithin = !Ywithin;
 
 			if (Xwithin&&Ywithin)
@@ -80,6 +78,11 @@ void Cursor::SetAllButton(std::vector<Button*> allButtons)
 Button * Cursor::GetButton(int index)
 {
 	return allButtons[index];
+}
+
+void Cursor::ResetMousePos()
+{
+	prevCursorXY = currentCursorXY = (Vector3(Application::cursorX, Application::cursorY, 0));
 }
 
 
