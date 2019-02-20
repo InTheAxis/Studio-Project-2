@@ -68,38 +68,95 @@ bool CollisionHandler::EvolveSimplex(std::vector<Vector3> *simplex, Vector3 *dir
 	Vector3 a, b, c;
 	a = simplex->back();
 
-	if (simplex->size() == 3)
+	switch (simplex->size())
 	{
-		c = (*simplex)[0];
-		b = (*simplex)[1];
-
-		Vector3 abPerp = TripleCrossProduct(c - a, b - a, b - a);
-		Vector3 acPerp = TripleCrossProduct(b - a, c - a, c - a);
-
-		if (abPerp.Dot(-a) > 0) 
+		case 2:
 		{
-			simplex->erase(simplex->begin());//remove c
-			*dir = abPerp;
+			b = (*simplex)[0];
+			if ((b - a).Dot(-a) > 0)
+			{
+				*dir = TripleCrossProduct(b - a, -a, b - a);
+			}
+			else
+			{
+				*dir = -a;
+				simplex->erase(simplex->begin()); //remove b
+			}
+			break;
 		}
-		else 
+		case 3:
 		{
-			// is the origin in R3
-			if (acPerp.Dot(-a) > 0) 
+			c = (*simplex)[0];
+			b = (*simplex)[1];
+
+			Vector3 abcPerp = (c - a).Cross(b - a);
+			Vector3 abPerp = TripleCrossProduct(c - a, b - a, b - a);
+			Vector3 acPerp = TripleCrossProduct(b - a, c - a, c - a);
+
+			if(acPerp.Dot(-a) > 0)
 			{
-				simplex->erase(simplex->begin() + 1); //remove b
-				*dir = acPerp;
+				if ((c - a).Dot(-a))
+				{
+					*dir = TripleCrossProduct(c - a, -a, c - a);
+					simplex->erase(simplex->begin() + 1); //remove b
+				}
+				else
+				{
+					//*repeated
+					if ((b - a).Dot(-a) > 0)
+					{
+						*dir = TripleCrossProduct(b - a, -a, b - a);
+						simplex->erase(simplex->begin()); //remove c
+					}
+					else
+					{
+						*dir = -a;
+						simplex->erase(simplex->begin()); //remove c
+						simplex->erase(simplex->begin()); //remove b
+					}
+				}
 			}
-			else 
+			else
 			{
-				return true; //fourth point is within triangle
+				//*repeated
+				if (abPerp.Dot(-a) > 0)
+				{
+					if ((b - a).Dot(-a) > 0)
+					{
+						*dir = TripleCrossProduct(b - a, -a, b - a);
+						simplex->erase(simplex->begin()); //remove c
+					}
+					else
+					{
+						*dir = -a;
+						simplex->erase(simplex->begin()); //remove c
+						simplex->erase(simplex->begin()); //remove b
+					}
+				}
+				else
+				{
+					if (abcPerp.Dot(-a) > 0)
+					{
+						*dir = abcPerp;
+					}
+					else
+					{
+						*dir = -abcPerp;
+						Vector3 temp = (*simplex)[0];
+						(*simplex)[0] = (*simplex)[1];
+						(*simplex)[1] = temp;
+					}
+					return true;
+				}
 			}
+			break;
+		}
+		case 4:
+		{
+			break;
 		}
 	}
-	else
-	{
-		b = (*simplex)[0];
-		*dir = TripleCrossProduct(b - a, -a, b - a);
-	}
+
 	return false;
 }
 

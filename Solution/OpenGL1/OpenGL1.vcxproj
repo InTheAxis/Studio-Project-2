@@ -179,6 +179,7 @@
     <ClInclude Include="Source\CollectibleParticleEffect.h" />
     <ClInclude Include="Source\RigidBody.h" />
     <ClInclude Include="Source\Scene.h" />
+    <ClInclude Include="Source\SceneExampleColl.h" />
     <ClInclude Include="Source\SceneGarage.h" />
     <ClInclude Include="Source\SceneEmpty.h" />
     <ClInclude Include="Source\SceneExample.h" />
