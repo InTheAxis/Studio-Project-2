@@ -9,6 +9,8 @@ public:
 	GridChunk(int x, int z, int length);
 	void PushToAdjacents(GridChunk*);
 	void PushToChunkCells(GridCell*);
+	std::vector<GridCell*> GetCells();
+	std::vector<GridChunk*> GetAdjacents();
 	~GridChunk();
 private:
 	int CHUNK_LENGTH;

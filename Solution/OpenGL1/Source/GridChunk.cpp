@@ -27,6 +27,16 @@ void GridChunk::PushToChunkCells(GridCell* gc)
 	this->chunkCells.emplace_back(gc);
 }
 
+std::vector<GridCell*> GridChunk::GetCells()
+{
+	return chunkCells;
+}
+
+std::vector<GridChunk*> GridChunk::GetAdjacents()
+{
+	return adjacents;
+}
+
 GridChunk::~GridChunk()
 {
 }

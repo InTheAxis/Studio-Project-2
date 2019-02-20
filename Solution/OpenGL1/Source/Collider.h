@@ -10,6 +10,10 @@ public:
 	Collider();
 	void PushToHullPoints(Vector3);
 	void UpdateHull(Vector3 translate, Vector3 rotate); //aplly rotate and translate
+
+	//for gjk, returns furthestPoint along the dir
+	Vector3 GetFurthestPoint(Vector3 dir);
+
 	~Collider();
 private:
 	std::vector<Vector3> hullPoints; //defining the enclosing convex hull
