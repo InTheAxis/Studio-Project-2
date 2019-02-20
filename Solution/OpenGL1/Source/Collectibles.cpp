@@ -22,12 +22,12 @@ void Collectibles::SetActiveTime()
 
 bool Collectibles::GetPickedUp()
 {
-	return PickedUp;
+	return pickedUp;
 }
 
 void Collectibles::SetPickedUp(bool PickedUp)
 {
-	this->PickedUp = PickedUp;
+	this->pickedUp = PickedUp;
 }
 
 

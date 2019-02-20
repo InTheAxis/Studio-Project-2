@@ -3,8 +3,11 @@
 #include "Scene.h"
 #include "LoadSceneButton.h"
 #include "Cursor.h"
-#include "SpeedBoost.h"
+#include "CollectibleSpeedBoost.h"
 #include "Car.h"
+#include "Grid.h"
+#include "Paintable.h"
+#include "CollectibleParticleEffect.h"
 
 class SceneGame :public Scene
 {
@@ -22,9 +25,11 @@ private:
 	LoadSceneButton resumeButton, exitButton;
 	Car car;
 	GameObject skybox;
+	Grid level;
+	Paintable paintLayer;
 
-	SpeedBoost speedboost;
-
+	CollectibleSpeedBoost speedboost;
+	CollectibleParticleEffect particleEffect;
 	std::vector<Button*> allButtons;
 	
 	int buttonIndex;

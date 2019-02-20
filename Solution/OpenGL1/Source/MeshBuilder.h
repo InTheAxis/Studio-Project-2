@@ -26,6 +26,7 @@ public:
 	static Mesh* GenerateAxes(float lengthX = 5000, float lengthY = 5000, float lengthZ = 5000);
 	static Mesh* GenerateQuad(Color color);
 	static Mesh* GenerateCube(Color color);
+	static Mesh* GenerateLines(std::vector<Vector3> &lineStart, std::vector<Vector3> &lineEnd, Color color); //make a mesh outline out of given vector3
 
 	//reloading vbo
 	static void ReloadVBO(Mesh* targetMesh);

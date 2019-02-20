@@ -11,6 +11,11 @@ RigidBody::RigidBody()
 	this->maxDrag = dragForce = 0;
 	this->forceForward = forceRight = 0;
 	this->REV_FORCE = 0;
+
+	this->torqueForce = torqueTheta = 0;
+	this->torque = alpha = inertia = lengthA = lengthB = 0;
+	//this->leverArm = Vector3(0, 0, 0);
+
 	this->rotationMatrix.SetToIdentity();
 }
 
@@ -41,6 +46,11 @@ void RigidBody::AddForceRight(Vector3 f)
 void RigidBody::AddBrakeFriction(Vector3 f)
 {
 	brakeFriction = f.z;
+}
+
+void RigidBody::AddTorqueForce(Vector3 f)
+{
+	torqueForce = f.z;
 }
 
 void RigidBody::UpdateSuvat(double dt)
@@ -97,6 +107,15 @@ void RigidBody::UpdateRotation(double dt)
 	{
 		omega = theta = 0;
 	}
+}
+
+void RigidBody::UpdateTorque(double dt)
+{
+	inertia = 1 / 12 * mass * (Math::Square(lengthA) + Math::Square(lengthB));
+	
+	//this->alpha = (leverArm.Cross(torque)) / inertia;
+
+	SetRotateAndPivot(Vector3(alpha, 0, 0), Vector3(0, 0, -1));
 }
 
 RigidBody::~RigidBody()

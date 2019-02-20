@@ -425,6 +425,8 @@ void Scene::Update(double dt)
 	}
 	if (DEBUG)
 	{
+		glLineWidth(5); //to make lines easier to see
+		
 		if (Application::IsKeyPressed('1'))
 		{
 			glEnable(GL_CULL_FACE);
@@ -472,6 +474,8 @@ void Scene::Update(double dt)
 			freeRoam.ToggleInvert(0, 1);
 		}
 	}
+	else glLineWidth(1); //reset
+
 	UpdateDerivedBounced(dt);
 }
 
@@ -549,16 +553,22 @@ void Scene::RenderObject(GameObject* go, bool enableLight)
 	modelStack.PushMatrix();
 	//trs
 	modelStack.Translate(go->GetTranslate().x, go->GetTranslate().y, go->GetTranslate().z);
+	if (go->GetRotate().x != 0)
+		modelStack.Rotate(go->GetRotate().x, 1, 0, 0);
+	if (go->GetRotate().y != 0)
+		modelStack.Rotate(go->GetRotate().y, 0, 1, 0);
+	if (go->GetRotate().z != 0)
+		modelStack.Rotate(go->GetRotate().z, 0, 0, 1);
 	modelStack.Scale(go->GetScale().x, go->GetScale().y, go->GetScale().z);
 		modelStack.PushMatrix();
-		modelStack.Translate(go->GetPivot().x, go->GetPivot().y, go->GetPivot().z);
-		if (go->GetRotate().x != 0)
-			modelStack.Rotate(go->GetRotate().x, 1, 0, 0);
-		if (go->GetRotate().y != 0)
-			modelStack.Rotate(go->GetRotate().y, 0, 1, 0);
-		if (go->GetRotate().z != 0)
-			modelStack.Rotate(go->GetRotate().z, 0, 0, 1);
-		modelStack.Translate(-go->GetPivot().x, -go->GetPivot().y, -go->GetPivot().z);
+		modelStack.Translate(go->GetPivotPos().x, go->GetPivotPos().y, go->GetPivotPos().z);
+		if (go->GetPivotRotate().x != 0)
+			modelStack.Rotate(go->GetPivotRotate().x, 1, 0, 0);
+		if (go->GetPivotRotate().y != 0)
+			modelStack.Rotate(go->GetPivotRotate().y, 0, 1, 0);
+		if (go->GetPivotRotate().z != 0)
+			modelStack.Rotate(go->GetPivotRotate().z, 0, 0, 1);
+		modelStack.Translate(-go->GetPivotPos().x, -go->GetPivotPos().y, -go->GetPivotPos().z);
 
 	Mtx44 mvp = projectionStack.Top() * viewStack.Top() * modelStack.Top();
 	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &mvp.a[0]); //update the shader with new MVP
@@ -635,6 +645,15 @@ void Scene::RenderObjectOnScreen(GameObject* go, bool enableLight)
 	if (go->GetRotate().z != 0)
 		modelStack.Rotate(go->GetRotate().z, 0, 0, 1);
 	modelStack.Scale(go->GetScale().x, go->GetScale().y, go->GetScale().z);
+		modelStack.PushMatrix();
+		modelStack.Translate(go->GetPivotPos().x, go->GetPivotPos().y, go->GetPivotPos().z);
+		if (go->GetPivotRotate().x != 0)
+			modelStack.Rotate(go->GetPivotRotate().x, 1, 0, 0);
+		if (go->GetPivotRotate().y != 0)
+			modelStack.Rotate(go->GetPivotRotate().y, 0, 1, 0);
+		if (go->GetPivotRotate().z != 0)
+			modelStack.Rotate(go->GetPivotRotate().z, 0, 0, 1);
+		modelStack.Translate(-go->GetPivotPos().x, -go->GetPivotPos().y, -go->GetPivotPos().z);
 
 	Mtx44 mvp = projectionStack.Top() * viewStack.Top() * modelStack.Top();
 	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &mvp.a[0]); //update the shader with new MVP
@@ -689,6 +708,7 @@ void Scene::RenderObjectOnScreen(GameObject* go, bool enableLight)
 
 	projectionStack.PopMatrix();
 	viewStack.PopMatrix();
+	modelStack.PopMatrix(); //for rotate
 	modelStack.PopMatrix();
 }
 

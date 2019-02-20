@@ -10,6 +10,8 @@ Vehicle::Vehicle()
 	gearNumber = 1;
 	wheelRadius = 0.001f;
 	angleY = 0.0f;
+	torqueForce = 2000;
+	torqueAngle = 0.0f;
 }
 
 void Vehicle::MoveForward(int dir, double dt)
@@ -39,6 +41,21 @@ void Vehicle::MoveRight(int dir, double dt)
 	rotationMatrix.SetToRotation(angleY, 0, 1, 0);
 	forward = rotationMatrix * forward;
 	this->rotate.y += angleY;
+}
+
+void Vehicle::TorqueRotation(int dir, double dt)
+{
+	if (!dir)
+	{
+		this->torqueForce = 0;
+		this->torqueAngle = 0;
+	}
+	this->AddTorqueForce(Vector3(0, 0, dir * torqueForce));
+
+	torqueAngle = Math::RadianToDegree(torque);
+	rotationMatrix.SetToRotation(torqueAngle, 0, 0, 1);
+	forward = rotationMatrix * forward;
+	this->rotate.z += torqueAngle;
 }
 
 void Vehicle::Brake(bool brake)

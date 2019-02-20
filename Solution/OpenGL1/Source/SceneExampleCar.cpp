@@ -9,22 +9,27 @@ void SceneExampleCar::InitDerived()
 {
 	car.Init("car", "OBJ//taxi.obj", "Image//taxi.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1.f, 1.f, 1.f));
 	car.CreateRigidBody(Vector3(0, 0, 10), 1200, 0.1f, 0.09f);
-	floor.Init("floor", "OBJ//ground-low-flat.obj", "Image//color2.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
+	floor.Init("floor", "OBJ//ground-low-flat.obj", "Image//color2.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1.f, 1.f, 1.f));
+	ramp.Init("ramp", "OBJ//ground-low-flat.obj", "Image//color2.tga", Vector3(-10, 0, 0), Vector3(0, 0, -45.f), Vector3(1.f, 1.f, 1.f));
+
+	car.DefineSphereCollider(Vector3(5, 1, 5));
 
 	car.SetMaterial(shiny);
 	floor.SetMaterial(dull);
+	ramp.SetMaterial(dull);
 }
 
 void SceneExampleCar::RenderDerived()
 {
 	RenderObject(&floor);
+	RenderObject(&ramp);
 	RenderObject(&car);
-	//RenderObject(&(car.wheels[0]));
 
 	if (DEBUG)
 	{
-		std::string temp = "Gear number: " + std::to_string(car.GetGear());
-		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0, 0); //fps
+		RenderObject(car.GetCollider());
+		std::string temp = "Car Pos: " + std::to_string(car.GetTranslate().x) + ", " + std::to_string(car.GetTranslate().z);
+		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0, 0);
 	}
 }
 
@@ -52,7 +57,6 @@ void SceneExampleCar::UpdateDerived(double dt)
 		car.Brake(false);
 	}
 	
-	//todo make actual turn
 	if (Application::IsKeyPressed(VK_LEFT))
 	{
 		car.MoveRight(-1, dt);
@@ -65,9 +69,22 @@ void SceneExampleCar::UpdateDerived(double dt)
 	{
 		car.MoveRight(0, dt);
 	}
+
+	if (Application::IsKeyPressed('C'))
+	{
+		//car.TorqueRotation(1, dt);
+		car.SetRotateAndPivot(Vector3(-45, 0, 0), Vector3(0,0,-1));
+	}
+	else
+	{
+		car.SetRotateAndPivot(Vector3(0, 0, 0), Vector3(0, 0, 0));
+	}
+
 	car.UpdateSuvat(dt);
 	car.UpdateRotation(dt);
-	
+	car.UpdateCollider();
+	//car.UpdateTorque(dt);
+
 	if (!currentCam)
 		camera[0]->Update(dt, car.GetTranslate(), car.GetAngle()); //update camera
 }

@@ -13,9 +13,9 @@ SceneLevelSelect::~SceneLevelSelect()
 
 void SceneLevelSelect::InitDerived()
 {
-	level1.Init("level1", MeshBuilder::GenerateCube(Color(0, 1, 0)), "", Vector3(30, 20, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
-	level2.Init("level2", MeshBuilder::GenerateCube(Color(0, 1, 0)), "", Vector3(30, 17.5, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
-	level3.Init("level3", MeshBuilder::GenerateCube(Color(0, 1, 0)), "", Vector3(30, 15, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
+	level1.Init("play", "OBJ//LevelsButton.obj", "Image//levels.tga", Vector3(30, 20, 0), Vector3(0, 0, 0), Vector3(1, 1, 0));
+	level2.Init("garage", "OBJ//LevelsButton.obj", "Image//levels.tga", Vector3(30, 15, 0), Vector3(0, 0, 0), Vector3(1, 1, 0));
+	level3.Init("exit", "OBJ//LevelsButton.obj", "Image//levels.tga", Vector3(30, 10, 0), Vector3(0, 0, 0), Vector3(1, 1, 0));
 	mouse.Init("mouse",MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(orthSize.x * 0.5f, orthSize.y * 0.5f, 10), Vector3(0, 0, 0), Vector3(1, 1, 0));
 
 	allButtons.push_back(&level1);
@@ -28,6 +28,7 @@ void SceneLevelSelect::InitDerived()
 
 	mouse.SetOrthSize(orthSize);
 	mouse.SetAllButton(allButtons);
+	freeRoam.ToggleCamMovement();
 	mouse.ResetMousePos();
 }
 

@@ -156,6 +156,8 @@
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\Car.h" />
     <ClInclude Include="Source\Collectibles.h" />
+    <ClInclude Include="Source\Collidable.h" />
+    <ClInclude Include="Source\Collider.h" />
     <ClInclude Include="Source\Cursor.h" />
     <ClInclude Include="Source\FixedCam.h" />
     <ClInclude Include="Source\FreeCam.h" />
@@ -173,6 +175,7 @@
     <ClInclude Include="Source\Paint.h" />
     <ClInclude Include="Source\Paintable.h" />
     <ClInclude Include="Source\GridCell.h" />
+    <ClInclude Include="Source\CollectibleParticleEffect.h" />
     <ClInclude Include="Source\RigidBody.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneGarage.h" />
@@ -187,7 +190,7 @@
     <ClInclude Include="Source\SceneManager.h" />
     <ClInclude Include="Source\SceneStart.h" />
     <ClInclude Include="Source\shader.hpp" />
-    <ClInclude Include="Source\SpeedBoost.h" />
+    <ClInclude Include="Source\CollectibleSpeedBoost.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vehicle.h" />
     <ClInclude Include="Source\Vertex.h" />
@@ -198,7 +201,10 @@
     <ClCompile Include="Source\Button.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\Car.cpp" />
+    <ClCompile Include="Source\CollectibleParticleEffect.cpp" />
     <ClCompile Include="Source\Collectibles.cpp" />
+    <ClCompile Include="Source\Collidable.cpp" />
+    <ClCompile Include="Source\Collider.cpp" />
     <ClCompile Include="Source\Cursor.cpp" />
     <ClCompile Include="Source\FixedCam.cpp" />
     <ClCompile Include="Source\FreeCam.cpp" />
@@ -229,7 +235,7 @@
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\SceneStart.cpp" />
     <ClCompile Include="Source\shader.cpp" />
-    <ClCompile Include="Source\SpeedBoost.cpp" />
+    <ClCompile Include="Source\CollectibleSpeedBoost.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\Vehicle.cpp" />
     <ClCompile Include="Source\Wheel.cpp" />

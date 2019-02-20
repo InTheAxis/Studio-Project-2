@@ -11,6 +11,7 @@ public:
 	~SceneExampleCar();
 protected:
 	GameObject floor;
+	GameObject ramp;
 	Car car;
 
 	virtual void InitDerived();

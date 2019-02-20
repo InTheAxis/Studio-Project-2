@@ -27,11 +27,12 @@ void SceneGame::InitDerived()
 	car.SetMaterial(shiny);
 
 	speedboost.Init("speedboost", MeshBuilder::GenerateCube(Color(0, 0, 0)), "", Vector3(0, 0.5, 5), Vector3(0, 0, 0), Vector3(1, 1, 1));
+	particleEffect.Init("particleEffect", MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(0, 0.5, car.GetTranslate().z-1.5), Vector3(0, 0, 0), Vector3(0.1, 0.1, 0.1));
 
 	skybox.Init("skybox", "OBJ//skybox.obj", "Image//skybox.tga", Vector3(0, -50, 0), Vector3(0, 0, 0), Vector3(100, 100, 100));
 	
 
-
+	car.AddChild(&particleEffect);
 	
 
 	mouse.SetOrthSize(orthSize);
@@ -45,11 +46,12 @@ void SceneGame::RenderDerived()
 {
 	RenderObject(&car, true);
 
+	
+
 	RenderObject(&skybox, false);
 
 	if(!speedboost.GetPickedUp())
 		RenderObject(&speedboost, false);
-
 
 	if (this->pause)
 	{
@@ -64,6 +66,9 @@ void SceneGame::UpdateDerived(double dt)
 	
 	if (!pause)
 	{
+		/*if (car.GetEngineForce() > 0)*/
+			particleEffect.ApplyEffect(&car,dt);
+
 		speedboost.CheckAbsorption(car.GetTranslate());
 
 		speedboost.ApplyEffect(&car,dt);
@@ -123,15 +128,16 @@ void SceneGame::UpdateDerived(double dt)
 
 		if (exitButton.GetOnClickEvent())
 		{
-			allButtons[buttonIndex]->SetHover(false);
+			allButtons[1]->SetHover(false);
 			exitButton.SetOnClickEvent(false);
-			pause = false;
+			pause = !pause;
 			mouse.ResetMousePos();
 			RequestChangeScene(1);//test
 		}
 
 		if (resumeButton.GetOnClickEvent())
 		{
+			allButtons[0]->SetHover(false);
 			resumeButton.SetOnClickEvent(false);
 			pause = false;
 		}
@@ -148,13 +154,13 @@ void SceneGame::UpdateDerived(double dt)
 
 				else
 				{
-
 				}
 			}
 		}
 	}
-	
 
+	if (!currentCam)
+		camera[0]->Update(dt, car.GetTranslate(), car.GetAngle()); //update camera
 }
 
 void SceneGame::UpdateDerivedBounced(double dt)
@@ -193,8 +199,6 @@ void SceneGame::UpdateDerivedBounced(double dt)
 
 			allButtons[buttonIndex]->SetHover(true);
 		}
-
-		
 	}
 
 	
