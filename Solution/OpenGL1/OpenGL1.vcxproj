@@ -158,6 +158,7 @@
     <ClInclude Include="Source\Collectibles.h" />
     <ClInclude Include="Source\Collidable.h" />
     <ClInclude Include="Source\Collider.h" />
+    <ClInclude Include="Source\CollisionHandler.h" />
     <ClInclude Include="Source\Cursor.h" />
     <ClInclude Include="Source\FixedCam.h" />
     <ClInclude Include="Source\FreeCam.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="Source\Collectibles.cpp" />
     <ClCompile Include="Source\Collidable.cpp" />
     <ClCompile Include="Source\Collider.cpp" />
+    <ClCompile Include="Source\CollisionHandler.cpp" />
     <ClCompile Include="Source\Cursor.cpp" />
     <ClCompile Include="Source\FixedCam.cpp" />
     <ClCompile Include="Source\FreeCam.cpp" />
@@ -223,6 +225,7 @@
     <ClCompile Include="Source\GridCell.cpp" />
     <ClCompile Include="Source\RigidBody.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
+    <ClCompile Include="Source\SceneExampleColl.cpp" />
     <ClCompile Include="Source\SceneGarage.cpp" />
     <ClCompile Include="Source\SceneEmpty.cpp" />
     <ClCompile Include="Source\SceneExample.cpp" />

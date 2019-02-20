@@ -4,8 +4,9 @@
 #include "GameObject.h"
 #include "Mtx44.h"
 #include "MyMathExtended.h"
+#include "Collidable.h"
 
-class RigidBody : public GameObject
+class RigidBody : public Collidable
 {
 public:
 	RigidBody();
