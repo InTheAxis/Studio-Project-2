@@ -12,11 +12,11 @@ void SceneExampleCar::InitDerived()
 	floor.Init("floor", "OBJ//ground-low-flat.obj", "Image//color2.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1.f, 1.f, 1.f));
 	ramp.Init("ramp", "OBJ//ground-low-flat.obj", "Image//color2.tga", Vector3(-10, 0, 0), Vector3(0, 0, -45.f), Vector3(1.f, 1.f, 1.f));
 
-	car.DefineSphereCollider(Vector3(5, 1, 5));
-
 	car.SetMaterial(shiny);
 	floor.SetMaterial(dull);
 	ramp.SetMaterial(dull);
+
+	car.AddTorque(-1, 0, 0.5, 0.5);
 }
 
 void SceneExampleCar::RenderDerived()
@@ -24,10 +24,10 @@ void SceneExampleCar::RenderDerived()
 	RenderObject(&floor);
 	RenderObject(&ramp);
 	RenderObject(&car);
+	RenderObject(&(car.wheels[0]));
 
 	if (DEBUG)
 	{
-		RenderObject(car.GetCollider());
 		std::string temp = "Car Pos: " + std::to_string(car.GetTranslate().x) + ", " + std::to_string(car.GetTranslate().z);
 		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0, 0);
 	}
@@ -72,18 +72,17 @@ void SceneExampleCar::UpdateDerived(double dt)
 
 	if (Application::IsKeyPressed('C'))
 	{
-		//car.TorqueRotation(1, dt);
-		car.SetRotateAndPivot(Vector3(-45, 0, 0), Vector3(0,0,-1));
+		car.TorqueRotation(1, dt);
+		std::cout << car.GetTorqueTheta() << std::endl;
 	}
 	else
 	{
-		car.SetRotateAndPivot(Vector3(0, 0, 0), Vector3(0, 0, 0));
+		car.TorqueRotation(0, dt);
 	}
 
 	car.UpdateSuvat(dt);
 	car.UpdateRotation(dt);
-	car.UpdateCollider();
-	//car.UpdateTorque(dt);
+	car.UpdateTorque(dt);
 
 	if (!currentCam)
 		camera[0]->Update(dt, car.GetTranslate(), car.GetAngle()); //update camera

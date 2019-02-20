@@ -10,8 +10,8 @@ Vehicle::Vehicle()
 	gearNumber = 1;
 	wheelRadius = 0.001f;
 	angleY = 0.0f;
-	torqueForce = 2000;
-	torqueAngle = 0.0f;
+	torqueForce = 0;
+
 }
 
 void Vehicle::MoveForward(int dir, double dt)
@@ -47,23 +47,21 @@ void Vehicle::TorqueRotation(int dir, double dt)
 {
 	if (!dir)
 	{
-		this->torqueForce = 0;
-		this->torqueAngle = 0;
+		SetRotateAndPivot(Vector3(0, 0, 0), Vector3(0, 0, 0));
 	}
-	this->AddTorqueForce(Vector3(0, 0, dir * torqueForce));
-
-	torqueAngle = Math::RadianToDegree(torque);
-	rotationMatrix.SetToRotation(torqueAngle, 0, 0, 1);
-	forward = rotationMatrix * forward;
-	this->rotate.z += torqueAngle;
+	else
+	{
+		this->AddTorqueForce(dir * 3000);
+		SetRotateAndPivot(Vector3(GetTorqueTheta(), 0, 0), Vector3(0, 0, GetLeverArm().x));
+	}
 }
 
 void Vehicle::Brake(bool brake)
 {
 	if (brake)
-		this->AddBrakeFriction(Vector3(0, 0, brakeFriction));
+		this->AddBrakeFriction(brakeFriction);
 	else
-		this->AddBrakeFriction(Vector3(0, 0, 0));
+		this->AddBrakeFriction(0);
 }
 
 void Vehicle::SetStats(float engineForce, float brakeFriction, float turningForce, float wheelRadius)

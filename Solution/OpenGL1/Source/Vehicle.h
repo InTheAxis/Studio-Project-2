@@ -31,7 +31,7 @@ protected:
 	int gearNumber;
 	float wheelRadius;
 	float angleY;
-	float torqueForce, torqueAngle;
+	float torqueForce;
 
 	Paint paint;
 };
