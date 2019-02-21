@@ -15,7 +15,7 @@ std::vector<Vertex>* Paintable::GetVBO()
 	return this->vboPtr;
 }
 
-void Paintable::ChangeColor(Grid* currentGrid, Vector3 centerVert, Color color)
+void Paintable::ChangeColor(Grid* currentGrid, Vector3 centerVert, Color color, float range)
 {
 	GridCell* targetCell = currentGrid->FindCell((int)centerVert.x, (int)centerVert.z);
 	if (targetCell != nullptr)

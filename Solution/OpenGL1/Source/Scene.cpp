@@ -553,12 +553,16 @@ void Scene::RenderObject(GameObject* go, bool enableLight)
 	modelStack.PushMatrix();
 	//trs
 	modelStack.Translate(go->GetTranslate().x, go->GetTranslate().y, go->GetTranslate().z);
-	if (go->GetRotate().x != 0)
-		modelStack.Rotate(go->GetRotate().x, 1, 0, 0);
+
+	//y doesnt affect x and z
 	if (go->GetRotate().y != 0)
 		modelStack.Rotate(go->GetRotate().y, 0, 1, 0);
-	if (go->GetRotate().z != 0)
-		modelStack.Rotate(go->GetRotate().z, 0, 0, 1);
+		modelStack.PushMatrix();
+		if (go->GetRotate().x != 0)
+			modelStack.Rotate(go->GetRotate().x, 1, 0, 0);
+		if (go->GetRotate().z != 0)
+			modelStack.Rotate(go->GetRotate().z, 0, 0, 1);
+
 	modelStack.Scale(go->GetScale().x, go->GetScale().y, go->GetScale().z);
 		modelStack.PushMatrix();
 		modelStack.Translate(go->GetPivotPos().x, go->GetPivotPos().y, go->GetPivotPos().z);
@@ -621,7 +625,8 @@ void Scene::RenderObject(GameObject* go, bool enableLight)
 		}
 		modelStack.PopMatrix();
 
-	modelStack.PopMatrix(); //for rotate
+		modelStack.PopMatrix(); //for rotateY
+		modelStack.PopMatrix(); //for rotatePivot
 	modelStack.PopMatrix();
 }
 

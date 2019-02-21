@@ -101,7 +101,6 @@ void SceneExampleColl::UpdateDerived(double dt)
 	if (Application::IsKeyPressed('C'))
 	{
 		car.TorqueRotation(1, dt);
-		std::cout << car.GetTorqueTheta() << std::endl;
 	}
 	else
 	{

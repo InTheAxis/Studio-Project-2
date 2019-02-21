@@ -10,6 +10,7 @@ public:
 	Collidable();
 	//define a collider shape, which assumes object is initialised axis aligned
 	void DefineRect2DCollider(Vector3 size);
+	void DefineBoxCollider(Vector3 size);
 	void DefineCircle2DCollider(Vector3 radius);
 
 	Collider* GetCollider();
