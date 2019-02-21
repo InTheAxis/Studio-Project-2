@@ -5,6 +5,7 @@
 //include all yo scenes here
 //test scenes
 #include "SceneExampleCar.h"
+#include "SceneExampleColl.h"
 #include "SceneExampleInk.h"
 #include "SceneExampleCarInk.h"
 #include "SceneExampleFBO.h"
@@ -31,7 +32,7 @@ private:
 	int currentIndex;
 
 	//testing
-	SceneExampleCar example;
+	SceneExampleColl example;
 
 	//actual
 	SceneEmpty empty;

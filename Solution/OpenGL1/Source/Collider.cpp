@@ -41,6 +41,24 @@ void Collider::UpdateHull(Vector3 translate, Vector3 rotate)
 	lineStart.clear();
 }
 
+Vector3 Collider::GetFurthestPoint(Vector3 dir)
+{
+	Vector3* ret = nullptr;
+	float distance = 0, maxDist = hullPoints[0].Dot(dir);
+	for (Vector3 &v : hullPoints)
+	{
+		distance = v.Dot(dir);
+		if (distance > maxDist)
+		{
+			maxDist = distance;
+			ret = &v;
+		}
+	}
+	if (ret)
+		return *ret;
+	else return Vector3(0, 0, 0);
+}
+
 Collider::~Collider()
 {
 }

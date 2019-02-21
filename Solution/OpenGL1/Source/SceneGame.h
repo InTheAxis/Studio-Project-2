@@ -31,7 +31,7 @@ private:
 	CollectibleSpeedBoost speedboost;
 	CollectibleParticleEffect particleEffect;
 	std::vector<Button*> allButtons;
-	
+	float timer;
 	int buttonIndex;
 
 	const int NUM_OF_BUTTONS = 2;

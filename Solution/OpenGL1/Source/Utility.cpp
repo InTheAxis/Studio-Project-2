@@ -14,5 +14,10 @@ Position operator*(const Mtx44 &lhs, const Position &rhs)
 	return Position(b[0], b[1], b[2]);
 }
 
-/*Gilbert-Johnson-Keerthi Distance Alg*/
+Vector3 TripleCrossProduct(Vector3 first, Vector3 sec, Vector3 third)
+{
+	//(AxB)xC = B(C.A) - A(C.B)
+	Vector3 ret = sec * (first.Dot(third)) - first * (sec.Dot(third));
+	return ret;
+}
 
