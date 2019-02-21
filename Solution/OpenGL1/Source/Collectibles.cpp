@@ -35,7 +35,6 @@ float Collectibles::RandomNumberGenerator()
 {
 
 	float number=0;
-	srand(time(NULL));
 	number = rand() % 100+(-50);
 
 	return number;

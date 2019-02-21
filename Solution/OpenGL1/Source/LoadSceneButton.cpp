@@ -23,6 +23,6 @@ void LoadSceneButton::AnimateButton()
 
 	else
 	{
-		SetScale(Vector3(10,4,1));
+		SetScale(Vector3(10,4,0));
 	}
 }
