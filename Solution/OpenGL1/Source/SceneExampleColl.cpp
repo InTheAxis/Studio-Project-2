@@ -31,12 +31,12 @@ void SceneExampleColl::RenderDerived()
 	RenderObject(&floor);
 	RenderObject(&ramp);
 	RenderObject(&test);
-	RenderObject(&test2);
+	RenderObject(&car);
 
 	if (DEBUG)
 	{
 		RenderObject(test.GetCollider());
-		RenderObject(test2.GetCollider());
+		RenderObject(car.GetCollider());
 		std::string temp = "Coll: " + std::to_string(collide);
 		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0, 0);
 	}
@@ -44,7 +44,7 @@ void SceneExampleColl::RenderDerived()
 
 void SceneExampleColl::UpdateDerived(double dt)
 {	
-	if (Application::IsKeyPressed(VK_UP))
+	/*if (Application::IsKeyPressed(VK_UP))
 	{
 		test2.IncrementTranslate(Vector3(0, 0, 0.1f));
 	}
@@ -59,15 +59,64 @@ void SceneExampleColl::UpdateDerived(double dt)
 	if (Application::IsKeyPressed(VK_RIGHT))
 	{
 		test2.IncrementTranslate(Vector3(-0.1, 0, 0));
+	}*/
+
+	if (Application::IsKeyPressed(VK_UP) && car.GetGear() > 0)
+	{
+		car.MoveForward(1, dt);
 	}
+	else if (Application::IsKeyPressed(VK_UP) && car.GetGear() == 0)
+	{
+		car.MoveForward(-1, dt);
+	}
+	else
+	{
+		car.MoveForward(0, dt);
+	}
+
+	if (Application::IsKeyPressed(VK_DOWN))
+	{
+		car.Brake(true);
+	}
+	else
+	{
+		car.Brake(false);
+	}
+
+	if (Application::IsKeyPressed(VK_LEFT))
+	{
+		car.MoveRight(-1, dt);
+	}
+	else if (Application::IsKeyPressed(VK_RIGHT))
+	{
+		car.MoveRight(1, dt);
+	}
+	else
+	{
+		car.MoveRight(0, dt);
+	}
+
+	if (Application::IsKeyPressed('C'))
+	{
+		car.TorqueRotation(1, dt);
+		std::cout << car.GetTorqueTheta() << std::endl;
+	}
+	else
+	{
+		car.TorqueRotation(0, dt);
+	}
+
+	car.UpdateSuvat(dt);
+	car.UpdateRotation(dt);
+	car.UpdateTorque(dt);
 
 	if (!currentCam)
 		camera[0]->Update(dt, car.GetTranslate(), car.GetAngle()); //update camera
 
 
 	test.UpdateCollider();
-	test2.UpdateCollider();
-	collide = _coll->CheckCollision(&test, &test2);
+	car.UpdateCollider();
+	collide = _coll->CheckCollision(&test, &car);
 }
 
 void SceneExampleColl::UpdateDerivedBounced(double dt)

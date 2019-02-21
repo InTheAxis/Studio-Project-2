@@ -35,6 +35,8 @@ private:
 	std::vector<Vector3> simplex; //up to 3-simplex
 	Vector3 direction, pointA;
 	Vector3 GetMPoint(Collidable* A, Collidable* B, Vector3 dir); //gets Minkowski diff
+	//for epa
+	void CalculatePenetration();
 };
 
 #endif // ! COLLISION_HANDLER_H

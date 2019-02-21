@@ -20,10 +20,9 @@ CollisionHandler * CollisionHandler::GetInstance()
 
 void CollisionHandler::ResolveCollision(Collidable* c1, Collidable* c2)
 {
-
 }
 
-//working GJK for 2D
+//working GJK for 2D and todo EPA
 bool CollisionHandler::CheckCollision(Collidable* A, Collidable* B)
 {
 	//init var
@@ -97,6 +96,10 @@ Vector3 CollisionHandler::GetMPoint(Collidable *A, Collidable *B, Vector3 dir)
 	Vector3 p1 = A->GetCollider()->GetFurthestPoint(dir);
 	Vector3 p2 = B->GetCollider()->GetFurthestPoint(-dir);
 	return p1 - p2;
+}
+
+void CollisionHandler::CalculatePenetration()
+{
 }
 
 CollisionHandler::~CollisionHandler()
