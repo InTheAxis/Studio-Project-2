@@ -39,11 +39,36 @@ private:
 	Vector3 GetMPoint(Collidable* A, Collidable* B, Vector3 dir); //gets Minkowski diff
 	//for epa
 	void CalculatePenetration(Collidable *A, Collidable *B);
+	void CalculatePenetration3D(Collidable *A, Collidable *B);
 	struct Edge
 	{
+		Edge() {}
+		Edge(const Vector3 &a, const Vector3 &b)
+		{
+			points[0] = a; points[1] = b;
+		}
+		Vector3 points[2];
 		float distance;
 		Vector3 normal;
-		int index;
+		int index; //for removing it
+	};
+	struct Face
+	{
+		Face() {}
+		Face(const Vector3 &a, const Vector3 &b, const Vector3 &c)
+		{
+			Edge e1(a, b);
+			edges[0] = e1;
+			Edge e2(b, c);
+			edges[1] = e2;
+			Edge e3(c, a);
+			edges[2] = e3;
+			normal = ((b - a).Cross(c - a)).Normalize();
+			distance = Math::FAbs(a.Dot(normal));
+		}
+		float distance;
+		Edge edges[3];
+		Vector3 normal;
 	};
 };
 

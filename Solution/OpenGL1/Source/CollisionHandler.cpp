@@ -28,7 +28,7 @@ void CollisionHandler::ResolveCollision(RigidBody* A, Collidable* B)
 
 	penetrationDist = Vector3(0, 0, 0);
 	simplexCopy = simplex;
-	this->CalculatePenetration(A, B);
+	this->CalculatePenetration3D(A, B);
 
 	//A->IncrementTranslate(Vector3(-penetrationDist.x, 0, -penetrationDist.z));
 }
@@ -192,7 +192,7 @@ Vector3 CollisionHandler::GetMPoint(Collidable *A, Collidable *B, Vector3 dir)
 void CollisionHandler::CalculatePenetration(Collidable *A, Collidable *B)
 {
 	Vector3 a, b, n;
-	double distance;
+	float distance;
 	//temporarily use abn to find winding (clockwise -1 or anti-clockwise 1)
 	a = simplex[0];
 	b = simplex[1];
@@ -201,7 +201,7 @@ void CollisionHandler::CalculatePenetration(Collidable *A, Collidable *B)
 	bool windingCW = ((b - a).Cross(n - a)).y == -1 ? true : false;
 	while (true)
 	{
-		//find closest edge
+		//find closest edge to origin
 		Edge closest;
 		closest.distance = 99999;
 		for (int i = 0; i < simplexCopy.size(); ++i)
@@ -211,7 +211,7 @@ void CollisionHandler::CalculatePenetration(Collidable *A, Collidable *B)
 			a = simplexCopy[i];
 			b = simplexCopy[j];
 			n = (windingCW ? Vector3(b.z - a.z, 0, a.x - b.x) : Vector3(a.z - b.z, 0, b.x - a.x));
-			// calculate the distance from the origin to the edge
+			//calculate the distance from the origin to the edge
 			if (n.Length() == 0)
 			{
 				std::cout << "Something is wrong with EPA\n";
@@ -240,6 +240,93 @@ void CollisionHandler::CalculatePenetration(Collidable *A, Collidable *B)
 		else
 		{
 			simplexCopy.insert(simplexCopy.begin() + closest.index, point);
+		}
+	}
+}
+
+void CollisionHandler::CalculatePenetration3D(Collidable* A, Collidable* B)
+{
+	std::vector<Face> faces; //built from GJK terminated simplex
+	//building faces	
+	
+	Face fTemp1(simplex[0], simplex[1], simplex[2]);
+	faces.emplace_back(fTemp1);
+	Face fTemp2(simplex[0], simplex[2], simplex[3]);
+	faces.emplace_back(fTemp2);
+	Face fTemp3(simplex[0], simplex[3], simplex[1]);
+	faces.emplace_back(fTemp3);
+	Face fTemp4(simplex[1], simplex[3], simplex[2]);
+	faces.emplace_back(fTemp4);
+
+	float distance;
+	while (true)
+	{
+		//find closest face to origin
+		Face closest;
+		closest.distance = 99999;
+		for (Face &f : faces)
+		{
+			if (f.distance < closest.distance)
+			{
+				closest.distance = f.distance;
+				closest.normal = f.normal;
+				closest.edges[0] = f.edges[0];
+				closest.edges[1] = f.edges[1];
+				closest.edges[2] = f.edges[2];
+			}
+		}
+		//support with face normal
+		Vector3 point = GetMPoint(A, B, closest.normal);
+		//distance along normal
+		distance = point.Dot(closest.normal);
+		//if the origin lies on the face 
+		if (closest.distance < TOLERANCE)
+		{
+			penetrationDist = closest.normal * closest.distance;
+			return;
+		}
+		//if distance close enough to face distance
+		if (distance - closest.distance < TOLERANCE)
+		{
+			penetrationDist = closest.normal * closest.distance;
+			return;
+		}
+		//else extend polytope
+		else
+		{
+			std::vector<Edge> looseEdges; //from removing faces 
+			for (int i = 0; i < faces.size(); ++i)
+			{
+				//check if point can see face
+				if (faces[i].normal.Dot(point) > 0)
+				{
+					//loop through the face edges
+					for (int j = 0; j < 3; ++j)
+					{
+						//add loose edges
+						Edge reverseEdge(-faces[i].edges[j].points[0], -faces[i].edges[j].points[1]);
+						for (int k = 0; k < looseEdges.size(); ++k)
+						{
+							if (reverseEdge.points[0] == looseEdges[k].points[0] && reverseEdge.points[1] == looseEdges[k].points[1])
+							{
+								looseEdges.erase(looseEdges.begin() + k);
+								k--;
+							}
+							else
+								looseEdges.emplace_back(faces[i].edges[j]);
+						}
+					}
+					//remove face
+					faces.erase(faces.begin() + i);
+					i--;
+				}
+			}
+			//add new triangles
+			for (int i = 0; i < looseEdges.size(); ++i)
+			{
+				Face temp(looseEdges[i].points[0], looseEdges[i].points[1], point);
+				faces.emplace_back(temp);
+			}
 		}
 	}
 }

@@ -21,7 +21,7 @@ void SceneExampleColl::InitDerived()
 	test.DefineBoxCollider(Vector3(2, 2, 2));
 	test2.DefineBoxCollider(Vector3(2, 2, 2));
 
-	test.IncrementTranslate(Vector3(0, 3, 3));
+	test.IncrementTranslate(Vector3(0, 0, 1));
 
 	car.SetMaterial(shiny);
 	floor.SetMaterial(dull);
@@ -40,9 +40,9 @@ void SceneExampleColl::RenderDerived()
 		RenderObject(test.GetCollider());
 		RenderObject(test2.GetCollider());
 		std::string temp = "Coll: " + std::to_string(collide);
-		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0, 0);
+		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0.5f, 0);
 		temp = "PenDist:" + std::to_string(_coll->penetrationDist.x) + " " + std::to_string(_coll->penetrationDist.y) + " " + std::to_string(_coll->penetrationDist.z);
-		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0, 1);
+		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0.5f, 1);
 	}
 }
 
