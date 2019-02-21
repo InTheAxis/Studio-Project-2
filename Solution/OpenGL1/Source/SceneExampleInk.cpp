@@ -22,6 +22,7 @@ void SceneExampleInk::InitDerived()
 
 	yellow.SetPaintColor(Color(1, 1, 0));
 	purple.SetPaintColor(Color(1, 0, 1));
+
 }
 
 void SceneExampleInk::RenderFrameBuffer()

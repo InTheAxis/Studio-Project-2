@@ -2,6 +2,9 @@
 #define COLLECTIBLES_H
 #include "GameObject.h"
 #include "Car.h"
+#include <stdio.h>      /* printf, scanf, puts, NULL */
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>
 
 class Collectibles :public GameObject
 {
@@ -14,7 +17,7 @@ public:
 	void SetActiveTime();
 	bool GetPickedUp();
 	void SetPickedUp(bool PickedUp);
-	
+	float RandomNumberGenerator();
 
 protected:
 	float maxActiveTime;
@@ -23,7 +26,7 @@ protected:
 	bool pickedUp;
 
 	const float PICKUP_RANGE = 0.5f;
-
+	float MapRange = 100;
 	
 };
 

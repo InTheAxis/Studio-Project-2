@@ -64,6 +64,9 @@ void CollectibleSpeedBoost::ApplyEffect(GameObject *object,double dt)
 
 		if(activeTime<=0)
 			pickedUp = false;
+
+		translate.x = RandomNumberGenerator();
+		translate.z = RandomNumberGenerator();
 	}
 	
 	else

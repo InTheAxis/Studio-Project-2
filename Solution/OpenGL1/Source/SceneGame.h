@@ -24,14 +24,14 @@ private:
 	Cursor mouse;
 	LoadSceneButton resumeButton, exitButton;
 	Car car;
-	GameObject skybox;
+	GameObject floor;
 	Grid level;
 	Paintable paintLayer;
 
 	CollectibleSpeedBoost speedboost;
 	CollectibleParticleEffect particleEffect;
 	std::vector<Button*> allButtons;
-	
+	float timer;
 	int buttonIndex;
 
 	const int NUM_OF_BUTTONS = 2;
