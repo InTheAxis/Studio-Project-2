@@ -5,6 +5,7 @@ Wheel::Wheel()
 {
 	omegaI = omegaF = theta = 0;
 	radius = 0.5f;
+	torqueForce = 0;
 }
 
 void Wheel::RollFront(float u, float v, float angle, double dt)
@@ -30,6 +31,11 @@ void Wheel::RollBack(float u, float v, double dt)
 void Wheel::SetRadius(float radius)
 {
 	this->radius = radius;
+}
+
+float Wheel::AddTorqueForce()
+{
+	return torqueForce;
 }
 
 Wheel::~Wheel()

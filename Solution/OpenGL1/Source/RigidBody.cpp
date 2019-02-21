@@ -13,7 +13,7 @@ RigidBody::RigidBody()
 	this->REV_FORCE = 0;
 
 	this->torque = leverArm = torqueForce = Vector3(0, 0, 0);
-	this->inertia = lengthA = lengthB = 0;
+	this->momentOfInertia = lengthA = lengthB = 0;
 	this->torqueTheta = 0;
 
 	this->rotationMatrix.SetToIdentity();
@@ -40,7 +40,7 @@ void RigidBody::AddForceForward(Vector3 f)
 
 void RigidBody::AddForceRight(Vector3 f)
 {
-	this->forceRight = f.z;
+	this->forceRight = f.x;
 }
 
 void RigidBody::AddBrakeFriction(float brakeFriction)
@@ -56,22 +56,12 @@ void RigidBody::AddTorqueForce(float torqueForce)
 	}
 }
 
-void RigidBody::AddTorque(float leverArm, float torqueForce, float lengthA, float lengthB)
+void RigidBody::SetTorque(float leverArm, float torqueForce, float lengthA, float lengthB)
 {
 	this->leverArm.x = leverArm;
 	this->torqueForce.y = torqueForce;
 	this->lengthA = lengthA;
 	this->lengthB = lengthB;
-}
-
-float RigidBody::GetTorqueTheta()
-{
-	return torqueTheta;
-}
-
-Vector3 RigidBody::GetLeverArm()
-{
-	return leverArm;
 }
 
 void RigidBody::UpdateSuvat(double dt)
@@ -132,11 +122,11 @@ void RigidBody::UpdateRotation(double dt)
 
 void RigidBody::UpdateTorque(double dt)
 {
-	this->torque.z = Vector3(leverArm.Cross(torqueForce)).z;
+	this->torque.z = (leverArm.Cross(torqueForce)).z;
 
-	this->inertia = (1.0f / 12.0f) * mass * (Math::Square(lengthA) + Math::Square(lengthB));
+	this->momentOfInertia = (1.0f / 12.0f) * mass * (Math::Square(lengthA) + Math::Square(lengthB));
 	
-	this->torqueTheta = Math::RadianToDegree(torque.z / inertia * Math::Square(dt));
+	this->torqueTheta = Math::RadianToDegree(torque.z / momentOfInertia * Math::Square(dt));
 }
 
 RigidBody::~RigidBody()

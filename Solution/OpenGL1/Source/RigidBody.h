@@ -14,9 +14,8 @@ public:
 	void UpdateSuvat(double dt);
 	void UpdateRotation(double dt);
 	void UpdateTorque(double dt);
-	void AddTorque(float leverArm, float torqueForce, float lengthA, float lengthB);
-	float GetTorqueTheta();
-	Vector3 GetLeverArm();
+
+	void SetTorque(float leverArm, float torqueForce, float lengthA, float lengthB);
 	~RigidBody();
 protected:
 	Vector3 forward, up, right;
@@ -29,8 +28,10 @@ protected:
 	float REV_FORCE; //derived const to help with starting car
 
 	Vector3 torque, leverArm, torqueForce;
-	float inertia, lengthA, lengthB;
+	float momentOfInertia, lengthA, lengthB;
 	float torqueTheta;
+
+	float forwardCollisionForce, rightCollisionForce;
 
 	Mtx44 rotationMatrix;
 
