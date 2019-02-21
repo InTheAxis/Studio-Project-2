@@ -15,9 +15,9 @@ void SceneExampleColl::InitDerived()
 	test2.Init("test", MeshBuilder::GenerateCube(Color(0, 1, 1)));
 	test2.CreateRigidBody(Vector3(0, 0, 10), 1200, 0.1f, 0.09f);
 
-	car.DefineBoxCollider(Vector3(2, 2, 2));
-	test.DefineBoxCollider(Vector3(2, 2, 2));
-	test2.DefineBoxCollider(Vector3(2, 2, 2));
+	car.DefineRect2DCollider(Vector3(2, 2, 2));
+	test.DefineCircle2DCollider(Vector3(2, 2, 2));
+	test2.DefineCircle2DCollider(Vector3(2, 2, 2));
 
 	test.IncrementTranslate(Vector3(0, 2, 2));
 

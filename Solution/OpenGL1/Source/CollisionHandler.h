@@ -16,13 +16,11 @@ class CollisionHandler
 public:
 	static CollisionHandler* GetInstance();
 
-	//overloaded checkers to handle each type of collision
-	/*bool CheckCollision(Collidable* still, RigidBody* moving);
-	bool CheckCollision(RigidBody* rb1, RigidBody* rb2);*/
+	//using gjk
+	bool CheckCollision(Collidable* A, Collidable* B);
 	//overloaded resolvers to handle each type of collision
 	void ResolveCollision(Collidable* c1, Collidable* c2); //generic one
 	
-	bool CheckCollision(Collidable* A, Collidable* B);
 
 	~CollisionHandler();
 private:
@@ -33,9 +31,7 @@ private:
 
 	const Vector3 INITIAL_DIR = Vector3(1, 1, 1);
 	
-
-
-
+	//for gjk
 	std::vector<Vector3> simplex; //up to 3-simplex
 	Vector3 direction, pointA;
 	Vector3 GetMPoint(Collidable* A, Collidable* B, Vector3 dir); //gets Minkowski diff
