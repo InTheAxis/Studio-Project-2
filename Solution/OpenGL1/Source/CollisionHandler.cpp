@@ -279,12 +279,6 @@ void CollisionHandler::CalculatePenetration3D(Collidable* A, Collidable* B)
 		Vector3 point = GetMPoint(A, B, closest.normal);
 		//distance along normal
 		distance = point.Dot(closest.normal);
-		//if the origin lies on the face 
-		if (closest.distance < TOLERANCE)
-		{
-			penetrationDist = closest.normal * closest.distance;
-			return;
-		}
 		//if distance close enough to face distance
 		if (distance - closest.distance < TOLERANCE)
 		{
@@ -304,7 +298,7 @@ void CollisionHandler::CalculatePenetration3D(Collidable* A, Collidable* B)
 					for (int j = 0; j < 3; ++j)
 					{
 						//add loose edges
-						Edge reverseEdge(-faces[i].edges[j].points[0], -faces[i].edges[j].points[1]);
+						Edge reverseEdge(faces[i].edges[j].points[1], faces[i].edges[j].points[0]);
 						for (int k = 0; k < looseEdges.size(); ++k)
 						{
 							if (reverseEdge.points[0] == looseEdges[k].points[0] && reverseEdge.points[1] == looseEdges[k].points[1])
