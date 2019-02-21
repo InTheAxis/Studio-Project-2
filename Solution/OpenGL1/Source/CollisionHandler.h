@@ -17,11 +17,13 @@ public:
 	static CollisionHandler* GetInstance();
 
 	//overloaded checkers to handle each type of collision
-	bool CheckCollision(Collidable* still, RigidBody* moving);
-	bool CheckCollision(RigidBody* rb1, RigidBody* rb2);
+	/*bool CheckCollision(Collidable* still, RigidBody* moving);
+	bool CheckCollision(RigidBody* rb1, RigidBody* rb2);*/
 	//overloaded resolvers to handle each type of collision
 	void ResolveCollision(Collidable* c1, Collidable* c2); //generic one
 	
+	bool CheckCollision(Collidable* A, Collidable* B);
+
 	~CollisionHandler();
 private:
 	CollisionHandler();
@@ -34,10 +36,9 @@ private:
 
 
 
-	//std::vector<Vector3> simplex; //up to 3-simplex
-	//Vector3 direction, pointA;
-	//Vector3 GetMPoint(Collidable* A, Collidable* B, Vector3 dir); //gets Minkowski point
-	//bool EvolveSimplex(std::vector<Vector3> *simplex, Vector3 *dir);
+	std::vector<Vector3> simplex; //up to 3-simplex
+	Vector3 direction, pointA;
+	Vector3 GetMPoint(Collidable* A, Collidable* B, Vector3 dir); //gets Minkowski diff
 };
 
 #endif // ! COLLISION_HANDLER_H

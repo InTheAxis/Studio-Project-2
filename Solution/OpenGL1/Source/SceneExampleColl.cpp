@@ -19,7 +19,7 @@ void SceneExampleColl::InitDerived()
 	test.DefineBoxCollider(Vector3(2, 2, 2));
 	test2.DefineBoxCollider(Vector3(2, 2, 2));
 
-	test.IncrementTranslate(Vector3(0, 0, 0));
+	test.IncrementTranslate(Vector3(0, 2, 2));
 
 	car.SetMaterial(shiny);
 	floor.SetMaterial(dull);

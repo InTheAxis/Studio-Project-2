@@ -18,15 +18,15 @@ CollisionHandler * CollisionHandler::GetInstance()
 	return instance;
 }
 
-bool CollisionHandler::CheckCollision(Collidable* still, RigidBody* moving)
-{
-	return false;
-}
-
-bool CollisionHandler::CheckCollision(RigidBody* rb1, RigidBody* rb2)
-{
-	return false;
-}
+//bool CollisionHandler::CheckCollision(Collidable* still, RigidBody* moving)
+//{
+//	return false;
+//}
+//
+//bool CollisionHandler::CheckCollision(RigidBody* rb1, RigidBody* rb2)
+//{
+//	return false;
+//}
 
 void CollisionHandler::ResolveCollision(Collidable* c1, Collidable* c2)
 {
@@ -44,142 +44,78 @@ CollisionHandler::~CollisionHandler()
 
 
 
-//partially working GJK
+//working GJK for 2D
+bool CollisionHandler::CheckCollision(Collidable* A, Collidable* B)
+{
+	//init var
+	direction = INITIAL_DIR;
+	pointA = Vector3(0, 0, 0);
+	simplex.clear();
+	//get first point, and build 0-simplex
+	pointA = GetMPoint(A, B, direction);
+	if (pointA.Dot(direction) < 0)
+		return false; //no intersection
+	simplex.emplace_back(pointA);
+	direction = -pointA;
 
-//bool CollisionHandler::CheckCollision(Collidable* A, Collidable* B)
-//{
-//	//init var
-//	direction = INITIAL_DIR;
-//	pointA = Vector3(0, 0, 0);
-//	simplex.clear();
-//	//get first point, and build 0-simplex
-//	pointA = GetMPoint(A, B, direction);
-//	simplex.emplace_back(pointA);
-//	direction = -pointA;
-//
-//	while (true)
-//	{
-//		//get next point
-//		pointA = GetMPoint(A, B, direction);
-//		
-//		//check if the point has passed the origin, if no then no intersect
-//		if (pointA.Dot(direction) < 0)
-//		{
-//			return false; //no intersection
-//		}
-//
-//		//add to simplex
-//		simplex.emplace_back(pointA); 
-//
-//		//update simplex and direction, and check if origin is in simplex
-//		if (EvolveSimplex(&simplex, &direction)) 
-//		{
-//			return true; //intersection
-//		}
-//	}
-//}
+	Vector3 b, c, acPerp, abPerp;
+	while (true)
+	{
+		//get next point
+		pointA = GetMPoint(A, B, direction);		
+		//check if the point has passed the origin, if no then no intersect
+		if (pointA.Length() == 0)
+			return true; //intersect, A and B share same point
+		if (pointA.Dot(direction) < 0)
+			return false; //no intersection
+		//add to simplex
+		simplex.emplace_back(pointA); 
+	
+		//handle line segment, 1-simplex
+		if (simplex.size() == 2)
+		{
+			b = simplex[0];
+			direction = TripleCrossProduct(b - pointA, -pointA, b - pointA);
+			if (direction.Length() == 0) //if a and b are exactly opposite, cross is zero
+				direction = Vector3(b.x - pointA.x, 0, pointA.z - b.z); 
+			continue; //skip to next iteration
+		}
 
-//Vector3 CollisionHandler::GetMPoint(Collidable *A, Collidable *B, Vector3 dir)
-//{
-//	Vector3 p1 = A->GetCollider()->GetFurthestPoint(dir);
-//	Vector3 p2 = B->GetCollider()->GetFurthestPoint(-dir);
-//	return p1 - p2;
-//}
+		//handling triangle, 2-simplex
+		b = simplex[1];
+		c = simplex[0];
+		if (b.Length() - c.Length() < 0.0001f && b.Length() - pointA.Length() < 0.0001f) //prevent infinite loop if simplex has all same points
+			return true;
+		acPerp = TripleCrossProduct(b - pointA, c - pointA, c - pointA);
+		
+		if (acPerp.Dot(-pointA) > 0) //if beyond ac
+		{
+			direction = acPerp;
+		}
+		else //else beyond ab or in triangle
+		{
+			abPerp = TripleCrossProduct(c - pointA, b - pointA, b - pointA);
 
-//bool CollisionHandler::EvolveSimplex(std::vector<Vector3> *simplex, Vector3 *dir)
-//{
-//	Vector3 a, b, c;
-//	a = simplex->back();
-//
-//	switch (simplex->size())
-//	{
-//		case 2:
-//		{
-//			b = (*simplex)[0];
-//			if ((b - a).Dot(-a) > 0)
-//			{
-//				*dir = TripleCrossProduct(b - a, -a, b - a);
-//			}
-//			else
-//			{
-//				*dir = -a;
-//				simplex->erase(simplex->begin()); //remove b
-//			}
-//			break;
-//		}
-//		case 3:
-//		{
-//			c = (*simplex)[0];
-//			b = (*simplex)[1];
-//
-//			Vector3 abcPerp = (c - a).Cross(b - a);
-//			Vector3 abPerp = TripleCrossProduct(c - a, b - a, b - a);
-//			Vector3 acPerp = TripleCrossProduct(b - a, c - a, c - a);
-//
-//			if(acPerp.Dot(-a) > 0)
-//			{
-//				if ((c - a).Dot(-a) > 0)
-//				{
-//					*dir = TripleCrossProduct(c - a, -a, c - a);
-//					simplex->erase(simplex->begin() + 1); //remove b
-//				}
-//				else
-//				{
-//					//*repeated
-//					if ((b - a).Dot(-a) > 0)
-//					{
-//						*dir = TripleCrossProduct(b - a, -a, b - a);
-//						simplex->erase(simplex->begin()); //remove c
-//					}
-//					else
-//					{
-//						*dir = -a;
-//						simplex->erase(simplex->begin()); //remove c
-//						simplex->erase(simplex->begin()); //remove b
-//					}
-//				}
-//			}
-//			else
-//			{
-//				//*repeated
-//				if (abPerp.Dot(-a) > 0)
-//				{
-//					if ((b - a).Dot(-a) > 0)
-//					{
-//						*dir = TripleCrossProduct(b - a, -a, b - a);
-//						simplex->erase(simplex->begin()); //remove c
-//					}
-//					else
-//					{
-//						*dir = -a;
-//						simplex->erase(simplex->begin()); //remove c
-//						simplex->erase(simplex->begin()); //remove b
-//					}
-//				}
-//				else
-//				{
-//					if (abcPerp.Dot(-a) > 0)
-//					{
-//						*dir = abcPerp;
-//					}
-//					else
-//					{
-//						*dir = -abcPerp;
-//						Vector3 temp = (*simplex)[0];
-//						(*simplex)[0] = (*simplex)[1];
-//						(*simplex)[1] = temp;
-//					}
-//					return true;
-//				}
-//			}
-//			break;
-//		}
-//		case 4:
-//		{
-//			break;
-//		}
-//	}
-//
-//	return false;
-//}
+			if (abPerp.Dot(-pointA) < 0) //if within triangle
+			{
+				return true;
+			}
+			//else beyond ab
+			std::swap(simplex[0], simplex[1]);
 
+			direction = abPerp;
+		}		
+
+		std::swap(simplex[1], simplex[2]);
+		simplex.pop_back(); //remove duplicate in simplex
+	}
+
+	return false;
+}
+
+Vector3 CollisionHandler::GetMPoint(Collidable *A, Collidable *B, Vector3 dir)
+{
+	Vector3 p1 = A->GetCollider()->GetFurthestPoint(dir);
+	Vector3 p2 = B->GetCollider()->GetFurthestPoint(-dir);
+	return p1 - p2;
+}
