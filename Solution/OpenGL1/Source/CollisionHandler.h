@@ -2,6 +2,7 @@
 #define COLLISION_HANDLER_H
 
 #define _coll CollisionHandler::GetInstance()
+#define TOLERANCE 0.000000001f
 
 #include "Vector3.h"
 #include "Collider.h"
@@ -18,6 +19,7 @@ public:
 
 	//using gjk
 	bool CheckCollision(RigidBody* A, Collidable* B);
+	bool CheckCollision3D(RigidBody* A, Collidable* B);
 	//overloaded resolvers to handle each type of collision
 	void ResolveCollision(RigidBody* A, Collidable* B); //generic one
 	
@@ -30,7 +32,6 @@ private:
 
 
 	const Vector3 INITIAL_DIR = Vector3(1, 1, 1);
-	const float TOLERANCE = 0.01f;
 	
 	//for gjk
 	std::vector<Vector3> simplex, simplexCopy; //up to 3-simplex for gjk

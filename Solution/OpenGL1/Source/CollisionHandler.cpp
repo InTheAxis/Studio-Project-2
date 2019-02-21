@@ -30,7 +30,7 @@ void CollisionHandler::ResolveCollision(RigidBody* A, Collidable* B)
 	simplexCopy = simplex;
 	this->CalculatePenetration(A, B);
 
-	A->IncrementTranslate(Vector3(-penetrationDist.x, 0, -penetrationDist.z));
+	//A->IncrementTranslate(Vector3(-penetrationDist.x, 0, -penetrationDist.z));
 }
 
 //working GJK for 2D and todo EPA
@@ -97,6 +97,86 @@ bool CollisionHandler::CheckCollision(RigidBody* A, Collidable* B)
 
 		std::swap(simplex[1], simplex[2]);
 		simplex.pop_back(); //remove duplicate in simplex
+	}
+
+	return false;
+}
+
+bool CollisionHandler::CheckCollision3D(RigidBody* A, Collidable* B)
+{
+	//init var
+	direction = INITIAL_DIR;
+	pointA = Vector3(0, 0, 0);
+	simplex.clear();
+	//get first point, and build 0-simplex
+	pointA = GetMPoint(A, B, direction);
+	if (pointA.Dot(direction) < 0)
+		return false; //no intersection
+	simplex.emplace_back(pointA);
+	direction = -pointA;
+
+	Vector3 b, c, acPerp, abPerp;
+	while (true)
+	{
+		//get next point
+		pointA = GetMPoint(A, B, direction);
+		//check if the point has passed the origin, if no then no intersect
+		if (pointA.Length() == 0)
+			return true; //intersect, A and B share same point
+		if (pointA.Dot(direction) < 0)
+			return false; //no intersection
+		else if (simplex.size() == 4)
+			return true; //intersects if the point not past origin, and simplex is alr 3-simplex
+		//add to simplex
+		simplex.emplace_back(pointA);
+
+		switch (simplex.size())
+		{
+			//handle line segment, 1-simplex
+			case 2:
+			{
+				b = simplex[0];
+				direction = TripleCrossProduct(b - pointA, -pointA, b - pointA);
+				if (direction.Length() < TOLERANCE) //if a and b are exactly opposite, cross is zero
+					direction = Vector3(b.x - pointA.x, b.y - pointA.y, pointA.z - b.z);
+				break;
+			}
+			//handling triangle, 2-simplex
+			case 3:
+			{
+				b = simplex[1];
+				c = simplex[0];
+				acPerp = TripleCrossProduct(b - pointA, c - pointA, c - pointA);
+
+				if (acPerp.Dot(-pointA) > 0) //if beyond ac
+				{
+					direction = acPerp;
+				}
+				else //else beyond ab or in triangle
+				{
+					abPerp = TripleCrossProduct(c - pointA, b - pointA, b - pointA);
+
+					if (abPerp.Dot(-pointA) < 0) //if within triangle
+					{
+						direction = (c - pointA).Cross(b - pointA);
+						break;
+					}
+					direction = abPerp;
+					std::swap(simplex[0], simplex[1]);
+				}
+
+				std::swap(simplex[1], simplex[2]);
+				simplex.pop_back(); //remove duplicate in simplex
+				break;
+			}
+			case 4: //handle 3-simplex
+			{
+				//I already know origin is within direction of current point if it reaaches this, thus must be in other direction
+				direction = -direction;
+				break;
+			}
+
+		}
 	}
 
 	return false;

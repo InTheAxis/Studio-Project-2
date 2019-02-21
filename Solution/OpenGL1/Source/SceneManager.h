@@ -33,7 +33,7 @@ private:
 	int currentIndex;
 
 	//testing
-	SceneExampleCar example;
+	SceneExampleColl example;
 
 	//actual
 	SceneEmpty empty;
