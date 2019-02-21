@@ -17,26 +17,33 @@ public:
 	static CollisionHandler* GetInstance();
 
 	//using gjk
-	bool CheckCollision(Collidable* A, Collidable* B);
+	bool CheckCollision(RigidBody* A, Collidable* B);
 	//overloaded resolvers to handle each type of collision
-	void ResolveCollision(Collidable* c1, Collidable* c2); //generic one
+	void ResolveCollision(RigidBody* A, Collidable* B); //generic one
 	
+	Vector3 penetrationDist;
 
 	~CollisionHandler();
 private:
 	CollisionHandler();
 	static CollisionHandler* instance;
 
-	Vector3 penetrationDist;
 
 	const Vector3 INITIAL_DIR = Vector3(1, 1, 1);
+	const float TOLERANCE = 0.01f;
 	
 	//for gjk
-	std::vector<Vector3> simplex; //up to 3-simplex
+	std::vector<Vector3> simplex, simplexCopy; //up to 3-simplex for gjk
 	Vector3 direction, pointA;
 	Vector3 GetMPoint(Collidable* A, Collidable* B, Vector3 dir); //gets Minkowski diff
 	//for epa
-	void CalculatePenetration();
+	void CalculatePenetration(Collidable *A, Collidable *B);
+	struct Edge
+	{
+		float distance;
+		Vector3 normal;
+		int index;
+	};
 };
 
 #endif // ! COLLISION_HANDLER_H

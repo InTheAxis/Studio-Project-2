@@ -11,11 +11,11 @@ Car::Car()
 	this->AddChild(&(wheels[0]));
 }
 
-void Car::RollFront(float u, float v, double dt)
+void Car::RollFront(float u, float v, float angle, double dt)
 {
 	for (int i = 0; i < 2; i++)
 	{
-		wheels[i].Roll(u, v, dt);
+		wheels[i].RollFront(u, v, angle, dt);
 	}
 }
 
@@ -23,7 +23,7 @@ void Car::RollBack(float u, float v, double dt)
 {
 	for (int i = 2; i < 4; i++)
 	{
-		wheels[i].Roll(u, v, dt);
+		wheels[i].RollBack(u, v, dt);
 	}
 }
 

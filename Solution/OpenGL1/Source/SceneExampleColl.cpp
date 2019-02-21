@@ -16,10 +16,10 @@ void SceneExampleColl::InitDerived()
 	test2.CreateRigidBody(Vector3(0, 0, 10), 1200, 0.1f, 0.09f);
 
 	car.DefineRect2DCollider(Vector3(2, 2, 2));
-	test.DefineCircle2DCollider(Vector3(2, 2, 2));
-	test2.DefineCircle2DCollider(Vector3(2, 2, 2));
+	test.DefineRect2DCollider(Vector3(2, 2, 2));
+	test2.DefineRect2DCollider(Vector3(2, 2, 2));
 
-	test.IncrementTranslate(Vector3(0, 2, 2));
+	test.IncrementTranslate(Vector3(0, 0, 1.5f));
 
 	car.SetMaterial(shiny);
 	floor.SetMaterial(dull);
@@ -39,6 +39,8 @@ void SceneExampleColl::RenderDerived()
 		RenderObject(car.GetCollider());
 		std::string temp = "Coll: " + std::to_string(collide);
 		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0, 0);
+		temp = "PenDist:" + std::to_string(_coll->penetrationDist.x) + " " + std::to_string(_coll->penetrationDist.z);
+		RenderTextOnScreen(&TEXT, temp, Color(1, 0, 1), 1, 0, 1);
 	}
 }
 
@@ -116,7 +118,9 @@ void SceneExampleColl::UpdateDerived(double dt)
 
 	test.UpdateCollider();
 	car.UpdateCollider();
-	collide = _coll->CheckCollision(&test, &car);
+	collide = _coll->CheckCollision(&car, &test);
+	if (collide)
+		_coll->ResolveCollision(&car, &test);
 }
 
 void SceneExampleColl::UpdateDerivedBounced(double dt)

@@ -18,12 +18,23 @@ CollisionHandler * CollisionHandler::GetInstance()
 	return instance;
 }
 
-void CollisionHandler::ResolveCollision(Collidable* c1, Collidable* c2)
+void CollisionHandler::ResolveCollision(RigidBody* A, Collidable* B)
 {
+	if (simplex.size() == 0)
+	{
+		std::cout << "Check for collision first!\n";
+		return;
+	}
+
+	penetrationDist = Vector3(0, 0, 0);
+	simplexCopy = simplex;
+	this->CalculatePenetration(A, B);
+
+	A->IncrementTranslate(Vector3(-penetrationDist.x, 0, -penetrationDist.z));
 }
 
 //working GJK for 2D and todo EPA
-bool CollisionHandler::CheckCollision(Collidable* A, Collidable* B)
+bool CollisionHandler::CheckCollision(RigidBody* A, Collidable* B)
 {
 	//init var
 	direction = INITIAL_DIR;
@@ -98,8 +109,59 @@ Vector3 CollisionHandler::GetMPoint(Collidable *A, Collidable *B, Vector3 dir)
 	return p1 - p2;
 }
 
-void CollisionHandler::CalculatePenetration()
+void CollisionHandler::CalculatePenetration(Collidable *A, Collidable *B)
 {
+	Vector3 a, b, n;
+	double distance;
+	//temporarily use abn to find winding (clockwise -1 or anti-clockwise 1)
+	a = simplex[0];
+	b = simplex[1];
+	n = simplex[2];
+	
+	bool windingCW = ((b - a).Cross(n - a)).y == -1 ? true : false;
+	while (true)
+	{
+		//find closest edge
+		Edge closest;
+		closest.distance = 99999;
+		for (int i = 0; i < simplexCopy.size(); ++i)
+		{
+			int j = i + 1 == simplexCopy.size() ? 0 : i + 1;
+			//get the current point and the next one
+			a = simplexCopy[i];
+			b = simplexCopy[j];
+			n = (windingCW ? Vector3(b.z - a.z, 0, a.x - b.x) : Vector3(a.z - b.z, 0, b.x - a.x));
+			// calculate the distance from the origin to the edge
+			if (n.Length() == 0)
+			{
+				std::cout << "Something is wrong with EPA\n";
+				return;
+			}
+			n.Normalize();
+			distance = n.Dot(a);
+			//check the distance
+			if (distance < closest.distance) {
+				closest.distance = distance;
+				closest.normal = n;
+				closest.index = j;
+			}
+		}
+		//support with edge normal
+		Vector3 point = GetMPoint(A, B, closest.normal);
+		//distance along normal
+		distance = point.Dot(closest.normal);
+		//if distance close enough to edge distance
+		if (distance - closest.distance < TOLERANCE)
+		{
+			penetrationDist = closest.normal * closest.distance;
+			return;
+		}
+		//else, insert to simplex in between the points that made the closest edge
+		else
+		{
+			simplexCopy.insert(simplexCopy.begin() + closest.index, point);
+		}
+	}
 }
 
 CollisionHandler::~CollisionHandler()
