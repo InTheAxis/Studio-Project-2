@@ -4,7 +4,7 @@
 
 Vehicle::Vehicle()
 {
-	engineForce = MAX_ENGINE_FORCE;
+	engineForce = 10000;
 	turningForce = 4500;
 	brakeFriction = 5000;
 	gearNumber = 1;
@@ -89,22 +89,22 @@ void Vehicle::SetGear(int gear)
 
 	switch (gearNumber) {
 	case 0:
-		engineForce = MAX_ENGINE_FORCE;
+		engineForce = 10000;
 		break;
 	case 1:
-		engineForce = MAX_ENGINE_FORCE / 5;
+		engineForce = 10000;
 		break;
 	case 2:
-		engineForce = (MAX_ENGINE_FORCE / 5) * 2;
+		engineForce = 12500;
 		break;
 	case 3:
-		engineForce = (MAX_ENGINE_FORCE / 5) * 3;
+		engineForce = 15000;
 		break;
 	case 4:
-		engineForce = (MAX_ENGINE_FORCE / 5) * 4;
+		engineForce = 17500;
 		break;
 	case 5:
-		engineForce = MAX_ENGINE_FORCE;
+		engineForce = 20000;
 		break;
 	default:
 		break;

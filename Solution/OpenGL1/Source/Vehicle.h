@@ -33,8 +33,6 @@ protected:
 	float angleY;
 	float torqueForce;
 
-	const float MAX_ENGINE_FORCE = 25000.f;
-	
 	Paint paint;
 };
 
