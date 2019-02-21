@@ -7,7 +7,17 @@ Wheel::Wheel()
 	radius = 0.5f;
 }
 
-void Wheel::Roll(float u, float v, double dt)
+void Wheel::RollFront(float u, float v, float angle, double dt)
+{
+	omegaF = v / radius;
+	omegaI = u / radius;
+
+	theta = 0.5 * (omegaI + omegaF) * dt;
+
+	this->rotate = Vector3(theta, angle, 0);
+}
+
+void Wheel::RollBack(float u, float v, double dt)
 {
 	omegaF = v / radius;
 	omegaI = u / radius;

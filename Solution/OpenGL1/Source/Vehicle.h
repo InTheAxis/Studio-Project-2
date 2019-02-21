@@ -23,7 +23,7 @@ public:
 	Vector3 GetAngle(); //ignore x and z
 	Paint* GetPaint();
 
-	virtual void RollFront(float u, float v, double dt) = 0;
+	virtual void RollFront(float u, float v, float angle, double dt) = 0;
 	virtual void RollBack(float u, float v, double dt) = 0;
 	~Vehicle();
 protected:
@@ -33,6 +33,8 @@ protected:
 	float angleY;
 	float torqueForce;
 
+	const float MAX_ENGINE_FORCE = 25000.f;
+	
 	Paint paint;
 };
 

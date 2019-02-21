@@ -4,14 +4,13 @@
 
 Vehicle::Vehicle()
 {
-	engineForce = 20000;
+	engineForce = MAX_ENGINE_FORCE;
 	turningForce = 4500;
 	brakeFriction = 5000;
 	gearNumber = 1;
 	wheelRadius = 0.001f;
 	angleY = 0.0f;
 	torqueForce = 0;
-
 }
 
 void Vehicle::MoveForward(int dir, double dt)
@@ -24,7 +23,7 @@ void Vehicle::MoveForward(int dir, double dt)
 
 	this->translate += s * this->forward.Normalize();
 
-	this->RollFront(u, v, dt);
+	this->RollFront(u, v, angleY, dt);
 	this->RollBack(u, v, dt);
 }
 
@@ -41,6 +40,15 @@ void Vehicle::MoveRight(int dir, double dt)
 	rotationMatrix.SetToRotation(angleY, 0, 1, 0);
 	forward = rotationMatrix * forward;
 	this->rotate.y += angleY;
+
+	if (dir == 1)
+	{
+		this->RollFront(u, v, angleY - 25, dt);
+	}
+	else if (dir == -1)
+	{
+		this->RollFront(u, v, angleY + 25, dt);
+	}
 }
 
 void Vehicle::TorqueRotation(int dir, double dt)
@@ -51,7 +59,7 @@ void Vehicle::TorqueRotation(int dir, double dt)
 	}
 	else
 	{
-		this->AddTorqueForce(dir * 3000);
+		this->AddTorqueForce(dir * 5000);
 		SetRotateAndPivot(Vector3(GetTorqueTheta(), 0, 0), Vector3(0, 0, GetLeverArm().x));
 	}
 }
@@ -79,28 +87,28 @@ void Vehicle::SetGear(int gear)
 		this->gearNumber = gear;
 	}
 
-	/*switch (gearNumber) {
+	switch (gearNumber) {
 	case 0:
-		engineForce = engineForce;
+		engineForce = MAX_ENGINE_FORCE;
 		break;
 	case 1:
-		engineForce = engineForce / 5;
+		engineForce = MAX_ENGINE_FORCE / 5;
 		break;
 	case 2:
-		engineForce = (engineForce / 5) * 2;
+		engineForce = (MAX_ENGINE_FORCE / 5) * 2;
 		break;
 	case 3:
-		engineForce = (engineForce / 5) * 3;
+		engineForce = (MAX_ENGINE_FORCE / 5) * 3;
 		break;
 	case 4:
-		engineForce = (engineForce / 5) * 4;
+		engineForce = (MAX_ENGINE_FORCE / 5) * 4;
 		break;
 	case 5:
-		engineForce = engineForce;
+		engineForce = MAX_ENGINE_FORCE;
 		break;
 	default:
 		break;
-	}*/
+	}
 }
 
 int Vehicle::GetGear()

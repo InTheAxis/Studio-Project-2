@@ -50,7 +50,10 @@ void RigidBody::AddBrakeFriction(float brakeFriction)
 
 void RigidBody::AddTorqueForce(float torqueForce)
 {
-	this->torqueForce.y += torqueForce;
+	if (this->torqueForce.y < 125000)
+	{
+		this->torqueForce.y += torqueForce;
+	}
 }
 
 void RigidBody::AddTorque(float leverArm, float torqueForce, float lengthA, float lengthB)
