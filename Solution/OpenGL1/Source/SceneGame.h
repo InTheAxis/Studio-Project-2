@@ -24,7 +24,7 @@ private:
 	Cursor mouse;
 	LoadSceneButton resumeButton, exitButton;
 	Car car;
-	GameObject skybox;
+	GameObject floor;
 	Grid level;
 	Paintable paintLayer;
 

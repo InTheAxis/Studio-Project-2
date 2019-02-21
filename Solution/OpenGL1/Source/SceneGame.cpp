@@ -15,8 +15,8 @@ SceneGame::~SceneGame()
 void SceneGame::InitDerived()
 {
 
-	resumeButton.Init("resumeButton", MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(30, 20, 0), Vector3(0, 0, 0), Vector3(5, 1, 0));
-	exitButton.Init("exitButton", MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(30, 17.5, 0), Vector3(0, 0, 0), Vector3(1, 1, 0));
+	resumeButton.Init("play", "OBJ//LevelsButton.obj", "Image//levels.tga", Vector3(30, 20, 0), Vector3(0, 0, 0), Vector3(1, 1, 0));
+	exitButton.Init("garage", "OBJ//LevelsButton.obj", "Image//levels.tga", Vector3(30, 15, 0), Vector3(0, 0, 0), Vector3(1, 1, 0));
 	mouse.Init("mouse", MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(orthSize.x * 0.5f, orthSize.y * 0.5f, 10), Vector3(0, 0, 0), Vector3(1, 1, 0));
 
 	allButtons.push_back(&resumeButton);
@@ -29,7 +29,8 @@ void SceneGame::InitDerived()
 	speedboost.Init("speedboost", MeshBuilder::GenerateCube(Color(0, 0, 0)), "", Vector3(0, 0.5, 5), Vector3(0, 0, 0), Vector3(1, 1, 1));
 	particleEffect.Init("particleEffect", MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(0, 0.5, car.GetTranslate().z-1.5), Vector3(0, 0, 0), Vector3(0.1, 0.1, 0.1));
 
-	skybox.Init("skybox", "OBJ//skybox.obj", "Image//skybox.tga", Vector3(0, -50, 0), Vector3(0, 0, 0), Vector3(100, 100, 100));
+	floor.Init("floor", "OBJ//ground-low.obj", "Image//color2.tga");
+	paintLayer.Init("paintLayer", "OBJ//ground-high.obj", "", Vector3(0, 0.25f, 0));
 	
 
 	car.AddChild(&particleEffect);
@@ -45,11 +46,8 @@ void SceneGame::InitDerived()
 void SceneGame::RenderDerived()
 {
 	RenderObject(&car, true);
-
+	RenderObject(&floor, false);
 	
-
-	RenderObject(&skybox, false);
-
 	if(!speedboost.GetPickedUp())
 		RenderObject(&speedboost, false);
 
@@ -59,6 +57,7 @@ void SceneGame::RenderDerived()
 		RenderObjectOnScreen(&exitButton, false);
 		RenderObjectOnScreen(&mouse, false);
 	}
+	RenderObject(&paintLayer, false);
 }
 
 void SceneGame::UpdateDerived(double dt)
@@ -112,6 +111,7 @@ void SceneGame::UpdateDerived(double dt)
 		}
 		car.UpdateSuvat(dt);
 		car.UpdateRotation(dt);
+
 	}
 
 	else
