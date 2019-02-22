@@ -14,6 +14,7 @@ SceneGame::~SceneGame()
 
 void SceneGame::InitDerived()
 {
+	
 	timer = 0;
 	resumeButton.Init("play", "OBJ//LevelsButton.obj", "Image//levels.tga", Vector3(30, 20, 0), Vector3(0, 0, 0), Vector3(1, 1, 0));
 	exitButton.Init("garage", "OBJ//LevelsButton.obj", "Image//levels.tga", Vector3(30, 15, 0), Vector3(0, 0, 0), Vector3(1, 1, 0));
@@ -38,7 +39,7 @@ void SceneGame::InitDerived()
 	mouse.SetOrthSize(orthSize);
 	mouse.SetAllButton(allButtons);
 	buttonIndex = 0;
-
+	
 	RequestDontDestroy(&car);
 }
 
@@ -58,10 +59,14 @@ void SceneGame::RenderDerived()
 	}
 	RenderObject(&paintLayer, false);
 	RenderObjectOnScreen(&mouse, false);
+
+		std::string timerString = "Timer: " + std::to_string(timer);
+		RenderTextOnScreen(&TEXT, timerString, Color(1, 0, 1), 1, 0, 0);
 }
 
 void SceneGame::UpdateDerived(double dt)
 {
+	
 	mouse.Move(dt);
 	mouse.CheckHover();
 
@@ -205,10 +210,10 @@ void SceneGame::UpdateDerived(double dt)
 	if (!currentCam)
 		camera[0]->Update(dt, car.GetTranslate(), car.GetAngle()); //update camera
 
-	if (timer >= 120)
+	if (timer >= 10)
 	{
-		//mouse.ResetMousePos();
-		//RequestChangeScene(0);//change to end scene once it is created
+		mouse.ResetMousePos();
+		RequestChangeScene(4);//change to end scene once it is created
 	}
 }
 

@@ -47,7 +47,7 @@ private:
 
 	enum gameScenes
 	{
-		ENTRY_POINT,
+		EMPTY=0,
 		START,
 		LEVEL_SELECT,
 		LEVEL_1,
