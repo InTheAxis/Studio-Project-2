@@ -55,7 +55,6 @@ bool CollectibleSpeedBoost::CheckAbsorption(Vector3 objectLocation)
 
 void CollectibleSpeedBoost::ApplyEffect(GameObject *object,double dt)
 {
-	std::cout << activeTime << std::endl;
 	if (pickedUp)
 	{
 		activeTime -= dt;

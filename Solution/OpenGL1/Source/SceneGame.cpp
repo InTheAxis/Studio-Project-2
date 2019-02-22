@@ -55,16 +55,19 @@ void SceneGame::RenderDerived()
 	{
 		RenderObjectOnScreen(&resumeButton, false);
 		RenderObjectOnScreen(&exitButton, false);
-		RenderObjectOnScreen(&mouse, false);
 	}
 	RenderObject(&paintLayer, false);
+	RenderObjectOnScreen(&mouse, false);
 }
 
 void SceneGame::UpdateDerived(double dt)
 {
+	mouse.Move(dt);
+	mouse.CheckHover();
+
 	if (!pause)
 	{
-		std::cout << "Timer: " << timer;
+		std::cout << "Timer: " << timer << std::endl;
 		timer += dt;
 		/*if (car.GetEngineForce() > 0)*/
 			particleEffect.ApplyEffect(&car,dt);
@@ -117,9 +120,6 @@ void SceneGame::UpdateDerived(double dt)
 
 	else
 	{
-		mouse.Move(dt);
-		mouse.CheckHover();
-
 		for (Button* b : allButtons)	//for each button in the vector carryout the function
 		{
 			b->AnimateButton();
