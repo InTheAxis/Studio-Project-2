@@ -32,10 +32,8 @@ void SceneGame::InitDerived()
 	floor.Init("floor", "OBJ//Map.obj", "Image//color2.tga",Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(100, 100, 100));
 	paintLayer.Init("paintLayer", "OBJ//PaintLayer.obj", "", Vector3(0, 0.25, 0), Vector3(0, 0, 0), Vector3(100, 100, 100));
 	
-
 	car.AddChild(&particleEffect);
 	
-
 	mouse.SetOrthSize(orthSize);
 	mouse.SetAllButton(allButtons);
 	buttonIndex = 0;
@@ -55,17 +53,19 @@ void SceneGame::RenderDerived()
 	{
 		RenderObjectOnScreen(&resumeButton, false);
 		RenderObjectOnScreen(&exitButton, false);
-		RenderObjectOnScreen(&mouse, false);
 	}
 	RenderObject(&paintLayer, false);
+	RenderObjectOnScreen(&mouse, false);
 }
 
 void SceneGame::UpdateDerived(double dt)
 {
-	
+	mouse.Move(dt);
+	mouse.CheckHover();
+
 	if (!pause)
 	{
-		std::cout << "Timer: " << timer;
+		std::cout << "Timer: " << timer << std::endl;
 		timer += dt;
 		/*if (car.GetEngineForce() > 0)*/
 			particleEffect.ApplyEffect(&car,dt);
@@ -118,9 +118,6 @@ void SceneGame::UpdateDerived(double dt)
 
 	else
 	{
-		mouse.Move(dt);
-		mouse.CheckHover();
-
 		for (Button* b : allButtons)	//for each button in the vector carryout the function
 		{
 			b->AnimateButton();
@@ -128,20 +125,23 @@ void SceneGame::UpdateDerived(double dt)
 
 		//changing of scenes
 
-		if (exitButton.GetOnClickEvent())
-		{
-			allButtons[1]->SetHover(false);
-			exitButton.SetOnClickEvent(false);
-			pause = !pause;
-			mouse.ResetMousePos();
-			RequestChangeScene(1);//test
-		}
+
 
 		if (resumeButton.GetOnClickEvent())
 		{
 			allButtons[0]->SetHover(false);
 			resumeButton.SetOnClickEvent(false);
 			pause = false;
+		}
+
+		if (exitButton.GetOnClickEvent())
+		{
+			allButtons[1]->SetHover(false);
+			exitButton.SetOnClickEvent(false);
+			pause = !pause;
+			timer = 0;
+			mouse.ResetMousePos();
+			RequestChangeScene(1);//test
 		}
 
 		if (Application::leftMouseClick)
@@ -173,46 +173,10 @@ void SceneGame::UpdateDerived(double dt)
 
 void SceneGame::UpdateDerivedBounced(double dt)
 {
-	if (pause)
-	{
-		//selector controls
-		if (Application::IsKeyPressed(VK_RETURN))
+		if (Application::IsKeyPressed(VK_ESCAPE))
 		{
-			allButtons[buttonIndex]->DoAction();
+			pause = !pause;
 		}
-
-		if (Application::IsKeyPressed(VK_DOWN))
-		{
-			allButtons[buttonIndex]->SetHover(false);
-
-			if (buttonIndex >= NUM_OF_BUTTONS - 1)
-			{
-				buttonIndex = 0;
-			}
-
-			else
-				buttonIndex++;
-
-			allButtons[buttonIndex]->SetHover(true);
-		}
-		else if (Application::IsKeyPressed(VK_UP))
-		{
-			allButtons[buttonIndex]->SetHover(false);
-
-
-			if (buttonIndex <= 0)
-				buttonIndex = NUM_OF_BUTTONS - 1;
-			else
-				buttonIndex--;
-
-			allButtons[buttonIndex]->SetHover(true);
-		}
-	}
-
-	if (Application::IsKeyPressed(VK_ESCAPE))
-	{
-		pause = !pause;
-	}
 }
 
 void SceneGame::RenderFrameBuffer()

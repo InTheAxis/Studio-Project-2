@@ -16,7 +16,7 @@ protected:
 	virtual void UpdateDerivedBounced(double dt);
 private:
 	LoadSceneButton play, garage, exit;
-	GameObject background;
+	GameObject background,playText, garageText, exitText;
 	bool decreaseSize;
 
 	Cursor mouse;

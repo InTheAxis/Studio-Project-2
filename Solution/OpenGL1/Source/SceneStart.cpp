@@ -15,9 +15,13 @@ void SceneStart::InitDerived()
 {
 	background.Init("background", "OBJ//LevelsButton.obj", "Image//Background.tga", Vector3(orthSize.x * 0.5f, orthSize.y * 0.5f, -10), Vector3(0, 0, 0), Vector3(60, 30, 10));
 	mouse.Init("mouse", MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(orthSize.x * 0.5f, orthSize.y * 0.5f, 10), Vector3(0, 0, 0), Vector3(1, 1, 0));
-	play.Init("play", "OBJ//LevelsButton.obj", "Image//levels.tga", Vector3(30, 20, 0), Vector3(0, 0, 0), Vector3(1, 1, 0));
+	play.Init("play", "OBJ//LevelsButton.obj", "Image//play.tga", Vector3(15, 15, 0));
+
+	
+	playText.Init("playText", "OBJ//LevelsButton.obj", "Image//playText.tga", Vector3(15, 15, 1), Vector3(0, 0, 0), Vector3(15, 15, 0));
 	garage.Init("garage", "OBJ//LevelsButton.obj", "Image//levels.tga", Vector3(30, 15, 0), Vector3(0, 0, 0), Vector3(1, 1, 0));
-	exit.Init("exit", "OBJ//LevelsButton.obj", "Image//levels.tga", Vector3(30, 10, 0), Vector3(0, 0, 0), Vector3(1, 1, 0));
+	exit.Init("exit", "OBJ//LevelsButton.obj", "Image//levels.tga", Vector3(45, 15, 0), Vector3(0, 0, 0), Vector3(1, 1, 0));
+	
 
 	decreaseSize = false;
 
@@ -38,6 +42,7 @@ void SceneStart::RenderDerived()
 {
 	RenderObjectOnScreen(&background, false);
 	RenderObjectOnScreen(&play, false);
+	RenderObjectOnScreen(&playText, false);
 	RenderObjectOnScreen(&garage, false);
 	RenderObjectOnScreen(&exit, false);
 	RenderObjectOnScreen(&mouse, false);

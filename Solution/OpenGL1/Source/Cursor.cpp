@@ -36,9 +36,6 @@ void Cursor::Move(double dt)
 	else if (this->translate.y < 0)
 		translate.y = 0;
 
-	std::cout << GetTranslate().x << ", " << GetTranslate().y << std::endl;
-
-
 	//update prevCursorXY
 	prevCursorXY = currentCursorXY;
 }

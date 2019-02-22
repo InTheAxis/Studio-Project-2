@@ -33,7 +33,9 @@ private:
 	int currentIndex;
 
 	//testing
+
 	SceneExampleColl example;
+
 
 	//actual
 	SceneEmpty empty;
