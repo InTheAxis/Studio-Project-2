@@ -24,6 +24,7 @@ void SceneGame::InitDerived()
 
 	car.Init("car", "OBJ//taxi.obj", "Image//taxi.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1.f, 1.f, 1.f));
 	car.CreateRigidBody(Vector3(0, 0, 10), 1200, 0.1f, 0.09f);
+	car.SetTorque(-1, 0, 0.5, 0.5);
 	car.SetMaterial(shiny);
 
 	speedboost.Init("speedboost", MeshBuilder::GenerateCube(Color(0, 0, 0)), "", Vector3(0, 0.5, 5), Vector3(0, 0, 0), Vector3(1, 1, 1));
@@ -44,6 +45,7 @@ void SceneGame::InitDerived()
 void SceneGame::RenderDerived()
 {
 	RenderObject(&car, true);
+	RenderObject(&(car.wheels[0]));
 	RenderObject(&floor, false);
 	
 	if(!speedboost.GetPickedUp())
@@ -74,8 +76,7 @@ void SceneGame::UpdateDerived(double dt)
 
 		speedboost.ApplyEffect(&car,dt);
 
-		
-
+		//Car forward & backward inputs
 		if (Application::IsKeyPressed(VK_UP) && car.GetGear() > 0)
 		{
 			car.MoveForward(1, dt);
@@ -89,6 +90,7 @@ void SceneGame::UpdateDerived(double dt)
 			car.MoveForward(0, dt);
 		}
 
+		//Car brake input
 		if (Application::IsKeyPressed(VK_DOWN))
 		{
 			car.Brake(true);
@@ -98,7 +100,7 @@ void SceneGame::UpdateDerived(double dt)
 			car.Brake(false);
 		}
 
-		//todo make actual turn
+		//Car left & right inputs
 		if (Application::IsKeyPressed(VK_LEFT))
 		{
 			car.MoveRight(-1, dt);
@@ -111,9 +113,48 @@ void SceneGame::UpdateDerived(double dt)
 		{
 			car.MoveRight(0, dt);
 		}
+
+		//Torque rotation inputs
+		if (Application::IsKeyPressed('1'))
+		{
+			car.TorqueRotation(1, dt);
+		}
+		else if (Application::IsKeyPressed('2'))
+		{
+			car.TorqueRotation(2, dt);
+		}
+		else if (Application::IsKeyPressed('3'))
+		{
+			car.TorqueRotation(3, dt);
+		}
+		else if (Application::IsKeyPressed('4'))
+		{
+			car.TorqueRotation(4, dt);
+		}
+		else if (Application::IsKeyPressed('5'))
+		{
+			car.TorqueRotation(5, dt);
+		}
+		else if (Application::IsKeyPressed('6'))
+		{
+			car.TorqueRotation(6, dt);
+		}
+		else if (Application::IsKeyPressed('7'))
+		{
+			car.TorqueRotation(7, dt);
+		}
+		else if (Application::IsKeyPressed('8'))
+		{
+			car.TorqueRotation(8, dt);
+		}
+		else
+		{
+			car.TorqueRotation(0, dt);
+		}
+
 		car.UpdateSuvat(dt);
 		car.UpdateRotation(dt);
-
+		car.UpdateTorque(dt);
 	}
 
 	else
@@ -173,10 +214,18 @@ void SceneGame::UpdateDerived(double dt)
 
 void SceneGame::UpdateDerivedBounced(double dt)
 {
-		if (Application::IsKeyPressed(VK_ESCAPE))
-		{
-			pause = !pause;
-		}
+	if (Application::IsKeyPressed(VK_ESCAPE))
+	{
+		pause = !pause;
+	}
+	if (Application::IsKeyPressed('Z')) //Decrease gear
+	{
+		car.SetGear(car.GetGear() - 1);
+	}
+	if (Application::IsKeyPressed('X')) //Increase gear
+	{
+		car.SetGear(car.GetGear() + 1);
+	}
 }
 
 void SceneGame::RenderFrameBuffer()
