@@ -16,7 +16,7 @@ void SceneExampleCar::InitDerived()
 	floor.SetMaterial(dull);
 	ramp.SetMaterial(dull);
 
-	car.AddTorque(-1, 0, 0.5, 0.5);
+	car.SetTorque(-1, 0, 0.5, 0.5);
 }
 
 void SceneExampleCar::RenderDerived()
@@ -73,7 +73,6 @@ void SceneExampleCar::UpdateDerived(double dt)
 	if (Application::IsKeyPressed('C'))
 	{
 		car.TorqueRotation(1, dt);
-		std::cout << car.GetTorqueTheta() << std::endl;
 	}
 	else
 	{

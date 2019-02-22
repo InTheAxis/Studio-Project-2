@@ -10,9 +10,11 @@ public:
 	void RollFront(float u, float v, float angle, double dt);
 	void RollBack(float u, float v, double dt);
 	void SetRadius(float);
+	float AddTorqueForce();
 	~Wheel();
 private:
 	float omegaI, omegaF, theta, radius;
+	float torqueForce;
 };
 
 

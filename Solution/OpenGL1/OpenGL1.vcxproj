@@ -190,6 +190,7 @@
     <ClInclude Include="Source\SceneGame.h" />
     <ClInclude Include="Source\SceneLevelSelect.h" />
     <ClInclude Include="Source\SceneManager.h" />
+    <ClInclude Include="Source\SceneResult.h" />
     <ClInclude Include="Source\SceneStart.h" />
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\CollectibleSpeedBoost.h" />
@@ -237,6 +238,7 @@
     <ClCompile Include="Source\SceneGame.cpp" />
     <ClCompile Include="Source\SceneLevelSelect.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
+    <ClCompile Include="Source\SceneResult.cpp" />
     <ClCompile Include="Source\SceneStart.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\CollectibleSpeedBoost.cpp" />

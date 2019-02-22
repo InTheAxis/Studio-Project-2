@@ -24,6 +24,28 @@ void Collidable::DefineRect2DCollider(Vector3 size)
 		this->collider->PushToHullPoints(points[i]);
 }
 
+void Collidable::DefineBoxCollider(Vector3 size) {
+	if (collider != nullptr) { std::cout << "Already defined a collider!"; return; }
+	Vector3 halfSize = size * 0.5f;
+	Vector3 points[8] = {
+		Vector3(translate.x + halfSize.x, translate.y + halfSize.y, translate.z + halfSize.z),
+		Vector3(translate.x + halfSize.x, translate.y + halfSize.y, translate.z - halfSize.z),
+		Vector3(translate.x - halfSize.x, translate.y + halfSize.y, translate.z - halfSize.z),
+		Vector3(translate.x - halfSize.x, translate.y + halfSize.y, translate.z + halfSize.z),
+
+		Vector3(translate.x + halfSize.x, translate.y - halfSize.y, translate.z + halfSize.z),
+		Vector3(translate.x + halfSize.x, translate.y - halfSize.y, translate.z - halfSize.z),
+		Vector3(translate.x - halfSize.x, translate.y - halfSize.y, translate.z - halfSize.z),
+		Vector3(translate.x - halfSize.x, translate.y - halfSize.y, translate.z + halfSize.z),
+	};
+	collider = new Collider;
+	this->collider->SetScale(halfSize);
+	for (int i = 0; i < 8; ++i)
+		this->collider->PushToHullPoints(points[i]);
+}
+
+
+
 void Collidable::DefineCircle2DCollider(Vector3 radius)
 {
 	if (collider != nullptr) { std::cout << "Already defined a collider!"; return; }

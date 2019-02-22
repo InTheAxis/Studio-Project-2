@@ -14,6 +14,7 @@
 #include "SceneStart.h"
 #include "SceneLevelSelect.h"
 #include "SceneGame.h"
+#include "SceneResult.h"
 #include "SceneGarage.h"
 
 class SceneManager
@@ -32,13 +33,16 @@ private:
 	int currentIndex;
 
 	//testing
-	SceneExampleInk example;
+
+	SceneExampleColl example;
+
 
 	//actual
 	SceneEmpty empty;
 	SceneStart startMenu;
 	SceneLevelSelect levels;
 	SceneGame game;
+	SceneResult results;
 	SceneGarage garage;
 
 	enum gameScenes

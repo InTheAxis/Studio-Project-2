@@ -23,11 +23,10 @@ void Collider::UpdateHull(Vector3 translate, Vector3 rotate)
 		/*actual transformations*/
 		hullPoints[i] = rotationMatrix[1] * startingPoints[i];
 		hullPoints[i] += translate;
-		hullPoints[i].y = 0;
 
 		/*transformations for rendering*/
 		//removing scale when generating mesh
-		Vector3 temp = Vector3(hullPoints[i].x / scale.x, 0, hullPoints[i].z / scale.z);
+		Vector3 temp = Vector3(hullPoints[i].x / scale.x, hullPoints[i].y / scale.y, hullPoints[i].z / scale.z);
 
 		//draw lines from first half ot second half remove the scale
 		if (i < hullPoints.size() * 0.5f)

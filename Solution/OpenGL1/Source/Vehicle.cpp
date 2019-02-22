@@ -10,6 +10,7 @@ Vehicle::Vehicle()
 	gearNumber = 1;
 	wheelRadius = 0.001f;
 	angleY = 0.0f;
+	turningLerpf = 0;
 	torqueForce = 0;
 }
 
@@ -33,8 +34,9 @@ void Vehicle::MoveRight(int dir, double dt)
 	{
 		this->forceRight = 0;
 		this->angleY = 0;
+		this->turningLerpf = 0;
 	}
-	this->AddForceRight(Vector3(0, 0, dir * turningForce));
+	this->AddForceRight(Vector3(dir * turningForce, 0, 0));
 
 	angleY = Math::RadianToDegree(-theta);
 	rotationMatrix.SetToRotation(angleY, 0, 1, 0);
@@ -43,11 +45,13 @@ void Vehicle::MoveRight(int dir, double dt)
 
 	if (dir == 1)
 	{
-		this->RollFront(u, v, angleY - 25, dt);
+		turningLerpf = MathExtended::Lerpf(turningLerpf, 25, 0.2);
+		this->RollFront(u, v, angleY - turningLerpf, dt);
 	}
 	else if (dir == -1)
 	{
-		this->RollFront(u, v, angleY + 25, dt);
+		turningLerpf = MathExtended::Lerpf(turningLerpf, 25, 0.2);
+		this->RollFront(u, v, angleY + turningLerpf, dt);
 	}
 }
 
@@ -60,7 +64,7 @@ void Vehicle::TorqueRotation(int dir, double dt)
 	else
 	{
 		this->AddTorqueForce(dir * 5000);
-		SetRotateAndPivot(Vector3(GetTorqueTheta(), 0, 0), Vector3(0, 0, GetLeverArm().x));
+		SetRotateAndPivot(Vector3(torqueTheta, 0, 0), Vector3(0, 0, leverArm.x));
 	}
 }
 
@@ -89,22 +93,22 @@ void Vehicle::SetGear(int gear)
 
 	switch (gearNumber) {
 	case 0:
-		engineForce = 10000;
-		break;
-	case 1:
-		engineForce = 10000;
-		break;
-	case 2:
-		engineForce = 12500;
-		break;
-	case 3:
 		engineForce = 15000;
 		break;
-	case 4:
+	case 1:
+		engineForce = 15000;
+		break;
+	case 2:
 		engineForce = 17500;
 		break;
-	case 5:
+	case 3:
 		engineForce = 20000;
+		break;
+	case 4:
+		engineForce = 22500;
+		break;
+	case 5:
+		engineForce = 25000;
 		break;
 	default:
 		break;
