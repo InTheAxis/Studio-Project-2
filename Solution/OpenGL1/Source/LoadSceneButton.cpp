@@ -18,11 +18,17 @@ void LoadSceneButton::AnimateButton()
 {
 	if (hover)
 	{
-		SetScale(Vector3(12, 4, 0));
+		scale.x = MathExtended::Lerpf(scale.x, 17, 0.7);
+		scale.y = MathExtended::Lerpf(scale.y, 17, 0.7);
+		scale.z = 1;
+		//SetScale(Vector3(13, 13, 13));
 	}
 
 	else
 	{
-		SetScale(Vector3(10,4,0));
+		scale.x = -MathExtended::Lerpf(-scale.x, -10, 0.7);
+		scale.y = -MathExtended::Lerpf(-scale.y, -10, 0.7);
+		scale.z = 1;
+		/*SetScale(Vector3(10,10,10));*/
 	}
 }

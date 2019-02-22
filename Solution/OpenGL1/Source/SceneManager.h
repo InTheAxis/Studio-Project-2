@@ -32,7 +32,7 @@ private:
 	int currentIndex;
 
 	//testing
-	SceneExampleColl example;
+	SceneExampleInk example;
 
 	//actual
 	SceneEmpty empty;

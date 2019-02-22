@@ -23,10 +23,11 @@ void Collider::UpdateHull(Vector3 translate, Vector3 rotate)
 		/*actual transformations*/
 		hullPoints[i] = rotationMatrix[1] * startingPoints[i];
 		hullPoints[i] += translate;
+		hullPoints[i].y = 0;
 
 		/*transformations for rendering*/
 		//removing scale when generating mesh
-		Vector3 temp = Vector3(hullPoints[i].x / scale.x, hullPoints[i].y / scale.y, hullPoints[i].z / scale.z);
+		Vector3 temp = Vector3(hullPoints[i].x / scale.x, 0, hullPoints[i].z / scale.z);
 
 		//draw lines from first half ot second half remove the scale
 		if (i < hullPoints.size() * 0.5f)
@@ -44,7 +45,7 @@ void Collider::UpdateHull(Vector3 translate, Vector3 rotate)
 Vector3 Collider::GetFurthestPoint(Vector3 dir)
 {
 	Vector3* ret = nullptr;
-	float distance = 0, maxDist = hullPoints[0].Dot(dir);
+	float distance = 0, maxDist = -99999;
 	for (Vector3 &v : hullPoints)
 	{
 		distance = v.Dot(dir);
@@ -56,7 +57,8 @@ Vector3 Collider::GetFurthestPoint(Vector3 dir)
 	}
 	if (ret)
 		return *ret;
-	else return Vector3(0, 0, 0);
+	else
+		std::cout << "Error: no point found?";
 }
 
 Collider::~Collider()

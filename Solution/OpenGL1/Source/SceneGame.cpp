@@ -62,7 +62,6 @@ void SceneGame::RenderDerived()
 
 void SceneGame::UpdateDerived(double dt)
 {
-	
 	if (!pause)
 	{
 		std::cout << "Timer: " << timer;
