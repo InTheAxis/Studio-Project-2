@@ -30,33 +30,36 @@ void SceneGame::InitDerived()
 	speedboost.Init("speedboost", MeshBuilder::GenerateCube(Color(0, 0, 0)), "", Vector3(0, 0.5, 5), Vector3(0, 0, 0), Vector3(1, 1, 1));
 	particleEffect.Init("particleEffect", MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(0, 0.5, car.GetTranslate().z-1.5), Vector3(0, 0, 0), Vector3(0.1, 0.1, 0.1));
 
-	floor.Init("floor", "OBJ//Map.obj", "Image//color2.tga",Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(100, 100, 100));
-	paintLayer.Init("paintLayer", "OBJ//PaintLayer.obj", "", Vector3(0, 0.25, 0), Vector3(0, 0, 0), Vector3(100, 100, 100));
+	floor.Init("floor", "OBJ//Map.obj", "Image//color2.tga");
+	paintLayer.Init("paintLayer", "OBJ//PaintLayer.obj", "", Vector3(0, 0.25f, 0));
 	
+	std::cout << "Generating grid for level\n";
+	level.GenerateGrid(paintLayer.GetVBO());
+	std::cout << "Done!\n";
+
 	car.AddChild(&particleEffect);
+	car.GetPaint()->SetPaintColor(Color(1, 0, 1));
 	
 	mouse.SetOrthSize(orthSize);
 	mouse.SetAllButton(allButtons);
 	buttonIndex = 0;
-
-	RequestDontDestroy(&car);
 }
 
 void SceneGame::RenderDerived()
 {
-	RenderObject(&car, true);
-	RenderObject(&(car.wheels[0]));
-	RenderObject(&floor, false);
+	RenderObject(&car);
+	RenderObject(&floor);
+	RenderObject(&paintLayer);
 	
 	if(!speedboost.GetPickedUp())
 		RenderObject(&speedboost, false);
+
 
 	if (this->pause)
 	{
 		RenderObjectOnScreen(&resumeButton, false);
 		RenderObjectOnScreen(&exitButton, false);
 	}
-	RenderObject(&paintLayer, false);
 	RenderObjectOnScreen(&mouse, false);
 }
 
@@ -69,7 +72,7 @@ void SceneGame::UpdateDerived(double dt)
 	{
 		std::cout << "Timer: " << timer << std::endl;
 		timer += dt;
-		/*if (car.GetEngineForce() > 0)*/
+		if (car.GetEngineForce() > 0)
 			particleEffect.ApplyEffect(&car,dt);
 
 		speedboost.CheckAbsorption(car.GetTranslate());
@@ -155,8 +158,14 @@ void SceneGame::UpdateDerived(double dt)
 		car.UpdateSuvat(dt);
 		car.UpdateRotation(dt);
 		car.UpdateTorque(dt);
-	}
 
+
+		if (!currentCam)
+			camera[0]->Update(dt, car.GetTranslate(), car.GetAngle()); //update camera
+
+		paintLayer.ChangeColor(&level, car.GetTranslate(), car.GetPaint()->GetPaintColor());
+
+	}
 	else
 	{
 		for (Button* b : allButtons)	//for each button in the vector carryout the function
@@ -201,10 +210,6 @@ void SceneGame::UpdateDerived(double dt)
 			}
 		}
 	}
-
-	if (!currentCam)
-		camera[0]->Update(dt, car.GetTranslate(), car.GetAngle()); //update camera
-
 	if (timer >= 120)
 	{
 		//mouse.ResetMousePos();
@@ -230,4 +235,5 @@ void SceneGame::UpdateDerivedBounced(double dt)
 
 void SceneGame::RenderFrameBuffer()
 {
+	RenderObject(&paintLayer, false);
 }
