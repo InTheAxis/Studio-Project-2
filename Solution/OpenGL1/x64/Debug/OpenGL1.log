@@ -1,24 +1,96 @@
-﻿  Application.cpp
-c:\users\codea\desktop\c++\comgassn1\opengl1\source\application.cpp(2): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+﻿D:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (ComGAssn1.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Application.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\application.cpp(2): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Button.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\scene.h(6): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
   Camera.cpp
-c:\users\codea\desktop\c++\comgassn1\opengl1\source\camera.h(4): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
-  Camera2.cpp
-c:\users\codea\desktop\c++\comgassn1\opengl1\source\camera.h(4): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\camera.h(4): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  Car.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\vertex.h(3): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  CollectibleParticleEffect.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\vertex.h(3): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  Collectibles.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\vertex.h(3): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  Collidable.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\vertex.h(3): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  Collider.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\vertex.h(3): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  CollisionHandler.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\collisionhandler.h(7): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  Cursor.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\scene.h(6): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
+  FixedCam.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\fixedcam.h(4): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  FreeCam.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\freecam.h(4): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  GameObject.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\vertex.h(3): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  Grid.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\vertex.h(3): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  GridChunk.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\vertex.h(3): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
   Light.cpp
-c:\users\codea\desktop\c++\comgassn1\opengl1\source\vertex.h(3): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\vertex.h(3): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  LoadOBJ.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\vertex.h(3): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  LoadSceneButton.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\scene.h(6): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
+  LoadTGA.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\loadtga.h(6): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
   main.cpp
-c:\users\codea\desktop\c++\comgassn1\opengl1\source\application.h(4): fatal error C1083: Cannot open include file: 'timer.h': No such file or directory
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\application.h(4): fatal error C1083: Cannot open include file: 'timer.h': No such file or directory
+  Generating Code...
+  Compiling...
   Mesh.cpp
-c:\users\codea\desktop\c++\comgassn1\opengl1\source\vertex.h(3): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\vertex.h(3): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
   MeshBuilder.cpp
-c:\users\codea\desktop\c++\comgassn1\opengl1\source\vertex.h(3): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
-  Scene3.cpp
-c:\users\codea\desktop\c++\comgassn1\opengl1\source\scene.h(4): fatal error C1083: Cannot open include file: 'Mtx44.h': No such file or directory
-  Scene5.cpp
-  SceneAssn1.cpp
-c:\users\codea\desktop\c++\comgassn1\opengl1\source\scene.h(4): fatal error C1083: Cannot open include file: 'Mtx44.h': No such file or directory
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\vertex.h(3): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  Paint.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\vertex.h(3): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  Paintable.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\vertex.h(3): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  GridCell.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\vertex.h(3): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  RigidBody.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\vertex.h(3): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  Scene.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\scene.h(6): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
+  SceneExampleColl.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\scene.h(6): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
+  SceneGarage.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\scene.h(6): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
+  SceneEmpty.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\scene.h(6): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
+  SceneExample.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\scene.h(6): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
+  SceneExampleCar.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\scene.h(6): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
+  SceneExampleCarInk.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\scene.h(6): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
+  SceneExampleFBO.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\scene.h(6): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
+  SceneExampleInk.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\scene.h(6): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
+  SceneGame.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\scene.h(6): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
+  SceneLevelSelect.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\scene.h(6): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
+  SceneManager.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\scene.h(6): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
+  SceneResult.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\scene.h(6): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
+  SceneStart.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\scene.h(6): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
+  Generating Code...
+  Compiling...
   shader.cpp
-c:\users\codea\desktop\c++\comgassn1\opengl1\source\shader.cpp(12): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\shader.cpp(12): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  CollectibleSpeedBoost.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\vertex.h(3): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
   Utility.cpp
-c:\users\codea\desktop\c++\comgassn1\opengl1\source\vertex.h(3): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\vertex.h(3): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  Vehicle.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\vertex.h(3): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  Wheel.cpp
+d:\users\539\desktop\ink-in-my-junk\solution\opengl1\source\vertex.h(3): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
   Generating Code...

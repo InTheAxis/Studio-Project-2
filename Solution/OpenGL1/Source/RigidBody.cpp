@@ -16,6 +16,8 @@ RigidBody::RigidBody()
 	this->momentOfInertia = lengthA = lengthB = 0;
 	this->torqueTheta = 0;
 
+	this->forwardCollisionForce = rightCollisionForce = 0;
+
 	this->rotationMatrix.SetToIdentity();
 }
 
@@ -56,6 +58,12 @@ void RigidBody::AddTorqueForce(float torqueForce)
 	}
 }
 
+void RigidBody::AddCollisionForce(float forwardCollisionForce, float rightCollisionForce)
+{
+	this->forwardCollisionForce = forwardCollisionForce;
+	this->rightCollisionForce = rightCollisionForce;
+}
+
 void RigidBody::SetTorque(float leverArm, float torqueForce, float lengthA, float lengthB)
 {
 	this->leverArm.x = leverArm;
@@ -64,13 +72,18 @@ void RigidBody::SetTorque(float leverArm, float torqueForce, float lengthA, floa
 	this->lengthB = lengthB;
 }
 
+float RigidBody::GetSpeed()
+{
+	return s;
+}
+
 void RigidBody::UpdateSuvat(double dt)
 {
 	//calc fnet and hence accel
 	if (Math::FAbs(forceForward) + REV_FORCE > maxStaticFriction) //if static friction overcome start moving
 	{
 		//update accel
-		this->a = (forceForward - kineticFriction - dragForce - brakeFriction) / mass;
+		this->a = (forceForward - kineticFriction - dragForce - brakeFriction - forwardCollisionForce) / mass;
 		if (Math::FAbs(a) < 0.01f)
 			a = 0;
 
@@ -88,7 +101,7 @@ void RigidBody::UpdateSuvat(double dt)
 		if (Math::FAbs(v) > 0.01f) //if within this range assume 0
 		{
 			//update accel in opp dir
-			this->a = (-1 * direction * (kineticFriction + brakeFriction + 0.8f * dragForce)) / mass;
+			this->a = (-1 * direction * (kineticFriction + brakeFriction + 0.8f * dragForce + forwardCollisionForce)) / mass;
 
 			if (dragForce != 0)
 			{
@@ -109,12 +122,12 @@ void RigidBody::UpdateSuvat(double dt)
 
 void RigidBody::UpdateRotation(double dt)
 {
-	if (Math::FAbs(forceRight) > 0 && Math::FAbs(v) > 2.2f)
+	if (Math::FAbs(forceRight) > 0 && Math::FAbs(v) > 2.f)
 	{
 		omega = v / ((mass * Math::Square(v)) / forceRight);
 		theta = omega * dt;
 	}
-	else if (Math::FAbs(theta) < 0.03f)
+	else if (Math::FAbs(theta) < 0.036f)
 	{
 		omega = theta = 0;
 	}

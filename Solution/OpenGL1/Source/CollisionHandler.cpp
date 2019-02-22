@@ -18,6 +18,21 @@ CollisionHandler * CollisionHandler::GetInstance()
 	return instance;
 }
 
+void CollisionHandler::ResolveCollision2D(RigidBody* A, Collidable* B)
+{
+	if (simplex.size() == 0)
+	{
+		std::cout << "Check for collision first!\n";
+		return;
+	}
+
+	penetrationDist = Vector3(0, 0, 0);
+	simplexCopy = simplex;
+	this->CalculatePenetration2D(A, B);
+
+	A->IncrementTranslate(Vector3(-penetrationDist.x, 0, -penetrationDist.z));
+}
+
 void CollisionHandler::ResolveCollision(RigidBody* A, Collidable* B)
 {
 	if (simplex.size() == 0)
@@ -28,13 +43,13 @@ void CollisionHandler::ResolveCollision(RigidBody* A, Collidable* B)
 
 	penetrationDist = Vector3(0, 0, 0);
 	simplexCopy = simplex;
-	this->CalculatePenetration3D(A, B);
+	this->CalculatePenetration(A, B);
 
-	//A->IncrementTranslate(Vector3(-penetrationDist.x, 0, -penetrationDist.z));
+	A->IncrementTranslate(Vector3(-penetrationDist.x, -penetrationDist.y, -penetrationDist.z));
 }
 
 //working GJK for 2D and todo EPA
-bool CollisionHandler::CheckCollision(RigidBody* A, Collidable* B)
+bool CollisionHandler::CheckCollision2D(RigidBody* A, Collidable* B)
 {
 	//init var
 	direction = INITIAL_DIR;
@@ -102,7 +117,7 @@ bool CollisionHandler::CheckCollision(RigidBody* A, Collidable* B)
 	return false;
 }
 
-bool CollisionHandler::CheckCollision3D(RigidBody* A, Collidable* B)
+bool CollisionHandler::CheckCollision(RigidBody* A, Collidable* B)
 {
 	//init var
 	direction = INITIAL_DIR;
@@ -121,12 +136,21 @@ bool CollisionHandler::CheckCollision3D(RigidBody* A, Collidable* B)
 		//get next point
 		pointA = GetMPoint(A, B, direction);
 		//check if the point has passed the origin, if no then no intersect
-		if (pointA.Length() == 0)
-			return true; //intersect, A and B share same point
 		if (pointA.Dot(direction) < 0)
 			return false; //no intersection
 		else if (simplex.size() == 4)
-			return true; //intersects if the point not past origin, and simplex is alr 3-simplex
+		{
+			bool testDuplicates = false;
+			for (int i = 0; i < simplex.size(); ++i)
+			{
+				for (int j = 0; j < simplex.size(); ++j)
+				{
+					if (i != j && simplex[i] == simplex[j])
+						testDuplicates = true;
+				}
+			}
+			return !testDuplicates; //intersects if the point not past origin, and simplex is alr 3-simplex
+		}
 		//add to simplex
 		simplex.emplace_back(pointA);
 
@@ -189,7 +213,7 @@ Vector3 CollisionHandler::GetMPoint(Collidable *A, Collidable *B, Vector3 dir)
 	return p1 - p2;
 }
 
-void CollisionHandler::CalculatePenetration(Collidable *A, Collidable *B)
+void CollisionHandler::CalculatePenetration2D(Collidable *A, Collidable *B)
 {
 	Vector3 a, b, n;
 	float distance;
@@ -244,7 +268,7 @@ void CollisionHandler::CalculatePenetration(Collidable *A, Collidable *B)
 	}
 }
 
-void CollisionHandler::CalculatePenetration3D(Collidable* A, Collidable* B)
+void CollisionHandler::CalculatePenetration(Collidable* A, Collidable* B)
 {
 	std::vector<Face> faces; //built from GJK terminated simplex
 	//building faces	
@@ -258,7 +282,7 @@ void CollisionHandler::CalculatePenetration3D(Collidable* A, Collidable* B)
 	Face fTemp4(simplex[1], simplex[3], simplex[2]);
 	faces.emplace_back(fTemp4);
 
-	float distance;
+	float distance = 0;
 	while (true)
 	{
 		//find closest face to origin
@@ -279,6 +303,13 @@ void CollisionHandler::CalculatePenetration3D(Collidable* A, Collidable* B)
 		Vector3 point = GetMPoint(A, B, closest.normal);
 		//distance along normal
 		distance = point.Dot(closest.normal);
+		//if distance is on one of the simplex faces
+		if (closest.distance < TOLERANCE)
+		{
+			penetrationDist = closest.normal * closest.distance;
+			return;
+		}
+
 		//if distance close enough to face distance
 		if (distance - closest.distance < TOLERANCE)
 		{
@@ -292,23 +323,25 @@ void CollisionHandler::CalculatePenetration3D(Collidable* A, Collidable* B)
 			for (int i = 0; i < faces.size(); ++i)
 			{
 				//check if point can see face
-				if (faces[i].normal.Dot(point) > 0)
+				if (faces[i].normal.Dot(point - faces[i].edges[0].points[0]) > 0)
 				{
 					//loop through the face edges
 					for (int j = 0; j < 3; ++j)
 					{
 						//add loose edges
 						Edge reverseEdge(faces[i].edges[j].points[1], faces[i].edges[j].points[0]);
+						bool alrLoose = false;
 						for (int k = 0; k < looseEdges.size(); ++k)
 						{
 							if (reverseEdge.points[0] == looseEdges[k].points[0] && reverseEdge.points[1] == looseEdges[k].points[1])
 							{
 								looseEdges.erase(looseEdges.begin() + k);
 								k--;
-							}
-							else
-								looseEdges.emplace_back(faces[i].edges[j]);
+								alrLoose = true;
+							}							
 						}
+						if (!alrLoose)
+							looseEdges.emplace_back(faces[i].edges[j]);
 					}
 					//remove face
 					faces.erase(faces.begin() + i);
@@ -318,8 +351,14 @@ void CollisionHandler::CalculatePenetration3D(Collidable* A, Collidable* B)
 			//add new triangles
 			for (int i = 0; i < looseEdges.size(); ++i)
 			{
-				Face temp(looseEdges[i].points[0], looseEdges[i].points[1], point);
-				faces.emplace_back(temp);
+				if (point == looseEdges[i].points[0] || point == looseEdges[i].points[1])
+					std::cout << "point is alr in edge\n";
+				else
+				{
+					Face temp(looseEdges[i].points[0], looseEdges[i].points[1], point);
+
+					faces.emplace_back(temp);
+				}
 			}
 		}
 	}
