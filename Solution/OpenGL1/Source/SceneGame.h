@@ -8,6 +8,8 @@
 #include "Grid.h"
 #include "Paintable.h"
 #include "CollectibleParticleEffect.h"
+#include "BuildMap.h"
+#include "AI.h"
 
 class SceneGame :public Scene
 {
@@ -24,9 +26,15 @@ private:
 	Cursor mouse;
 	LoadSceneButton resumeButton, exitButton;
 	Car car;
+
 	GameObject floor;
 	Grid level;
+	GridChunk level_chunk;
 	Paintable paintLayer;
+
+	AI ai;
+	std::vector<Collidable> Objects;
+	BuildMap map;
 
 	CollectibleSpeedBoost speedboost;
 	CollectibleParticleEffect particleEffect;

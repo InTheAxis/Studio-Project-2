@@ -28,6 +28,11 @@ void SceneGame::InitDerived()
 	car.SetTorque(-1, 0, 0.5, 0.5);
 	car.SetMaterial(shiny);
 
+	//ai.Init("ai", "OBJ//taxi.obj", "Image//taxi.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1.f, 1.f, 1.f));
+	//ai.CreateRigidBody(Vector3(0, 0, 10), 1200, 0.1f, 0.09f);
+	//ai.SetTorque(-1, 0, 0.5, 0.5);
+	//ai.SetMaterial(shiny);
+
 	speedboost.Init("speedboost", MeshBuilder::GenerateCube(Color(0, 0, 0)), "", Vector3(0, 0.5, 5), Vector3(0, 0, 0), Vector3(1, 1, 1));
 	particleEffect.Init("particleEffect", MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(0, 0.5, car.GetTranslate().z-1.5), Vector3(0, 0, 0), Vector3(0.1, 0.1, 0.1));
 
@@ -38,6 +43,18 @@ void SceneGame::InitDerived()
 	level.GenerateGrid(paintLayer.GetVBO());
 	std::cout << "Done!\n";
 
+	while (map.GetObjectCount() < ((level_chunk.GetChunkCount() / 9) - 2))
+	{
+		if (map.GenerateObj(&level))
+		{
+			int x = Math::RandIntMinMax(1, 2);
+			int y = Math::RandIntMinMax(1, 4); //random to choose the generated object
+			Objects.push_back(Collidable());
+			Objects[map.GetObjectCount() - 1].Init("genObj", map.GenerateRandObj(x), map.GetObjTex(x), map.GetLocation(), map.GetRandRotate(y), map.GetRandScale(y));
+			Objects[map.GetObjectCount() - 1].SetMaterial(dull);
+		}
+	}
+
 	car.AddChild(&particleEffect);
 	car.GetPaint()->SetPaintColor(Color(1, 0, 1));
 	
@@ -45,8 +62,8 @@ void SceneGame::InitDerived()
 	mouse.SetAllButton(allButtons);
 	buttonIndex = 0;
 
-	RequestDontDestroy(&car);
-
+	//RequestDontDestroy(&car);
+	//RequestDontDestroy(&ai);
 }
 
 void SceneGame::RenderDerived()
@@ -58,6 +75,10 @@ void SceneGame::RenderDerived()
 	if(!speedboost.GetPickedUp())
 		RenderObject(&speedboost, false);
 
+	for (int x = 0; x < map.GetObjectCount(); x++)
+	{
+		RenderObject(&Objects[x]);
+	}
 
 	if (this->pause)
 	{
@@ -72,7 +93,6 @@ void SceneGame::RenderDerived()
 
 void SceneGame::UpdateDerived(double dt)
 {
-	
 	mouse.Move(dt);
 	mouse.CheckHover();
 
@@ -220,12 +240,6 @@ void SceneGame::UpdateDerived(double dt)
 			}
 		}
 	}
-
-
-	if (!currentCam)
-		camera[0]->Update(dt, car.GetTranslate(), car.GetAngle()); //update camera
-
-
 	if (timer >= 120)
 	{
 		mouse.ResetMousePos();

@@ -162,6 +162,12 @@
     <ClInclude Include="Source\SceneResult.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\BuildMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\AI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
@@ -297,6 +303,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\SceneResult.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BuildMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

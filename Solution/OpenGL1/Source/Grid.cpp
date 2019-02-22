@@ -66,6 +66,37 @@ void Grid::GenerateGrid(std::vector<Vertex>* vboPtr)
 		}
 	}
 
+	//set adjacents
+	int indexes2[9] = { 0 };
+	for (int z = -GRID_LENGTH_HALF; z <= GRID_LENGTH_HALF; z += CHUNK_LENGTH)
+	{
+		for (int x = -GRID_LENGTH_HALF; x <= GRID_LENGTH_HALF; x += CHUNK_LENGTH)
+		{
+			indexes2[0] = CalcIndexForChunks(x, z);
+			if (x - CHUNK_LENGTH > -GRID_LENGTH_HALF)
+				indexes2[1] = CalcIndexForChunks(x - CHUNK_LENGTH, z);
+			if (x - CHUNK_LENGTH > -GRID_LENGTH_HALF && z - CHUNK_LENGTH > -GRID_LENGTH_HALF)
+				indexes2[2] = CalcIndexForChunks(x - CHUNK_LENGTH, z - CHUNK_LENGTH);
+			if (z - CHUNK_LENGTH > -GRID_LENGTH_HALF)
+				indexes2[3] = CalcIndexForChunks(x, z - CHUNK_LENGTH);
+
+			if (x + CHUNK_LENGTH < GRID_LENGTH_HALF)
+				indexes2[4] = CalcIndexForChunks(x + CHUNK_LENGTH, z);
+			if (x + CHUNK_LENGTH < GRID_LENGTH_HALF && z + CHUNK_LENGTH < GRID_LENGTH_HALF)
+				indexes2[5] = CalcIndexForChunks(x + CHUNK_LENGTH, z + CHUNK_LENGTH);
+			if (z + CHUNK_LENGTH < GRID_LENGTH_HALF)
+				indexes2[6] = CalcIndexForChunks(x, z + CHUNK_LENGTH);
+
+			if (x - CHUNK_LENGTH > -GRID_LENGTH_HALF && z + CHUNK_LENGTH < GRID_LENGTH_HALF)
+				indexes2[7] = CalcIndexForChunks(x - CHUNK_LENGTH, z + CHUNK_LENGTH);
+			if (x + CHUNK_LENGTH < GRID_LENGTH_HALF && z - CHUNK_LENGTH> -GRID_LENGTH_HALF)
+				indexes2[8] = CalcIndexForChunks(x + CHUNK_LENGTH, z - CHUNK_LENGTH);
+
+			for (int i = 1; i < 9; ++i)
+				allChunks[indexes2[0]]->PushToAdjacents(allChunks[indexes2[i]]);
+		}
+	}
+
 	//assign cells to chunks
 	AssignCellsChunks();
 }
@@ -113,9 +144,23 @@ void Grid::AssignCellsChunks()
 
 int Grid::CalcIndexForChunks(int x, int z)
 {
-	return (abs(z) % CHUNK_LENGTH * CHUNK_LENGTH + abs(x) % CHUNK_LENGTH);
+	int ret = ((z + GRID_LENGTH_HALF) / 3 * ((GRID_LENGTH_HALF * 2 + 1) / CHUNK_LENGTH)) + ((x + GRID_LENGTH_HALF) / 3);
+	return ret;
+	
 }
 
 Grid::~Grid()
 {
+}
+
+int Grid::GetGridLengthHalf()
+{
+	return GRID_LENGTH_HALF;
+}
+
+
+
+std::vector<GridChunk*> Grid::GetAllChunks()
+{
+	return allChunks;
 }
