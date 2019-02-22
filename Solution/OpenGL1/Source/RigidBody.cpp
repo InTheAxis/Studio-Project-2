@@ -122,12 +122,12 @@ void RigidBody::UpdateSuvat(double dt)
 
 void RigidBody::UpdateRotation(double dt)
 {
-	if (Math::FAbs(forceRight) > 0 && Math::FAbs(v) > 2.f)
+	if (Math::FAbs(forceRight) > 0 && Math::FAbs(v) > 1.5f)
 	{
 		omega = v / ((mass * Math::Square(v)) / forceRight);
 		theta = omega * dt;
 	}
-	else if (Math::FAbs(theta) < 0.036f)
+	else
 	{
 		omega = theta = 0;
 	}

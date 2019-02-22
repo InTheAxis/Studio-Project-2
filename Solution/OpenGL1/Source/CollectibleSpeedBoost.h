@@ -1,6 +1,7 @@
 #ifndef SPEEDBOOST_H
 #define SPEEDBOOST_H
 #include "Collectibles.h"
+#include "MyMathExtended.h"
 
 class CollectibleSpeedBoost :public Collectibles
 {
