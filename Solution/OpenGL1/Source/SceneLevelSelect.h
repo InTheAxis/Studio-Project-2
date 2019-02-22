@@ -16,7 +16,7 @@ protected:
 	virtual void UpdateDerived(double dt);
 	virtual void UpdateDerivedBounced(double dt);
 private:
-	GameObject title;
+	GameObject title,level1Text,level2Text,level3Text;
 	Cursor mouse;
 	LoadSceneButton level1, level2, level3;
 	std::vector<Button*> allButtons;

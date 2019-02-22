@@ -13,11 +13,15 @@ SceneLevelSelect::~SceneLevelSelect()
 
 void SceneLevelSelect::InitDerived()
 {
-	level1.Init("play", "OBJ//LevelsButton.obj", "Image//levels.tga", Vector3(30, 20, 0), Vector3(0, 0, 0), Vector3(1, 1, 0));
-	level2.Init("garage", "OBJ//LevelsButton.obj", "Image//levels.tga", Vector3(30, 15, 0), Vector3(0, 0, 0), Vector3(1, 1, 0));
-	level3.Init("exit", "OBJ//LevelsButton.obj", "Image//levels.tga", Vector3(30, 10, 0), Vector3(0, 0, 0), Vector3(1, 1, 0));
+	level1.Init("level1button", "OBJ//LevelsButton.obj", "Image//levels1.tga", Vector3(8, 15, -10), Vector3(0, 0, 0), Vector3(1, 1, 0));
+	level2.Init("level2button", "OBJ//LevelsButton.obj", "Image//levels1.tga", Vector3(30, 15, -10), Vector3(0, 0, 0), Vector3(1, 1, 0));
+	level3.Init("level3button", "OBJ//LevelsButton.obj", "Image//levels1.tga", Vector3(52, 15, -10), Vector3(0, 0, 0), Vector3(1, 1, 0));
 	mouse.Init("mouse",MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(orthSize.x * 0.5f, orthSize.y * 0.5f, 10), Vector3(0, 0, 0), Vector3(1, 1, 0));
 
+	
+	level1Text.Init("level1text", "OBJ//LevelsButton.obj", "Image//levels1Text.tga", Vector3(8, 15, -9), Vector3(0, 0, 0), Vector3(20, 20, 0));
+	level2Text.Init("level2text", "OBJ//LevelsButton.obj", "Image//levels2Text.tga", Vector3(30, 15, -9), Vector3(0, 0, 0), Vector3(20, 20, 0));
+	level3Text.Init("level3text", "OBJ//LevelsButton.obj", "Image//levels3Text.tga", Vector3(52, 15, -9), Vector3(0, 0, 0), Vector3(20, 20, 0));
 	allButtons.push_back(&level1);
 	allButtons.push_back(&level2);
 	allButtons.push_back(&level3);
@@ -35,8 +39,11 @@ void SceneLevelSelect::InitDerived()
 void SceneLevelSelect::RenderDerived()
 {
 	RenderObjectOnScreen(&level1, false);
+	RenderObjectOnScreen(&level1Text, false);
 	RenderObjectOnScreen(&level2, false);
+	RenderObjectOnScreen(&level2Text, false);
 	RenderObjectOnScreen(&level3, false);
+	RenderObjectOnScreen(&level3Text, false);
 	RenderObjectOnScreen(&mouse, false);
 }
 

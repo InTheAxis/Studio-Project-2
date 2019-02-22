@@ -27,8 +27,6 @@ private:
 	Vector3 orthSize;
 	std::vector<Button*> allButtons;
 	int totalbuttons;
-	const float button_Xrange=6;
-	const float button_Yrange = 2;
 };
 
 #endif

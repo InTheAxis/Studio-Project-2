@@ -11,6 +11,8 @@ public:
 
 	virtual void DoAction();
 	virtual void AnimateButton();
+private:
+
 };
 
 #endif

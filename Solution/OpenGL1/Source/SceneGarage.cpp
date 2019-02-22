@@ -43,6 +43,7 @@ void SceneGarage::InitDerived()
 	SVehicle = "VEHICLE";
 
 	Selected = 0;
+	freeRoam.ToggleCamMovement();
 }
 
 void SceneGarage::RenderDerived()

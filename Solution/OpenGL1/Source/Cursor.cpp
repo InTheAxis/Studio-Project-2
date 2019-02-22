@@ -44,12 +44,16 @@ void Cursor::CheckHover()
 {
 	bool Xwithin;
 	bool Ywithin;
-
+	float button_Xrange;
+	float button_Yrange;
 	
 		for (int i = 0; i < allButtons.size(); i++)
 		{
 			Xwithin = false;
 			Ywithin = false;
+			button_Xrange = allButtons[i]->GetScale().x/2;
+			button_Yrange = allButtons[i]->GetScale().y / 2;
+
 
 			if ((translate.x > ((allButtons[i]->GetTranslate().x) - button_Xrange))
 				&& (translate.x < ((allButtons[i]->GetTranslate().x) + button_Xrange)))
