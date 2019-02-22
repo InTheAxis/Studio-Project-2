@@ -5,7 +5,7 @@
 Vehicle::Vehicle()
 {
 	engineForce = 10000;
-	turningForce = 4500;
+	turningForce = 5000;
 	brakeFriction = 5000;
 	gearNumber = 1;
 	wheelRadius = 0.001f;
@@ -57,14 +57,49 @@ void Vehicle::MoveRight(int dir, double dt)
 
 void Vehicle::TorqueRotation(int dir, double dt)
 {
-	if (!dir)
+	if (dir == 1) //Front left torque
 	{
-		SetRotateAndPivot(Vector3(0, 0, 0), Vector3(0, 0, 0));
+		this->AddTorqueForce(dir * 5000);
+		SetRotateAndPivot(Vector3(torqueTheta, 0, -torqueTheta), Vector3(0, 0.1, leverArm.x));
 	}
-	else
+	else if (dir == 2) //Front torque
 	{
 		this->AddTorqueForce(dir * 5000);
 		SetRotateAndPivot(Vector3(torqueTheta, 0, 0), Vector3(0, 0, leverArm.x));
+	}
+	else if (dir == 3) //Front right torque
+	{
+		this->AddTorqueForce(dir * 5000);
+		SetRotateAndPivot(Vector3(torqueTheta, 0, torqueTheta), Vector3(0, 0.1, leverArm.x));
+	}
+	else if (dir == 4) //Back left torque
+	{
+		this->AddTorqueForce(dir * 5000);
+		SetRotateAndPivot(Vector3(-torqueTheta, 0, -torqueTheta), Vector3(0, 0.1, -leverArm.x));
+	}
+	else if (dir == 5) //Back torque
+	{
+		this->AddTorqueForce(dir * 5000);
+		SetRotateAndPivot(Vector3(-torqueTheta, 0, 0), Vector3(0, 0, -leverArm.x));
+	}
+	else if (dir == 6) //Back right torque
+	{
+		this->AddTorqueForce(dir * 5000);
+		SetRotateAndPivot(Vector3(-torqueTheta, 0, torqueTheta), Vector3(0, 0.1, -leverArm.x));
+	}
+	else if (dir == 7) //Left torque
+	{
+		this->AddTorqueForce(dir * 5000);
+		SetRotateAndPivot(Vector3(0, 0, -torqueTheta), Vector3(0, 0.5, leverArm.x));
+	}
+	else if (dir == 8) //Right torque
+	{
+		this->AddTorqueForce(dir * 5000);
+		SetRotateAndPivot(Vector3(0, 0, torqueTheta), Vector3(0, 0.5, leverArm.x));
+	}
+	else
+	{
+		SetRotateAndPivot(Vector3(0, 0, 0), Vector3(0, 0, 0));
 	}
 }
 

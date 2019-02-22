@@ -16,6 +16,7 @@ public:
 	void UpdateTorque(double dt);
 
 	void SetTorque(float leverArm, float torqueForce, float lengthA, float lengthB);
+	float GetSpeed();
 	~RigidBody();
 protected:
 	Vector3 forward, up, right;
@@ -43,6 +44,7 @@ protected:
 	void AddForceRight(Vector3 f);
 	void AddBrakeFriction(float brakeFriction);
 	void AddTorqueForce(float torqueForce);
+	void AddCollisionForce(float forwardCollisionForce, float rightCollisionForce);
 };
 
 #endif // !RIGIDBODY_H
