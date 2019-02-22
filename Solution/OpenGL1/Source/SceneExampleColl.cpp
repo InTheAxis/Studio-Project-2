@@ -16,10 +16,10 @@ void SceneExampleColl::InitDerived()
 	test2.CreateRigidBody(Vector3(0, 0, 10), 1200, 0.1f, 0.09f);
 
 	car.DefineRect2DCollider(Vector3(2, 2, 2));
-	//test.DefineRect2DCollider(Vector3(2, 2, 2));
-	//test2.DefineRect2DCollider(Vector3(2, 2, 2));
-	test.DefineBoxCollider(Vector3(2, 2, 2));
-	test2.DefineBoxCollider(Vector3(2, 2, 2));
+	test.DefineRect2DCollider(Vector3(2, 2, 2));
+	test2.DefineRect2DCollider(Vector3(2, 2, 2));
+	//test.DefineBoxCollider(Vector3(1, 1, 1));
+	//test2.DefineBoxCollider(Vector3(1, 1, 1));
 
 	test.IncrementTranslate(Vector3(0, 0, 1));
 
@@ -127,9 +127,9 @@ void SceneExampleColl::UpdateDerived(double dt)
 
 	test.UpdateCollider();
 	test2.UpdateCollider();
-	collide = _coll->CheckCollision3D(&test2, &test);
+	collide = _coll->CheckCollision2D(&test2, &test);
 	if (collide)
-		_coll->ResolveCollision(&test2, &test);
+		_coll->ResolveCollision2D(&test2, &test);
 }
 
 void SceneExampleColl::UpdateDerivedBounced(double dt)

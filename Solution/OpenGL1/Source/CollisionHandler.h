@@ -2,7 +2,7 @@
 #define COLLISION_HANDLER_H
 
 #define _coll CollisionHandler::GetInstance()
-#define TOLERANCE 0.000000001f
+#define TOLERANCE 0.0001f
 
 #include "Vector3.h"
 #include "Collider.h"
@@ -18,10 +18,11 @@ public:
 	static CollisionHandler* GetInstance();
 
 	//using gjk
+	bool CheckCollision2D(RigidBody* A, Collidable* B);
 	bool CheckCollision(RigidBody* A, Collidable* B);
-	bool CheckCollision3D(RigidBody* A, Collidable* B);
 	//overloaded resolvers to handle each type of collision
-	void ResolveCollision(RigidBody* A, Collidable* B); //generic one
+	void ResolveCollision2D(RigidBody* A, Collidable* B); //generic one
+	void ResolveCollision(RigidBody* A, Collidable* B);
 	
 	Vector3 penetrationDist;
 
@@ -38,8 +39,8 @@ private:
 	Vector3 direction, pointA;
 	Vector3 GetMPoint(Collidable* A, Collidable* B, Vector3 dir); //gets Minkowski diff
 	//for epa
+	void CalculatePenetration2D(Collidable *A, Collidable *B);
 	void CalculatePenetration(Collidable *A, Collidable *B);
-	void CalculatePenetration3D(Collidable *A, Collidable *B);
 	struct Edge
 	{
 		Edge() {}
@@ -63,7 +64,12 @@ private:
 			edges[1] = e2;
 			Edge e3(c, a);
 			edges[2] = e3;
-			normal = ((b - a).Cross(c - a)).Normalize();
+			Vector3 ab = b - a;
+			Vector3 ac = c - a;
+			normal = ((ab).Cross(ac));
+			if (!(normal.Length() < TOLERANCE))
+				normal.Normalize();
+
 			distance = Math::FAbs(a.Dot(normal));
 		}
 		float distance;
