@@ -36,24 +36,28 @@ void SceneGame::InitDerived()
 	speedboost.Init("speedboost", MeshBuilder::GenerateCube(Color(0, 0, 0)), "", Vector3(0, 0.5, 5), Vector3(0, 0, 0), Vector3(1, 1, 1));
 	particleEffect.Init("particleEffect", MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(0, 0.5, car.GetTranslate().z-1.5), Vector3(0, 0, 0), Vector3(0.1, 0.1, 0.1));
 
-	floor.Init("floor", "OBJ//Map.obj", "Image//color2.tga");
-	paintLayer.Init("paintLayer", "OBJ//PaintLayer.obj", "", Vector3(0, 0.25f, 0));
+	//floor.Init("floor", "OBJ//Map.obj", "Image//color2.tga");
+	floor.Init("floor", "OBJ//LowPolyFloor.obj", "Image//color2.tga");
 	
+	//paintLayer.Init("paintLayer", "OBJ//PaintLayer.obj", "", Vector3(0, 0.25f, 0));
+	paintLayer.Init("paintLayer", "OBJ//HighPolyFloor.obj", "", Vector3(0, 0.25f, 0));
+	
+
 	std::cout << "Generating grid for level\n";
 	level.GenerateGrid(paintLayer.GetVBO());
 	std::cout << "Done!\n";
 
-	while (map.GetObjectCount() < ((level_chunk.GetChunkCount() / 9) - 2))
-	{
-		if (map.GenerateObj(&level))
-		{
-			int x = Math::RandIntMinMax(1, 2);
-			int y = Math::RandIntMinMax(1, 4); //random to choose the generated object
-			Objects.push_back(Collidable());
-			Objects[map.GetObjectCount() - 1].Init("genObj", map.GenerateRandObj(x), map.GetObjTex(x), map.GetLocation(), map.GetRandRotate(y), map.GetRandScale(y));
-			Objects[map.GetObjectCount() - 1].SetMaterial(dull);
-		}
-	}
+	//while (map.GetObjectCount() < ((level_chunk.GetChunkCount() / 9) - 2))
+	//{
+	//	if (map.GenerateObj(&level))
+	//	{
+	//		int x = Math::RandIntMinMax(1, 2);
+	//		int y = Math::RandIntMinMax(1, 4); //random to choose the generated object
+	//		Objects.push_back(Collidable());
+	//		Objects[map.GetObjectCount() - 1].Init("genObj", map.GenerateRandObj(x), map.GetObjTex(x), map.GetLocation(), map.GetRandRotate(y), map.GetRandScale(y));
+	//		Objects[map.GetObjectCount() - 1].SetMaterial(dull);
+	//	}
+	//}
 
 	car.AddChild(&particleEffect);
 	car.GetPaint()->SetPaintColor(Color(1, 0, 1));
@@ -62,8 +66,8 @@ void SceneGame::InitDerived()
 	mouse.SetAllButton(allButtons);
 	buttonIndex = 0;
 
-	//RequestDontDestroy(&car);
-	//RequestDontDestroy(&ai);
+	RequestDontDestroy(&car);
+	RequestDontDestroy(&ai);
 }
 
 void SceneGame::RenderDerived()
@@ -240,7 +244,7 @@ void SceneGame::UpdateDerived(double dt)
 			}
 		}
 	}
-	if (timer >= 120)
+	if (timer >= 20)
 	{
 		mouse.ResetMousePos();
 		RequestChangeScene(4);//change to end scene once it is created

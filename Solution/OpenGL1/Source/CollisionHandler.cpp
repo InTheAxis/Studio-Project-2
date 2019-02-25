@@ -68,8 +68,6 @@ bool CollisionHandler::CheckCollision2D(RigidBody* A, Collidable* B)
 		//get next point
 		pointA = GetMPoint(A, B, direction);
 		//check if the point has passed the origin, if no then no intersect
-		if (pointA.Length() == 0)
-			return true; //intersect, A and B share same point
 		if (pointA.Dot(direction) < 0)
 			return false; //no intersection
 		//add to simplex
