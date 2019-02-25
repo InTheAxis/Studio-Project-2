@@ -2,6 +2,8 @@
 #define SCENE_RESULT_H
 
 #include "Scene.h"
+#include "Vehicle.h"
+#include "Paintable.h"
 
 class SceneResult : public Scene
 {
@@ -10,6 +12,9 @@ public:
 	~SceneResult();
 
 protected:
+	GameObject* floor;
+	Vehicle* car, *ai;
+	Paintable *paintLayer;
 	GameObject result;
 
 	virtual void InitDerived();

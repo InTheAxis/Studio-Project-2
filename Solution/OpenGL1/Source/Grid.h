@@ -27,7 +27,7 @@ private:
 	int CalcIndexForChunks(int x, int z);
 
 	//length refers to how many cells
-	const int GRID_LENGTH_HALF = 10;
+	const int GRID_LENGTH_HALF = 52;
 	const int CELL_UNIT = 1;
 	const int GRID_MAX_CELLS = (GRID_LENGTH_HALF * 2 + 1) * (GRID_LENGTH_HALF * 2 + 1);
 	const int CHUNK_LENGTH = 3;

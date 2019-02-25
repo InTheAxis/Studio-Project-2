@@ -39,33 +39,39 @@ void SceneGame::InitDerived()
 	speedboost.Init("speedboost", MeshBuilder::GenerateCube(Color(0, 0, 0)), "", Vector3(0, 0.5, 5), Vector3(0, 0, 0), Vector3(1, 1, 1));
 	particleEffect.Init("particleEffect", MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(0, 0.5, car.GetTranslate().z-1.5), Vector3(0, 0, 0), Vector3(0.1, 0.1, 0.1));
 
+
 	//map
-	floor.Init("floor", "OBJ//Map.obj", "Image//color2.tga");
-	paintLayer.Init("paintLayer", "OBJ//PaintLayer.obj", "", Vector3(0, 0.25f, 0));
+	floor.Init("floor", "OBJ//LowPolyFloor.obj", "Image//color2.tga");
+	paintLayer.Init("paintLayer", "OBJ//HighPolyFloor.obj", "", Vector3(0, 0.25f, 0));
 	
+
 	std::cout << "Generating grid for level\n";
 	level.GenerateGrid(paintLayer.GetVBO());
 	std::cout << "Done!\n";
+
 
 	//buttons
 	allButtons.push_back(&resumeButton);
 	allButtons.push_back(&exitButton);
 
-	while (map.GetObjectCount() < ((level_chunk.GetChunkCount() / 9) - 2))
-	{
-		if (map.GenerateObj(&level))
-		{
-			int x = Math::RandIntMinMax(1, 2);
-			int y = Math::RandIntMinMax(1, 4); //random to choose the generated object
-			Objects.push_back(Collidable());
-			Objects[map.GetObjectCount() - 1].Init("genObj", map.GenerateRandObj(x), map.GetObjTex(x), map.GetLocation(), map.GetRandRotate(y), map.GetRandScale(y));
-			Objects[map.GetObjectCount() - 1].SetMaterial(dull);
-			Objects[map.GetObjectCount() - 1].DefineRect2DCollider(Objects[map.GetObjectCount() - 1].GetScale());
-		}
-	}
+	//while (map.GetObjectCount() < ((level_chunk.GetChunkCount() / 9) - 2))
+	//{
+	//	if (map.GenerateObj(&level))
+	//	{
+	//		int x = Math::RandIntMinMax(1, 2);
+	//		int y = Math::RandIntMinMax(1, 4); //random to choose the generated object
+	//		Objects.push_back(Collidable());
+	//		Objects[map.GetObjectCount() - 1].Init("genObj", map.GenerateRandObj(x), map.GetObjTex(x), map.GetLocation(), map.GetRandRotate(y), map.GetRandScale(y));
+	//		Objects[map.GetObjectCount() - 1].SetMaterial(dull);
+	//		Objects[map.GetObjectCount() - 1].DefineRect2DCollider(Objects[map.GetObjectCount() - 1].GetScale());
+	//	}
+	//}
 	
 	//adding particle effects to car
 	car.AddChild(&particleEffect);
+
+
+
 	
 	//passing window range and buttons for cursor
 	mouse.SetOrthSize(orthSize);
@@ -73,8 +79,8 @@ void SceneGame::InitDerived()
 
 	std::cout << "car: " << &car << std::endl;
 
-	//RequestDontDestroy(&car);
-	//RequestDontDestroy(&ai);
+	RequestDontDestroy(&car);
+	RequestDontDestroy(&ai);
 }
 
 void SceneGame::RenderDerived()
@@ -287,7 +293,7 @@ void SceneGame::UpdateDerived(double dt)
 	}
 
 	//endgame time
-	if (timer >= 120)
+	if (timer >= 20)
 	{
 		mouse.ResetMousePos();
 		RequestChangeScene(4);//change to end scene once it is created
