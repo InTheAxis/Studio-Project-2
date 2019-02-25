@@ -18,6 +18,11 @@ public:
 	void SetGear(int gear);
 	int GetGear();
 	float GetEngineForce();
+	void SetEngineForce(float engineForce);
+
+	float GetBoostForce();
+	void SetBoostForce(float boostForce);
+
 	float GetBrakeFriction();
 	float GetTurningForce();
 	Vector3 GetAngle(); //ignore x and z
@@ -27,7 +32,7 @@ public:
 	virtual void RollBack(float u, float v, double dt) = 0;
 	~Vehicle();
 protected:
-	float engineForce, brakeFriction, turningForce;
+	float engineForce, brakeFriction, turningForce, boostForce;
 	int gearNumber;
 	float wheelRadius;
 	float angleY;

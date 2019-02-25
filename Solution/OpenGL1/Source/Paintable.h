@@ -22,8 +22,6 @@ public:
 	~Paintable();
 private:
 	std::vector<Vertex>* vboPtr;
-	Grid* currentGrid;
-	GridCell** cellToColor;
 };
 
 #endif // !PAINTABLE_H

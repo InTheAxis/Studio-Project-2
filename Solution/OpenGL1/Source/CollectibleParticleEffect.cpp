@@ -15,7 +15,7 @@ bool CollectibleParticleEffect::CheckAbsorption(Vector3 objectLocation)
 	return false;
 }
 
-void CollectibleParticleEffect::ApplyEffect(GameObject * object, double dt)
+void CollectibleParticleEffect::ApplyEffect(GameObject* object, double dt)
 {
 	//particleIndex++;
 	number += 5*dt;

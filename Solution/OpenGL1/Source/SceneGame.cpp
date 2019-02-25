@@ -14,23 +14,32 @@ SceneGame::~SceneGame()
 
 void SceneGame::InitDerived()
 {
-	
+	//timer,button and cursor
 	timer = 0;
 	resumeButton.Init("play", "OBJ//LevelsButton.obj", "Image//levels.tga", Vector3(30, 20, 0), Vector3(0, 0, 0), Vector3(1, 1, 0));
 	exitButton.Init("garage", "OBJ//LevelsButton.obj", "Image//levels.tga", Vector3(30, 15, 0), Vector3(0, 0, 0), Vector3(1, 1, 0));
 	mouse.Init("mouse", MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(orthSize.x * 0.5f, orthSize.y * 0.5f, 10), Vector3(0, 0, 0), Vector3(1, 1, 0));
 
-	allButtons.push_back(&resumeButton);
-	allButtons.push_back(&exitButton);
-
-	car.Init("car", "OBJ//taxi.obj", "Image//taxi.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1.f, 1.f, 1.f));
+	//car
+	car.Init("car", "OBJ//taxi.obj", "Image//taxi.tga",Vector3(0, 0.3f, 0));
 	car.CreateRigidBody(Vector3(0, 0, 10), 1200, 0.1f, 0.09f);
 	car.SetTorque(-1, 0, 0.5, 0.5);
 	car.SetMaterial(shiny);
+	car.DefineRect2DCollider(Vector3(2, 2, 2));
+	car.GetPaint()->SetPaintColor(Color(1, 1, 0));
 
+	//AI
+	ai.Init("ai", "OBJ//taxi.obj", "Image//Red.tga", Vector3(0, 0.3f, 10));
+	ai.CreateRigidBody(Vector3(0, 0, 10), 1200, 0.1f, 0.09f);
+	ai.SetTorque(-1, 0, 0.5, 0.5);
+	ai.SetMaterial(shiny);
+	ai.DefineRect2DCollider(Vector3(2,2,2));
+
+	//PowerUps,Particle Effects
 	speedboost.Init("speedboost", MeshBuilder::GenerateCube(Color(0, 0, 0)), "", Vector3(0, 0.5, 5), Vector3(0, 0, 0), Vector3(1, 1, 1));
 	particleEffect.Init("particleEffect", MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(0, 0.5, car.GetTranslate().z-1.5), Vector3(0, 0, 0), Vector3(0.1, 0.1, 0.1));
 
+	//map
 	floor.Init("floor", "OBJ//Map.obj", "Image//color2.tga");
 	paintLayer.Init("paintLayer", "OBJ//PaintLayer.obj", "", Vector3(0, 0.25f, 0));
 	
@@ -38,56 +47,103 @@ void SceneGame::InitDerived()
 	level.GenerateGrid(paintLayer.GetVBO());
 	std::cout << "Done!\n";
 
-	car.AddChild(&particleEffect);
-	car.GetPaint()->SetPaintColor(Color(1, 0, 1));
+	//buttons
+	allButtons.push_back(&resumeButton);
+	allButtons.push_back(&exitButton);
+
+	while (map.GetObjectCount() < ((level_chunk.GetChunkCount() / 9) - 2))
+	{
+		if (map.GenerateObj(&level))
+		{
+			int x = Math::RandIntMinMax(1, 2);
+			int y = Math::RandIntMinMax(1, 4); //random to choose the generated object
+			Objects.push_back(Collidable());
+			Objects[map.GetObjectCount() - 1].Init("genObj", map.GenerateRandObj(x), map.GetObjTex(x), map.GetLocation(), map.GetRandRotate(y), map.GetRandScale(y));
+			Objects[map.GetObjectCount() - 1].SetMaterial(dull);
+			Objects[map.GetObjectCount() - 1].DefineRect2DCollider(Objects[map.GetObjectCount() - 1].GetScale());
+		}
+	}
 	
+	//adding particle effects to car
+	car.AddChild(&particleEffect);
+	
+	//passing window range and buttons for cursor
 	mouse.SetOrthSize(orthSize);
 	mouse.SetAllButton(allButtons);
-	buttonIndex = 0;
 
-	RequestDontDestroy(&car);
+	std::cout << "car: " << &car << std::endl;
 
+	//RequestDontDestroy(&car);
+	//RequestDontDestroy(&ai);
 }
 
 void SceneGame::RenderDerived()
 {
-	RenderObject(&car);
+	if (DEBUG)
+	{
+		RenderObject(car.GetCollider());
+		RenderObject(ai.GetCollider());
+		/*for (int i = 0; i < ((level_chunk.GetChunkCount() / 9) - 2); i++)
+		{
+			RenderObject(Objects[i].GetCollider());
+		}*/
+	}
+	
+	//map and transparent paint layer
 	RenderObject(&floor);
 	RenderObject(&paintLayer);
-	
+
+	//vehicles
+	RenderObject(&car);
+	RenderObject(&ai);
+
+	//powerups
 	if(!speedboost.GetPickedUp())
 		RenderObject(&speedboost, false);
 
+	for (int x = 0; x < map.GetObjectCount(); x++)
+	{
+		RenderObject(&Objects[x]);
+	}
 
+	//resume and exit buttons during pause
 	if (this->pause)
 	{
 		RenderObjectOnScreen(&resumeButton, false);
 		RenderObjectOnScreen(&exitButton, false);
 	}
+
+	//mouse
 	RenderObjectOnScreen(&mouse, false);
 
-		std::string timerString = "Timer: " + std::to_string(timer);
-		RenderTextOnScreen(&TEXT, timerString, Color(1, 0, 1), 1, 0, 0);
+	//timer
+	std::string timerString = "Timer: " + std::to_string(timer);
+	RenderTextOnScreen(&TEXT, timerString, Color(1, 0, 1), 1, 0, 0);
+
+	
 }
 
 void SceneGame::UpdateDerived(double dt)
 {
-	
 	mouse.Move(dt);
 	mouse.CheckHover();
 
 	if (!pause)
 	{
-		std::cout << "Timer: " << timer << std::endl;
+		/*std::cout << "Timer: " << timer << std::endl;*/
+
+		//Timer
 		if(!DEBUG)
 		timer += dt;
 
+		//Particle Effects
 		if (car.GetEngineForce() > 0)
 			particleEffect.ApplyEffect(&car,dt);
 
+		//PowerUps
 		speedboost.CheckAbsorption(car.GetTranslate());
+		speedboost.ApplyEffect(reinterpret_cast<GameObject*>(&car), dt);
 
-		speedboost.ApplyEffect(&car,dt);
 
 		//Car forward & backward inputs
 		if (Application::IsKeyPressed(VK_UP) && car.GetGear() > 0)
@@ -165,10 +221,22 @@ void SceneGame::UpdateDerived(double dt)
 			car.TorqueRotation(0, dt);
 		}
 
+		//update car
 		car.UpdateSuvat(dt);
 		car.UpdateRotation(dt);
 		car.UpdateTorque(dt);
 
+		ai.UpdateSuvat(dt);
+		ai.UpdateRotation(dt);
+		ai.UpdateTorque(dt);
+
+		//update collision
+		car.UpdateCollider();
+		ai.UpdateCollider();
+
+	
+		if (_coll->CheckCollision2D(&car, &ai))
+			_coll->ResolveCollision2D(&car, &ai);
 
 		if (!currentCam)
 			camera[0]->Update(dt, car.GetTranslate(), car.GetAngle()); //update camera
@@ -184,9 +252,6 @@ void SceneGame::UpdateDerived(double dt)
 		}
 
 		//changing of scenes
-
-
-
 		if (resumeButton.GetOnClickEvent())
 		{
 			allButtons[0]->SetHover(false);
@@ -221,11 +286,7 @@ void SceneGame::UpdateDerived(double dt)
 		}
 	}
 
-
-	if (!currentCam)
-		camera[0]->Update(dt, car.GetTranslate(), car.GetAngle()); //update camera
-
-
+	//endgame time
 	if (timer >= 120)
 	{
 		mouse.ResetMousePos();
@@ -235,7 +296,7 @@ void SceneGame::UpdateDerived(double dt)
 
 void SceneGame::UpdateDerivedBounced(double dt)
 {
-	if (Application::IsKeyPressed(VK_ESCAPE))
+	if (Application::IsKeyPressed(VK_ESCAPE))//pause,unpause
 	{
 		pause = !pause;
 	}

@@ -2,7 +2,7 @@
 #define SPEEDBOOST_H
 #include "Collectibles.h"
 #include "MyMathExtended.h"
-
+#include "Car.h"
 class CollectibleSpeedBoost :public Collectibles
 {
 public:

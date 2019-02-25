@@ -213,7 +213,7 @@ Vector3 CollisionHandler::GetMPoint(Collidable *A, Collidable *B, Vector3 dir)
 	return p1 - p2;
 }
 
-void CollisionHandler::CalculatePenetration2D(Collidable *A, Collidable *B)
+void CollisionHandler::CalculatePenetration2D(RigidBody *A, Collidable *B)
 {
 	Vector3 a, b, n;
 	float distance;
@@ -268,7 +268,7 @@ void CollisionHandler::CalculatePenetration2D(Collidable *A, Collidable *B)
 	}
 }
 
-void CollisionHandler::CalculatePenetration(Collidable* A, Collidable* B)
+void CollisionHandler::CalculatePenetration(RigidBody* A, Collidable* B)
 {
 	std::vector<Face> faces; //built from GJK terminated simplex
 	//building faces	

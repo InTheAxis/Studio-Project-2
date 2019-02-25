@@ -5,7 +5,6 @@
 Paintable::Paintable()
 {
 	vboPtr = nullptr;
-	cellToColor = nullptr;
 }
 
 std::vector<Vertex>* Paintable::GetVBO()

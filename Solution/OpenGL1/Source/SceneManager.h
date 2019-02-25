@@ -34,7 +34,7 @@ private:
 
 	//testing
 
-	SceneExampleCar example;
+	SceneExampleColl example;
 
 
 	//actual

@@ -9,10 +9,14 @@ class Grid
 {
 public:
 	Grid();
+	int GetGridLengthHalf();
 	void GenerateGrid(std::vector<Vertex>* vboPtr);
 	GridCell* FindCell(int x, int z); //find cell from xz
 	GridChunk* FindChunk(int x, int z); //find chunk from xz
 	~Grid();
+
+	std::vector<GridChunk*> GetAllChunks();
+
 private:
 	std::vector<GridCell*> allCells;
 	std::vector<GridChunk*> allChunks;

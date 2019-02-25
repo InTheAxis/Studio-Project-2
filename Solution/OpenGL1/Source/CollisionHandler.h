@@ -39,8 +39,8 @@ private:
 	Vector3 direction, pointA;
 	Vector3 GetMPoint(Collidable* A, Collidable* B, Vector3 dir); //gets Minkowski diff
 	//for epa
-	void CalculatePenetration2D(Collidable *A, Collidable *B);
-	void CalculatePenetration(Collidable *A, Collidable *B);
+	void CalculatePenetration2D(RigidBody *A, Collidable *B);
+	void CalculatePenetration(RigidBody *A, Collidable *B);
 	struct Edge
 	{
 		Edge() {}

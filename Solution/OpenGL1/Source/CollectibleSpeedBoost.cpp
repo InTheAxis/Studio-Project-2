@@ -53,27 +53,30 @@ bool CollectibleSpeedBoost::CheckAbsorption(Vector3 objectLocation)
 
 }
 
-void CollectibleSpeedBoost::ApplyEffect(GameObject *object,double dt)
+void CollectibleSpeedBoost::ApplyEffect(GameObject* object, double dt)
 {
 	if (pickedUp)
 	{
 		activeTime -= dt;
 		//add effect here
 		/*object->IncrementTranslate(Vector3(0, 0, 0.25));*/
+		std::cout <<"object: "<< object << std::endl;
 
+		Car* teest = reinterpret_cast<Car*>(object);
+
+		teest->SetBoostForce(40000.f);
 		if (activeTime <= 0)
 		{
 			pickedUp = false;
 			translate.x = RandomNumberGenerator();
 			translate.z = RandomNumberGenerator();
+			(*teest).SetBoostForce(0.f);
 		}
-		
 	}
 	
 	else
 	{
 	}
-		
 }
 
 

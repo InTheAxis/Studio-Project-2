@@ -12,6 +12,7 @@ Vehicle::Vehicle()
 	angleY = 0.0f;
 	turningLerpf = 0;
 	torqueForce = 0;
+	boostForce = 0;
 }
 
 void Vehicle::MoveForward(int dir, double dt)
@@ -20,7 +21,7 @@ void Vehicle::MoveForward(int dir, double dt)
 	{
 		this->forceForward = 0;
 	}
-	this->AddForceForward(Vector3(0, 0, dir * engineForce));
+	this->AddForceForward(Vector3(0, 0, dir * (engineForce + boostForce)));
 
 	this->translate += s * this->forward.Normalize();
 
@@ -158,6 +159,21 @@ int Vehicle::GetGear()
 float Vehicle::GetEngineForce()
 {
 	return engineForce;
+}
+
+void Vehicle::SetEngineForce(float engineForce)
+{
+	this->engineForce = engineForce;
+}
+
+float Vehicle::GetBoostForce()
+{
+	return boostForce;
+}
+
+void Vehicle::SetBoostForce(float boostForce)
+{
+	this->boostForce = boostForce;
 }
 
 float Vehicle::GetBrakeFriction()
