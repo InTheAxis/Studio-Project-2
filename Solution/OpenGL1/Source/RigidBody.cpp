@@ -11,12 +11,7 @@ RigidBody::RigidBody()
 	this->maxDrag = dragForce = 0;
 	this->forceForward = forceRight = 0;
 	this->REV_FORCE = 0;
-
-	this->torque = leverArm = torqueForce = Vector3(0, 0, 0);
-	this->momentOfInertia = lengthA = lengthB = 0;
-	this->torqueTheta = 0;
-
-	this->forwardCollisionForce = rightCollisionForce = 0;
+	this->collisionForce = Vector3(0, 0, 0);
 
 	this->rotationMatrix.SetToIdentity();
 }
@@ -50,26 +45,9 @@ void RigidBody::AddBrakeFriction(float brakeFriction)
 	this->brakeFriction = brakeFriction;
 }
 
-void RigidBody::AddTorqueForce(float torqueForce)
+void RigidBody::AddCollisionForce(Vector3 collisionForce)
 {
-	if (this->torqueForce.y < 125000)
-	{
-		this->torqueForce.y += torqueForce;
-	}
-}
-
-void RigidBody::AddCollisionForce(float forwardCollisionForce, float rightCollisionForce)
-{
-	this->forwardCollisionForce = forwardCollisionForce;
-	this->rightCollisionForce = rightCollisionForce;
-}
-
-void RigidBody::SetTorque(float leverArm, float torqueForce, float lengthA, float lengthB)
-{
-	this->leverArm.x = leverArm;
-	this->torqueForce.y = torqueForce;
-	this->lengthA = lengthA;
-	this->lengthB = lengthB;
+	this->collisionForce = collisionForce;
 }
 
 float RigidBody::GetSpeed()
@@ -83,7 +61,7 @@ void RigidBody::UpdateSuvat(double dt)
 	if (Math::FAbs(forceForward) + REV_FORCE > maxStaticFriction) //if static friction overcome start moving
 	{
 		//update accel
-		this->a = (forceForward - kineticFriction - dragForce - brakeFriction - forwardCollisionForce) / mass;
+		this->a = (forceForward - kineticFriction - dragForce - brakeFriction) / mass;
 		if (Math::FAbs(a) < 0.01f)
 			a = 0;
 
@@ -101,7 +79,7 @@ void RigidBody::UpdateSuvat(double dt)
 		if (Math::FAbs(v) > 0.01f) //if within this range assume 0
 		{
 			//update accel in opp dir
-			this->a = (-1 * direction * (kineticFriction + brakeFriction + 0.8f * dragForce + forwardCollisionForce)) / mass;
+			this->a = (-1 * direction * (kineticFriction + brakeFriction + 0.8f * dragForce)) / mass;
 
 			if (dragForce != 0)
 			{
@@ -131,15 +109,6 @@ void RigidBody::UpdateRotation(double dt)
 	{
 		omega = theta = 0;
 	}
-}
-
-void RigidBody::UpdateTorque(double dt)
-{
-	this->torque.z = (leverArm.Cross(torqueForce)).z;
-
-	this->momentOfInertia = (1.0f / 12.0f) * mass * (Math::Square(lengthA) + Math::Square(lengthB));
-	
-	this->torqueTheta = Math::RadianToDegree(torque.z / momentOfInertia * Math::Square(dt));
 }
 
 RigidBody::~RigidBody()

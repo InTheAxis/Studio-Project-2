@@ -8,10 +8,9 @@ Vehicle::Vehicle()
 	turningForce = 5000;
 	brakeFriction = 5000;
 	gearNumber = 1;
-	wheelRadius = 0.001f;
+	wheelRadius = 0.0001f;
 	angleY = 0.0f;
 	turningLerpf = 0;
-	torqueForce = 0;
 	boostForce = 0;
 }
 
@@ -35,7 +34,7 @@ void Vehicle::MoveRight(int dir, double dt)
 	{
 		this->forceRight = 0;
 		this->angleY = 0;
-		this->turningLerpf = 0;
+		//this->turningLerpf = 0;
 	}
 	this->AddForceRight(Vector3(dir * turningForce, 0, 0));
 
@@ -46,61 +45,18 @@ void Vehicle::MoveRight(int dir, double dt)
 
 	if (dir == 1)
 	{
-		turningLerpf = MathExtended::Lerpf(turningLerpf, 25, 0.2);
+		turningLerpf = MathExtended::Lerpf(turningLerpf, 20, 0.2);
 		this->RollFront(u, v, angleY - turningLerpf, dt);
 	}
 	else if (dir == -1)
 	{
-		turningLerpf = MathExtended::Lerpf(turningLerpf, 25, 0.2);
+		turningLerpf = MathExtended::Lerpf(turningLerpf, 20, 0.2);
 		this->RollFront(u, v, angleY + turningLerpf, dt);
-	}
-}
-
-void Vehicle::TorqueRotation(int dir, double dt)
-{
-	if (dir == 1) //Front left torque
-	{
-		this->AddTorqueForce(dir * 5000);
-		SetRotateAndPivot(Vector3(torqueTheta, 0, -torqueTheta), Vector3(0, 0.1, leverArm.x));
-	}
-	else if (dir == 2) //Front torque
-	{
-		this->AddTorqueForce(dir * 5000);
-		SetRotateAndPivot(Vector3(torqueTheta, 0, 0), Vector3(0, 0, leverArm.x));
-	}
-	else if (dir == 3) //Front right torque
-	{
-		this->AddTorqueForce(dir * 5000);
-		SetRotateAndPivot(Vector3(torqueTheta, 0, torqueTheta), Vector3(0, 0.1, leverArm.x));
-	}
-	else if (dir == 4) //Back left torque
-	{
-		this->AddTorqueForce(dir * 5000);
-		SetRotateAndPivot(Vector3(-torqueTheta, 0, -torqueTheta), Vector3(0, 0.1, -leverArm.x));
-	}
-	else if (dir == 5) //Back torque
-	{
-		this->AddTorqueForce(dir * 5000);
-		SetRotateAndPivot(Vector3(-torqueTheta, 0, 0), Vector3(0, 0, -leverArm.x));
-	}
-	else if (dir == 6) //Back right torque
-	{
-		this->AddTorqueForce(dir * 5000);
-		SetRotateAndPivot(Vector3(-torqueTheta, 0, torqueTheta), Vector3(0, 0.1, -leverArm.x));
-	}
-	else if (dir == 7) //Left torque
-	{
-		this->AddTorqueForce(dir * 5000);
-		SetRotateAndPivot(Vector3(0, 0, -torqueTheta), Vector3(0, 0.5, leverArm.x));
-	}
-	else if (dir == 8) //Right torque
-	{
-		this->AddTorqueForce(dir * 5000);
-		SetRotateAndPivot(Vector3(0, 0, torqueTheta), Vector3(0, 0.5, leverArm.x));
 	}
 	else
 	{
-		SetRotateAndPivot(Vector3(0, 0, 0), Vector3(0, 0, 0));
+		turningLerpf = -MathExtended::Lerpf(-turningLerpf, 0, 0.2);
+		this->RollFront(u, v, angleY + turningLerpf, dt);
 	}
 }
 

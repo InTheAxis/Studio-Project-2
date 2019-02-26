@@ -28,7 +28,6 @@ void SceneGame::InitDerived()
 	//AI
 	ai.Init("ai", "OBJ//taxi.obj", "Image//Red.tga");
 	ai.CreateRigidBody(Vector3(0, 0, 10), 1200, 0.1f, 0.09f);
-	ai.SetTorque(-1, 0, 0.5, 0.5);
 	ai.SetMaterial(shiny);
 	ai.DefineRect2DCollider(Vector3(2, 2, 2));
 	ai.SetTranslate(Vector3(0, 0.3, 0));
@@ -36,11 +35,11 @@ void SceneGame::InitDerived()
 	//car
 	car.Init("car", "OBJ//taxi.obj", "Image//taxi.tga");
 	car.CreateRigidBody(Vector3(0, 0, 10), 1200, 0.1f, 0.09f);
-	car.SetTorque(-1, 0, 0.5, 0.5);
 	car.SetMaterial(shiny);
 	car.DefineRect2DCollider(Vector3(2, 2, 2));
 	car.GetPaint()->SetPaintColor(Color(1, 1, 0));
-	car.SetTranslate(Vector3(-10, 0.3, 0));
+	car.SetTranslate(Vector3(0, 0.3, 0));
+
 
 	//PowerUps,Particle Effects
 	speedboost.Init("speedboost", MeshBuilder::GenerateCube(Color(0, 0, 0)), "", Vector3(0, 0.5, 5), Vector3(0, 0, 0), Vector3(1, 1, 1));
@@ -196,11 +195,11 @@ void SceneGame::UpdateDerived(double dt)
 
 
 		//Car forward & backward inputs
-		if (Application::IsKeyPressed(VK_UP) && car.GetGear() > 0)
+		if (Application::IsKeyPressed(VK_SPACE) && car.GetGear() > 0)
 		{
 			car.MoveForward(1, dt);
 		}
-		else if (Application::IsKeyPressed(VK_UP) && car.GetGear() == 0)
+		else if (Application::IsKeyPressed(VK_SPACE) && car.GetGear() == 0)
 		{
 			car.MoveForward(-1, dt);
 		}
@@ -210,7 +209,7 @@ void SceneGame::UpdateDerived(double dt)
 		}
 
 		//Car brake input
-		if (Application::IsKeyPressed(VK_DOWN))
+		if (Application::IsKeyPressed(VK_LCONTROL))
 		{
 			car.Brake(true);
 		}
@@ -220,11 +219,11 @@ void SceneGame::UpdateDerived(double dt)
 		}
 
 		//Car left & right inputs
-		if (Application::IsKeyPressed(VK_LEFT))
+		if (Application::IsKeyPressed('A'))
 		{
 			car.MoveRight(-1, dt);
 		}
-		else if (Application::IsKeyPressed(VK_RIGHT))
+		else if (Application::IsKeyPressed('D'))
 		{
 			car.MoveRight(1, dt);
 		}
@@ -232,6 +231,7 @@ void SceneGame::UpdateDerived(double dt)
 		{
 			car.MoveRight(0, dt);
 		}
+
 
 		//ai
 		if (ai.CheckToMove())
@@ -260,16 +260,11 @@ void SceneGame::UpdateDerived(double dt)
 
 		ai.UpdateSuvat(dt);
 		ai.UpdateRotation(dt);
-		ai.UpdateTorque(dt);
+
 
 		//update car
 		car.UpdateSuvat(dt);
 		car.UpdateRotation(dt);
-		car.UpdateTorque(dt);
-
-		//ai.UpdateSuvat(dt);
-		//ai.UpdateRotation(dt);
-		//ai.UpdateTorque(dt);
 
 		//update collision
 		car.UpdateCollider();
@@ -352,7 +347,7 @@ void SceneGame::UpdateDerived(double dt)
 
 	//endgame time
 
-	if (timer >= 120)
+	if (timer >= 100)
 	{
 		mouse.ResetMousePos();
 		RequestDontDestroy(&paintLayer);
@@ -370,13 +365,13 @@ void SceneGame::UpdateDerivedBounced(double dt)
 	{
 		pause = !pause;
 	}
-	if (Application::IsKeyPressed('Z')) //Decrease gear
-	{
-		car.SetGear(car.GetGear() - 1);
-	}
-	if (Application::IsKeyPressed('X')) //Increase gear
+	if (Application::IsKeyPressed('W')) //Increase gear
 	{
 		car.SetGear(car.GetGear() + 1);
+	}
+	if (Application::IsKeyPressed('S')) //Decrease gear
+	{
+		car.SetGear(car.GetGear() - 1);
 	}
 }
 

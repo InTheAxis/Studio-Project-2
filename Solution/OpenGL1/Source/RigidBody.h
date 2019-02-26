@@ -13,9 +13,7 @@ public:
 	void CreateRigidBody(Vector3 forward, float mass, float staticCoeff, float kineticCoeff);
 	void UpdateSuvat(double dt);
 	void UpdateRotation(double dt);
-	void UpdateTorque(double dt);
 
-	void SetTorque(float leverArm, float torqueForce, float lengthA, float lengthB);
 	float GetSpeed();
 	~RigidBody();
 protected:
@@ -27,12 +25,7 @@ protected:
 
 	float forceForward, forceRight, brakeFriction;
 	float REV_FORCE; //derived const to help with starting car
-
-	Vector3 torque, leverArm, torqueForce;
-	float momentOfInertia, lengthA, lengthB;
-	float torqueTheta;
-
-	float forwardCollisionForce, rightCollisionForce;
+	Vector3 collisionForce;
 
 	Mtx44 rotationMatrix;
 
@@ -43,8 +36,7 @@ protected:
 	void AddForceForward(Vector3 f); //add a force
 	void AddForceRight(Vector3 f);
 	void AddBrakeFriction(float brakeFriction);
-	void AddTorqueForce(float torqueForce);
-	void AddCollisionForce(float forwardCollisionForce, float rightCollisionForce);
+	void AddCollisionForce(Vector3 collisionForce);
 };
 
 #endif // !RIGIDBODY_H
