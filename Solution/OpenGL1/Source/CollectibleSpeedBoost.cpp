@@ -60,7 +60,6 @@ void CollectibleSpeedBoost::ApplyEffect(GameObject* object, double dt)
 		activeTime -= dt;
 		//add effect here
 		/*object->IncrementTranslate(Vector3(0, 0, 0.25));*/
-		std::cout <<"object: "<< object << std::endl;
 
 		Car* teest = reinterpret_cast<Car*>(object);
 

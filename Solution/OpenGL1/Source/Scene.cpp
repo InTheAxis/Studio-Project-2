@@ -15,10 +15,11 @@ void Scene::RequestChangeScene(int index)
 
 void Scene::RequestDontDestroy(GameObject * go)
 {
+	std::cout << "recieved " << go << std::endl;
 	this->dontDestroy.emplace_back(go);
 }
 
-GameObject * Scene::GetDontDestroyGameObject(std::string name)
+GameObject* Scene::GetDontDestroyGameObject(std::string name)
 {
 	for (GameObject* &go : dontDestroy)
 	{

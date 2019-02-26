@@ -50,9 +50,7 @@ Vector3 BuildMap::GetLocation()
 Vector3 BuildMap::GenerateRandNum(int length)
 {
 	float x = Math::RandFloatMinMax(-length, length);
-	std::cout << "X: " << x << std::endl;//get GRID_LENGTH_HALF
 	float z = Math::RandFloatMinMax(-length, length);
-	std::cout << "Z: " << z << std::endl;
 	chunkPos = Vector3(x, 0, z);
 	return chunkPos;
 }

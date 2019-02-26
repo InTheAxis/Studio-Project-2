@@ -143,7 +143,7 @@ void SceneGame::UpdateDerived(double dt)
 
 		//PowerUps
 		speedboost.CheckAbsorption(car.GetTranslate());
-		speedboost.ApplyEffect(reinterpret_cast<GameObject*>(&car), dt);
+		speedboost.ApplyEffect(static_cast<GameObject*>(&car), dt);
 
 
 		//Car forward & backward inputs
@@ -288,12 +288,13 @@ void SceneGame::UpdateDerived(double dt)
 	}
 
 	//endgame time
-	if (timer >= 20)
+	if (timer >= 1)
 	{
 		mouse.ResetMousePos();
 		RequestDontDestroy(&paintLayer);
 		RequestDontDestroy(&floor);
-		RequestDontDestroy(&car);
+		std::cout << "given " << static_cast<GameObject*>(&car) << std::endl;
+		RequestDontDestroy(static_cast<GameObject*>(&car));
 		RequestDontDestroy(&ai);
 		RequestChangeScene(4);//change to end scene once it is created
 	}

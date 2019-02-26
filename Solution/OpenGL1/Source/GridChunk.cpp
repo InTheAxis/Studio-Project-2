@@ -11,7 +11,6 @@ GridChunk::GridChunk(int x, int z, int length)
 	this->upleft = Vector3(x, 0, z);
 	CHUNK_LENGTH = length;
 	this->center = upleft + Vector3(length * 0.5f, 0, length * 0.5f);
-	std::cout << "Center " << chunkCount << ": " << center.x << " " << center.y << " " << center.z << std::endl;
 	chunkCount++;
 }
 

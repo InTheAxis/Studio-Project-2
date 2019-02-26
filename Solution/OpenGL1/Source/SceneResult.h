@@ -21,6 +21,7 @@ protected:
 	virtual void RenderDerived();
 	virtual void UpdateDerived(double dt);
 	virtual void UpdateDerivedBounced(double dt);
+	virtual void RenderFrameBuffer();
 };
 
 
