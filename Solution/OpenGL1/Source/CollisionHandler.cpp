@@ -70,6 +70,15 @@ bool CollisionHandler::CheckCollision2D(RigidBody* A, Collidable* B)
 		//check if the point has passed the origin, if no then no intersect
 		if (pointA.Dot(direction) < 0)
 			return false; //no intersection
+		//if simplex has duplicates
+		for (int i = 0; i < simplex.size(); ++i)
+		{
+			for (int j = 0; j < simplex.size(); ++j)
+			{
+				if (i != j && simplex[i] == simplex[j])
+					return false;
+			}
+		}
 		//add to simplex
 		simplex.emplace_back(pointA);
 
