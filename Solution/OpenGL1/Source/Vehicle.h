@@ -8,6 +8,7 @@ class Vehicle : public RigidBody
 {
 public:
 	Vehicle();
+	//Car movements
 	void MoveForward(int dir, double dt);
 	void MoveRight(int dir, double dt);
 	void Brake(bool brake);

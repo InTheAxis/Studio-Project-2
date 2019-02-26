@@ -90,18 +90,18 @@ void Vehicle::SetGear(int gear)
 	case 1:
 		engineForce = 15000;
 		break;
-	case 2:
-		engineForce = 17500;
-		break;
-	case 3:
-		engineForce = 20000;
-		break;
-	case 4:
-		engineForce = 22500;
-		break;
-	case 5:
-		engineForce = 25000;
-		break;
+	//case 2:
+	//	engineForce = 17500;
+	//	break;
+	//case 3:
+	//	engineForce = 20000;
+	//	break;
+	//case 4:
+	//	engineForce = 22500;
+	//	break;
+	//case 5:
+	//	engineForce = 25000;
+	//	break;
 	default:
 		break;
 	}
