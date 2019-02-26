@@ -378,7 +378,7 @@ void SceneGame::UpdateDerived(double dt)
 
 	//endgame time
 
-	if (timer >= 2)
+	if (timer >= 100)
 	{
 		mouse.ResetMousePos();
 		RequestDontDestroy(&paintLayer);
