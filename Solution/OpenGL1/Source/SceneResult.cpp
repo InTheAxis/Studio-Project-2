@@ -14,7 +14,7 @@ void SceneResult::InitDerived()
 	currentCam = FIXED_TOP_DOWN;
 
 	std::vector<Color> colors = ReadFromFBO(m_frameBufferID);
-	//Paintable::CalculateCoverage(colors, car->GetPaint(), ai->GetPaint());
+	Paintable::CalculateCoverage(colors, car->GetPaint(), car->GetPaint());
 
 	std::cout << car->GetPaint()->GetPercentage() << ":P%\n";
 	//std::cout << ai->GetPaint()->GetPercentage() << ":AI\n";

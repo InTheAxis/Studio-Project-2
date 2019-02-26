@@ -76,11 +76,6 @@ void SceneGame::InitDerived()
 	//passing window range and buttons for cursor
 	mouse.SetOrthSize(orthSize);
 	mouse.SetAllButton(allButtons);
-
-	std::cout << "car: " << &car << std::endl;
-
-	RequestDontDestroy(&car);
-	RequestDontDestroy(&ai);
 }
 
 void SceneGame::RenderDerived()
@@ -296,6 +291,10 @@ void SceneGame::UpdateDerived(double dt)
 	if (timer >= 20)
 	{
 		mouse.ResetMousePos();
+		RequestDontDestroy(&paintLayer);
+		RequestDontDestroy(&floor);
+		RequestDontDestroy(&car);
+		RequestDontDestroy(&ai);
 		RequestChangeScene(4);//change to end scene once it is created
 	}
 }
