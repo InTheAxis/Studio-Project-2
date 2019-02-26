@@ -33,7 +33,7 @@ void SceneGame::InitDerived()
 	ai.SetStats(10000, 1111, 7000, 0.05);
 
 	//car
-	car.Init("car", "OBJ//taxi.obj", "Image//taxi.tga");
+	car.Init("car", "OBJ//taxiNoWheels.obj", "Image//taxi.tga");
 	car.CreateRigidBody(Vector3(0, 0, 10), 1200, 0.1f, 0.09f);
 	car.SetMaterial(shiny);
 	car.DefineRect2DCollider(Vector3(2, 2, 2));

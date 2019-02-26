@@ -69,7 +69,7 @@ void SceneStart::UpdateDerived(double dt)
 		allButtons[buttonindex]->SetHover(false);
 		play.SetOnClickEvent(false);
 		mouse.ResetMousePos();
-		RequestChangeScene(2);
+		RequestChangeScene(3);
 	}
 
 	if (garage.GetOnClickEvent())

@@ -3,13 +3,16 @@
 
 Car::Car()
 {
+	wheels[0].Init("wheel", "OBJ//LeftWheel.obj", "Image//taxi.tga", Vector3(0.419f, 0.169f, 0.582f));
+	wheels[1].Init("wheel", "OBJ//RightWheel.obj", "Image//taxi.tga", Vector3(-0.419f, 0.169f, 0.582f));
+	wheels[2].Init("wheel", "OBJ//LeftWheel.obj", "Image//taxi.tga", Vector3(0.427f, 0.169f, -0.735f));
+	wheels[3].Init("wheel", "OBJ//RightWheel.obj", "Image//taxi.tga", Vector3(-0.427f, 0.169f, -0.735f));
+
 	for (int i = 0; i < 4; i++)
 	{
-		wheels[i].Init("wheel", "OBJ//TaxiWheels.obj", "Image//taxi.tga", Vector3(0, 0, 0));
-		//wheels[i].Init("wheel", MeshBuilder::GenerateCube(Color(0, 1, 0, 0.5f)), "", Vector3(4, 0, 0), Vector3(0, 0, 0), Vector3(0.5, 2, 2));;
 		wheels[i].SetRadius(wheelRadius);
+		this->AddChild(&(wheels[i]));
 	}
-	this->AddChild(&(wheels[0]));
 }
 
 void Car::RollFront(float u, float v, float angle, double dt)

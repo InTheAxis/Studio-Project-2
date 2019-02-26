@@ -34,7 +34,7 @@ private:
 
 	//testing
 
-	SceneGame example;
+	SceneExampleColl example;
 
 
 	//actual
