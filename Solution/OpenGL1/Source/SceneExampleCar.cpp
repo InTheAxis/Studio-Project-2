@@ -15,8 +15,6 @@ void SceneExampleCar::InitDerived()
 	car.SetMaterial(shiny);
 	floor.SetMaterial(dull);
 	ramp.SetMaterial(dull);
-
-	car.SetTorque(-1, 0, 0.5, 0.5);
 }
 
 void SceneExampleCar::RenderDerived()
@@ -70,46 +68,8 @@ void SceneExampleCar::UpdateDerived(double dt)
 		car.MoveRight(0, dt);
 	}
 
-	if (Application::IsKeyPressed('1'))
-	{
-		car.TorqueRotation(1, dt);
-	}
-	else if (Application::IsKeyPressed('2'))
-	{
-		car.TorqueRotation(2, dt);
-	}
-	else if (Application::IsKeyPressed('3'))
-	{
-		car.TorqueRotation(3, dt);
-	}
-	else if (Application::IsKeyPressed('4'))
-	{
-		car.TorqueRotation(4, dt);
-	}
-	else if (Application::IsKeyPressed('5'))
-	{
-		car.TorqueRotation(5, dt);
-	}
-	else if (Application::IsKeyPressed('6'))
-	{
-		car.TorqueRotation(6, dt);
-	}
-	else if (Application::IsKeyPressed('7'))
-	{
-		car.TorqueRotation(7, dt);
-	}
-	else if (Application::IsKeyPressed('8'))
-	{
-		car.TorqueRotation(8, dt);
-	}
-	else
-	{
-		car.TorqueRotation(0, dt);
-	}
-
 	car.UpdateSuvat(dt);
 	car.UpdateRotation(dt);
-	car.UpdateTorque(dt);
 
 	if (!currentCam)
 		camera[0]->Update(dt, car.GetTranslate(), car.GetAngle()); //update camera

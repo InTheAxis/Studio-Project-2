@@ -10,7 +10,6 @@ public:
 	Vehicle();
 	void MoveForward(int dir, double dt);
 	void MoveRight(int dir, double dt);
-	void TorqueRotation(int dir, double dt);
 	void Brake(bool brake);
 	
 	//getter setters
@@ -37,7 +36,6 @@ protected:
 	float wheelRadius;
 	float angleY;
 	float turningLerpf;
-	float torqueForce;
 
 	Paint paint;
 };
