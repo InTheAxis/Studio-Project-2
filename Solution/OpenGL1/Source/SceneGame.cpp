@@ -195,11 +195,11 @@ void SceneGame::UpdateDerived(double dt)
 
 
 		//Car forward & backward inputs
-		if (Application::IsKeyPressed(VK_SPACE) && car.GetGear() > 0)
+		if (Application::IsKeyPressed(VK_UP) && car.GetGear() > 0)
 		{
 			car.MoveForward(1, dt);
 		}
-		else if (Application::IsKeyPressed(VK_SPACE) && car.GetGear() == 0)
+		else if (Application::IsKeyPressed(VK_UP) && car.GetGear() == 0)
 		{
 			car.MoveForward(-1, dt);
 		}
@@ -209,7 +209,7 @@ void SceneGame::UpdateDerived(double dt)
 		}
 
 		//Car brake input
-		if (Application::IsKeyPressed(VK_LCONTROL))
+		if (Application::IsKeyPressed(VK_DOWN))
 		{
 			car.Brake(true);
 		}
@@ -219,11 +219,11 @@ void SceneGame::UpdateDerived(double dt)
 		}
 
 		//Car left & right inputs
-		if (Application::IsKeyPressed('A'))
+		if (Application::IsKeyPressed(VK_LEFT))
 		{
 			car.MoveRight(-1, dt);
 		}
-		else if (Application::IsKeyPressed('D'))
+		else if (Application::IsKeyPressed(VK_RIGHT))
 		{
 			car.MoveRight(1, dt);
 		}
@@ -232,6 +232,7 @@ void SceneGame::UpdateDerived(double dt)
 			car.MoveRight(0, dt);
 		}
 
+	
 
 		//ai
 		if (ai.CheckToMove())
@@ -258,13 +259,15 @@ void SceneGame::UpdateDerived(double dt)
 			ai.MoveForward(1, dt);
 		}
 
-		ai.UpdateSuvat(dt);
-		ai.UpdateRotation(dt);
-
 
 		//update car
 		car.UpdateSuvat(dt);
 		car.UpdateRotation(dt);
+		ai.UpdateSuvat(dt);
+		ai.UpdateRotation(dt);
+
+
+
 
 		//update collision
 		car.UpdateCollider();
@@ -330,7 +333,7 @@ void SceneGame::UpdateDerived(double dt)
 
 		if (Application::leftMouseClick)
 		{
-			for (int i = 0; i < allButtons.size(); ++i)
+			for (unsigned int i = 0; i < allButtons.size(); ++i)
 			{
 				if (allButtons[i]->GetHover())
 				{
