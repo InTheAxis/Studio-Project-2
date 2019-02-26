@@ -17,7 +17,6 @@ void GridCell::ChangeColorCell(Vector3 centerVert, Color color, float range)
 		float dist = Math::Square(temp.x) + Math::Square(temp.y) + Math::Square(temp.z);
 		if (dist <= Math::Square(range)) // i dont want to square root
 		{
-			std::cout << "Repainting: " << v->pos.x << ", " << v->pos.z << "\n";
 			v->color = color;
 		}
 	}
@@ -51,6 +50,11 @@ void GridCell::PushVertToCell(Vertex* v)
 Vector3 GridCell::GetUpleft()
 {
 	return upleft;
+}
+
+std::vector<Vertex*> GridCell::GetCellVertex()
+{
+	return this->cell;
 }
 
 GridCell::~GridCell()

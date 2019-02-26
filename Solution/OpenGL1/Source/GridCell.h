@@ -16,6 +16,7 @@ public:
 	void PushToAdjacents(GridCell*);
 	void PushVertToCell(Vertex*);
 	Vector3 GetUpleft();
+	std::vector<Vertex*> GetCellVertex();
 	~GridCell();
 
 private:

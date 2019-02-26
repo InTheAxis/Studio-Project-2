@@ -74,7 +74,7 @@ void RigidBody::SetTorque(float leverArm, float torqueForce, float lengthA, floa
 
 float RigidBody::GetSpeed()
 {
-	return s;
+	return u;
 }
 
 void RigidBody::UpdateSuvat(double dt)

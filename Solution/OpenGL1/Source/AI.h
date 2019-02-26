@@ -16,7 +16,6 @@ public:
 	bool IfDetected();
 	bool IfTurn();
 	int CheckBrake();
-	void IncrementBrake(float);
 	virtual void RollFront(float u, float v, float angle, double dt);
 	virtual void RollBack(float u, float v, double dt);
 

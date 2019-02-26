@@ -28,7 +28,7 @@ private:
 	LoadSceneButton resumeButton, exitButton;
 	Car car;
 
-	GameObject floor;
+	GameObject floor,resumeText,exitText;
 	Grid level;
 	GridChunk level_chunk;
 	Paintable paintLayer;
@@ -36,6 +36,7 @@ private:
 	AI ai;
 	std::vector<Collidable> Objects;
 	BuildMap map;
+	Collidable frontWall,backWall,leftWall,rightWall;
 
 	CollectibleSpeedBoost speedboost;
 	CollectibleParticleEffect particleEffect;
@@ -43,6 +44,7 @@ private:
 	float timer;
 
 	const int NUM_OF_BUTTONS = 2;
+	Vector3 temp;
 };
 
 #endif

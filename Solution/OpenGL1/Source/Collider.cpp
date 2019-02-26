@@ -44,7 +44,7 @@ void Collider::UpdateHull(Vector3 translate, Vector3 rotate)
 Vector3 Collider::GetFurthestPoint(Vector3 dir)
 {
 	Vector3* ret = nullptr;
-	float distance = 0, maxDist = -99999;
+	float distance = 0, maxDist = -999999999999;
 	for (Vector3 &v : hullPoints)
 	{
 		distance = v.Dot(dir);

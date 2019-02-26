@@ -8,7 +8,7 @@ AI::AI()
 	detected = true;
 	turn = false;
 	brakeState = false;
-	brakeFriction = 30000.f;
+	brakeFriction = 1000.f;
 }
 
 AI::~AI()
@@ -80,14 +80,6 @@ int AI::CheckBrake()
 {
 	spotCount++;
 	return spotCount;
-}
-
-void AI::IncrementBrake(float x)
-{
-	if (this->u > 0)
-		brakeFriction += x;
-	else
-		this->u = 0;
 }
 
 void AI::RollFront(float u, float v, float angle, double dt)
