@@ -14,6 +14,7 @@ public:
 	void UpdateSuvat(double dt);
 	void UpdateRotation(double dt);
 
+	void AddCollisionForce(Vector3 collisionForce);
 	float GetSpeed();
 	~RigidBody();
 protected:
@@ -36,7 +37,6 @@ protected:
 	void AddForceForward(Vector3 f); //add a force
 	void AddForceRight(Vector3 f);
 	void AddBrakeFriction(float brakeFriction);
-	void AddCollisionForce(Vector3 collisionForce);
 };
 
 #endif // !RIGIDBODY_H

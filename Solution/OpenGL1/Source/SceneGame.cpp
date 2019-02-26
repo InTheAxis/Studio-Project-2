@@ -46,8 +46,8 @@ void SceneGame::InitDerived()
 	particleEffect.Init("particleEffect", MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(0, 0.5, car.GetTranslate().z-1.5), Vector3(0, 0, 0), Vector3(0.1, 0.1, 0.1));
 
 	//map
-	floor.Init("floor", "OBJ//LowPolyFloor.obj", "Image//color2.tga", Vector3(0,0,0), Vector3(0, 0, 0), Vector3(1.1, 1.1, 1.1));
-	paintLayer.Init("paintLayer", "OBJ//HighPolyFloor.obj", "", Vector3(0, 0.25f, 0),Vector3(0, 0, 0), Vector3(1.1, 1.1, 1.1));
+	floor.Init("floor", "OBJ//LowPolyFloor.obj", "Image//ground.tga", Vector3(0, 0, 0));
+	paintLayer.Init("paintLayer", "OBJ//HighPolyFloor.obj", "", Vector3(0, 0.25f, 0));
 	
 	frontWall.Init("Border", "OBJ//Wall.obj","Image//Red.tga");
 	frontWall.DefineRect2DCollider(Vector3(1, 1, 115));
@@ -149,7 +149,7 @@ void SceneGame::RenderDerived()
 	}
 	
 	//map and transparent paint layer
-	/*RenderObject(&floor);*/
+	RenderObject(&floor);
 	RenderObject(&paintLayer);
 	RenderObject(&frontWall);
 	RenderObject(&rightWall);
@@ -396,11 +396,11 @@ void SceneGame::UpdateDerivedBounced(double dt)
 	{
 		pause = !pause;
 	}
-	if (Application::IsKeyPressed('W')) //Increase gear
+	if (Application::IsKeyPressed('X')) //Increase gear
 	{
 		car.SetGear(car.GetGear() + 1);
 	}
-	if (Application::IsKeyPressed('S')) //Decrease gear
+	if (Application::IsKeyPressed('Z')) //Decrease gear
 	{
 		car.SetGear(car.GetGear() - 1);
 	}

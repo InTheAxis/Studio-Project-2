@@ -15,8 +15,16 @@ void Scene::RequestChangeScene(int index)
 
 void Scene::RequestDontDestroy(GameObject * go)
 {
-	std::cout << "recieved " << go << std::endl;
-	this->dontDestroy.emplace_back(go);
+	bool temp = false;
+
+	for (GameObject* &g : dontDestroy)
+	{
+		if (g == go)
+			temp = true;
+	}
+
+	if (!temp)
+		this->dontDestroy.emplace_back(go);
 }
 
 GameObject* Scene::GetDontDestroyGameObject(std::string name)
@@ -213,7 +221,7 @@ void Scene::InitUniforms()
 void Scene::InitCameras()
 {
 	/*Default Initialisation of cameras*/
-	follower.SetOffset(Vector3(0, 10, -10));
+	follower.SetOffset(Vector3(0, 20, -20));
 	topDown.SetOffset(Vector3(0, 0, 0));
 
 	camera[FIXED_FOLLOWER] = &follower;

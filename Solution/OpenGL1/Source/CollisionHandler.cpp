@@ -30,6 +30,7 @@ void CollisionHandler::ResolveCollision2D(RigidBody* A, Collidable* B)
 	simplexCopy = simplex;
 	this->CalculatePenetration2D(A, B);
 
+	A->AddCollisionForce(Vector3(-penetrationDist.x, 0, -penetrationDist.z));
 	A->IncrementTranslate(Vector3(-penetrationDist.x, 0, -penetrationDist.z));
 }
 
@@ -45,6 +46,7 @@ void CollisionHandler::ResolveCollision(RigidBody* A, Collidable* B)
 	simplexCopy = simplex;
 	this->CalculatePenetration(A, B);
 
+	A->AddCollisionForce(Vector3(-penetrationDist.x, -penetrationDist.y, -penetrationDist.z));
 	A->IncrementTranslate(Vector3(-penetrationDist.x, -penetrationDist.y, -penetrationDist.z));
 }
 

@@ -12,7 +12,6 @@ RigidBody::RigidBody()
 	this->forceForward = forceRight = 0;
 	this->REV_FORCE = 0;
 	this->collisionForce = Vector3(0, 0, 0);
-
 	this->rotationMatrix.SetToIdentity();
 }
 
@@ -55,7 +54,7 @@ float RigidBody::GetSpeed()
 	return u;
 }
 
-void RigidBody::UpdateSuvat(double dt)
+void RigidBody::UpdateSuvat(double dt) //Linear movements
 {
 	//calc fnet and hence accel
 	if (Math::FAbs(forceForward) + REV_FORCE > maxStaticFriction) //if static friction overcome start moving
@@ -98,7 +97,7 @@ void RigidBody::UpdateSuvat(double dt)
 	this->u = v; //update new initial speed
 }
 
-void RigidBody::UpdateRotation(double dt)
+void RigidBody::UpdateRotation(double dt) //Angular movements
 {
 	if (Math::FAbs(forceRight) > 0 && Math::FAbs(v) > 1.5f)
 	{
