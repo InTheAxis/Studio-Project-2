@@ -368,11 +368,11 @@ void SceneGame::UpdateDerivedBounced(double dt)
 	{
 		pause = !pause;
 	}
-	if (Application::IsKeyPressed('W')) //Increase gear
+	if (Application::IsKeyPressed('X')) //Increase gear
 	{
 		car.SetGear(car.GetGear() + 1);
 	}
-	if (Application::IsKeyPressed('S')) //Decrease gear
+	if (Application::IsKeyPressed('Z')) //Decrease gear
 	{
 		car.SetGear(car.GetGear() - 1);
 	}
