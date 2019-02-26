@@ -172,22 +172,22 @@ Mesh* MeshBuilder::GenerateQuad(Color color)
 	v.color = color;
 	v.normal = Vector3(0, 1, 0).Normalize();
 	
-	v.pos.Set(-0.5f, 0, 0.5f);
+	v.pos.Set(-0.5f, 0.5f, 0);
 	v.texCoord.Set(0, 0);
 	vertex_buffer_data.push_back(v);
-	v.pos.Set(0.5f, 0, 0.5f);
+	v.pos.Set(0.5f, 0.5f, 0);
 	v.texCoord.Set(1, 0);
 	vertex_buffer_data.push_back(v);
-	v.pos.Set(0.5f, 0, -0.5f);
+	v.pos.Set(0.5f, -0.5f, 0);
 	v.texCoord.Set(1, 1);
 	vertex_buffer_data.push_back(v);
-	v.pos.Set(-0.5f, 0, -0.5f);
+	v.pos.Set(-0.5f, -0.5f, 0);
 	v.texCoord.Set(0, 1);
 	vertex_buffer_data.push_back(v);
 
 	std::vector<GLuint> index_buffer_data {
-		0, 3, 2,
-		0, 2, 1
+		0, 2, 3,
+		0, 1, 2
 	};
 
 	Mesh *mesh = new Mesh;

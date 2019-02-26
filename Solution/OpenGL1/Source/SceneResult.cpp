@@ -13,8 +13,12 @@ void SceneResult::InitDerived()
 	car = reinterpret_cast<Vehicle*>(GetDontDestroyGameObject("car"));
 	//ai = reinterpret_cast<Vehicle*>(GetDontDestroyGameObject("ai"));
 	
+	//generate objs for other gameobjects
+	resultBarL.Init("leftbar", MeshBuilder::GenerateQuad(Color(1,0,0)));
+	resultBarR.Init("rightbar", MeshBuilder::GenerateQuad(Color(0,1,0)));
+
 	//setting camera
-	camera[FIXED_TOP_DOWN]->Init(Vector3(0, 30, 0), Vector3(0, 0, 0), Vector3(0, 0, 1));
+	camera[FIXED_TOP_DOWN]->Init(Vector3(0, 150, 0), Vector3(0, 0, 0), Vector3(0, 0, 1));
 	currentCam = FIXED_TOP_DOWN;
 
 	//reading paint
@@ -35,11 +39,15 @@ void SceneResult::RenderDerived()
 		RenderObject(floor);
 	if (paintLayer)
 		RenderObject(paintLayer);
+
+	RenderObjectOnScreen(&resultBarL, false);
+	//RenderObjectOnScreen(&resultBarR, false);
 }
 
 void SceneResult::UpdateDerived(double dt)
 {
-
+	resultBarL.SetTranslate(Vector3(10, 10, 0));
+	resultBarL.SetScale(Vector3(10, 10, 0));
 }
 
 void SceneResult::UpdateDerivedBounced(double dt)
