@@ -70,9 +70,9 @@ void SceneGame::InitDerived()
 	//adding particle effects to car
 	car.AddChild(&particleEffect);
 
+	//background music
+	PlaySound(TEXT("Music//background.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 
-
-	
 	//passing window range and buttons for cursor
 	mouse.SetOrthSize(orthSize);
 	mouse.SetAllButton(allButtons);

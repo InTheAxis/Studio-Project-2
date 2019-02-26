@@ -11,6 +11,8 @@
 #include "BuildMap.h"
 #include "AI.h"
 #include "CollisionHandler.h"
+#include <Windows.h>
+#include <mmsystem.h>
 
 class SceneGame :public Scene
 {
