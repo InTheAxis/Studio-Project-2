@@ -170,7 +170,7 @@ protected:
 
 	//for changing scenes
 	void RequestChangeScene(int index);
-	void RequestDontDestroy(GameObject* go);
+	void RequestDontDestroy(GameObject* go); //use static_cast<GameObject*> if pointer address/reference is to be preserved
 	GameObject* GetDontDestroyGameObject(std::string name);
 
 	//read and write from frame buffer object

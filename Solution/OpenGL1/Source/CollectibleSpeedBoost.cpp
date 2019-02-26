@@ -60,10 +60,10 @@ void CollectibleSpeedBoost::ApplyEffect(GameObject* object, double dt)
 		activeTime -= dt;
 		//add effect here
 		/*object->IncrementTranslate(Vector3(0, 0, 0.25));*/
-		
-		Car* teest = reinterpret_cast<Car*>(object);
 
+		Car* teest = reinterpret_cast<Car*>(object);
 		teest->SetBoostForce(40000.f);
+
 		if (activeTime <= 0)
 		{
 			pickedUp = false;

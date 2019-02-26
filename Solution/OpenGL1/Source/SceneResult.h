@@ -14,13 +14,14 @@ public:
 protected:
 	GameObject* floor;
 	Vehicle* car, *ai;
-	Paintable *paintLayer;
-	GameObject result;
+	Paintable* paintLayer;
+	GameObject resultBarL, resultBarR;
 
 	virtual void InitDerived();
 	virtual void RenderDerived();
 	virtual void UpdateDerived(double dt);
 	virtual void UpdateDerivedBounced(double dt);
+	virtual void RenderFrameBuffer();
 };
 
 

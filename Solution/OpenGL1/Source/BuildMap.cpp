@@ -182,7 +182,7 @@ Vector3 BuildMap::GetRandRotate(int x)
 	Vector3 rotateB;
 	switch (x)
 	{
-	case 1: 
+	case 1:
 	{
 		rotateB = Vector3(0, 90, 0);
 	}

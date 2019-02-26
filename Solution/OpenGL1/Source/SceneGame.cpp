@@ -107,14 +107,19 @@ void SceneGame::InitDerived()
 	//adding particle effects to car
 	car.AddChild(&particleEffect);
 
-	//passing window range and buttons for cursor
-	mouse.SetOrthSize(orthSize);
-	mouse.SetAllButton(allButtons);
 
 	
 	RequestDontDestroy(&car);
 	RequestDontDestroy(&ai);
 	timer = 0;
+
+	//background music
+	PlaySound(TEXT("Music//background.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+
+	//passing window range and buttons for cursor
+	mouse.SetOrthSize(orthSize);
+	mouse.SetAllButton(allButtons);
+
 }
 
 void SceneGame::RenderDerived()
@@ -187,7 +192,7 @@ void SceneGame::UpdateDerived(double dt)
 
 		//PowerUps
 		speedboost.CheckAbsorption(car.GetTranslate());
-		speedboost.ApplyEffect(reinterpret_cast<GameObject*>(&car), dt);
+		speedboost.ApplyEffect(static_cast<GameObject*>(&car), dt);
 
 
 		//Car forward & backward inputs
@@ -346,10 +351,15 @@ void SceneGame::UpdateDerived(double dt)
 	}
 
 	//endgame time
+
 	if (timer >= 120)
 	{
 		mouse.ResetMousePos();
-		timer = 0;
+		RequestDontDestroy(&paintLayer);
+		RequestDontDestroy(&floor);
+		std::cout << "given " << static_cast<GameObject*>(&car) << std::endl;
+		RequestDontDestroy(static_cast<GameObject*>(&car));
+		RequestDontDestroy(&ai);
 		RequestChangeScene(4);//change to end scene once it is created
 	}
 }
