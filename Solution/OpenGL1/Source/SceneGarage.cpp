@@ -155,6 +155,16 @@ void SceneGarage::UpdateDerived(double dt)  //Keeps the vehicles in rotation
 		b->AnimateButton();
 	}
 
+
+	if (exitButton.GetOnClickEvent())
+	{
+		mouse.ResetMousePos();
+		allButtons[1]->SetHover(false);
+		exitButton.SetOnClickEvent(false);
+		RequestChangeScene(1);//test
+	}
+
+
 	if (hoodinkButton.GetOnClickEvent())
 	{
 		allButtons[0]->SetHover(false);
