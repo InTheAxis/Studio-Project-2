@@ -62,27 +62,32 @@ void SceneGame::InitDerived()
 	paintLayer.Init("paintLayer", "OBJ//HighPolyFloor.obj", "", Vector3(0, 0.25f, 0));
 	
 	//walls
-	frontWall.Init("Border", "OBJ//Wall.obj","Image//Red.tga");
+	frontWall.Init("Border", "OBJ//Wall.obj","Image//WallTex.tga");
 	frontWall.DefineRect2DCollider(Vector3(1, 1, 115));
 	frontWall.SetTranslate(Vector3(0, 0, 53.75));
 	frontWall.SetRotate(Vector3(0, 90, 0));
 	frontWall.SetScale(Vector3(1.1f, 0.5f, 1.1f));
+	frontWall.SetMaterial(shiny);
 
-	leftWall.Init("Border", "OBJ//Wall.obj", "Image//Red.tga");
+	leftWall.Init("Border", "OBJ//Wall.obj", "Image//WallTex.tga");
 	leftWall.DefineRect2DCollider(Vector3(1, 1, 115));
 	leftWall.SetTranslate(Vector3(-53.75f, 0.f, 0.f));
 	leftWall.SetScale(Vector3(1.1f, 0.5f, 1.1f));
+	leftWall.SetMaterial(shiny);
 
-	rightWall.Init("Border", "OBJ//Wall.obj", "Image//Red.tga");
+	rightWall.Init("Border", "OBJ//Wall.obj", "Image//WallTex.tga");
 	rightWall.DefineRect2DCollider(Vector3(1, 1, 115));
 	rightWall.SetTranslate(Vector3(53.75, 0, 0));
+	rightWall.SetRotate(Vector3(0, 180, 0));
 	rightWall.SetScale(Vector3(1.1, 0.5, 1.1));
+	rightWall.SetMaterial(shiny);
 
 	backWall.Init("Border", "OBJ//Wall.obj", "Image//WallTex.tga");
 	backWall.DefineRect2DCollider(Vector3(1, 1, 115));
 	backWall.SetTranslate(Vector3(0, 0, -53.75));
-	backWall.SetRotate(Vector3(0, 90, 0));
+	backWall.SetRotate(Vector3(0, 270, 0));
 	backWall.SetScale(Vector3(1.1, 0.5, 1.1));
+	backWall.SetMaterial(shiny);
 
 	std::cout << "Done Generating OBJs\n";
 
