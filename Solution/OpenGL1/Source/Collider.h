@@ -4,7 +4,7 @@
 #include "GameObject.h"
 #include "Mtx44.h"
 
-class Collider : public GameObject //just to render, eventually remove
+class Collider : public GameObject //just to render lol
 {
 public:
 	Collider();

@@ -13,14 +13,18 @@ void Scene::RequestChangeScene(int index)
 	this->changingScene = true;
 }
 
-void Scene::RequestDontDestroy(GameObject * go)
+void Scene::RequestDontDestroy(GameObject * go) //make sure to static cast
 {
 	bool temp = false;
 
-	for (GameObject* &g : dontDestroy)
+	for (int i = 0; i < dontDestroy.size(); ++i)
 	{
-		if (g == go)
+		if (dontDestroy[i] == go)
+		{
 			temp = true;
+			std::cout << "memories same " << dontDestroy[i] << " " << go << "\n";
+			dontDestroy[i] = go;
+		}
 	}
 
 	if (!temp)

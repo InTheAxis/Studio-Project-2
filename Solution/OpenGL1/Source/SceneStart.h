@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "LoadSceneButton.h"
 #include "Cursor.h"
+#include "Car.h"
 class SceneStart : public Scene
 {
 public:
@@ -16,8 +17,8 @@ protected:
 	virtual void UpdateDerivedBounced(double dt);
 private:
 	LoadSceneButton play, garage, exit;
-	GameObject background,title,playText, garageText, exitText,car;
-
+	GameObject background,title,playText, garageText, exitText;
+	Car* existingCar;
 
 	Cursor mouse;
 
