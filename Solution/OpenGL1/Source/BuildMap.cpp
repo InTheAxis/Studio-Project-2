@@ -17,8 +17,8 @@ BuildMap::~BuildMap()
 
 void BuildMap::SetOccupied(Grid *currentGrid, Vector3 pos)
 {
-	GridChunk* targetChunk = currentGrid->FindChunk((int)pos.x, (int)pos.z);
-	occupied.push_back(targetChunk->GetCenter());
+	GridChunk* targetChunk = currentGrid->FindChunk((int)pos.x, (int)pos.z); //gets the pos at which an OBJ is occupying then find its chunks center.
+	occupied.push_back(targetChunk->GetCenter()); //sets the chunk's center which its on, and sets it as occupied
 }
 
 bool BuildMap::GenerateObj(Grid* currentGrid)
@@ -26,45 +26,28 @@ bool BuildMap::GenerateObj(Grid* currentGrid)
 	std::vector<GridChunk*> temp = currentGrid->GetAllChunks(); //temp stores all chunks
 	int x = Math::RandIntMinMax(0, temp.size() - 1);
 	std::vector<GridChunk*> currAdj = temp[x]->GetAdjacents(); //currAdj stores all adjacent chunks
-	for (Vector3 &v : occupied)
+	for (Vector3 &v : occupied) 
 	{
-		if (v == temp[x]->GetCenter())
+		if (v == temp[x]->GetCenter()) //checks if the center of randomised chunk is already a chunk thats occupied
 		{
-			return false;
+			return false; //if yes, return false, and function gets called again
 		}
-		for (unsigned int it = 0; it < currAdj.size(); it++)
+		for (unsigned int it = 0; it < currAdj.size(); it++) //else it will also check if its adjacent chunk's centers are occupied as well
 		{
 			if (v == currAdj[it]->GetCenter())
-				return false;
+				return false; //if yes, return false, and function gets called again
 		}
 	}
-	location = temp[x]->GetCenter();
-	occupied.push_back(location);
-	std::vector<GridChunk*> tempAdj = temp[x]->GetAdjacents();
+	location = temp[x]->GetCenter(); //sets location vector3, to the randomised chunks center if its not occupied and also if its adjacent chunks are not occupied
+	occupied.push_back(location); //updates the occupied <vector>
+	std::vector<GridChunk*> tempAdj = temp[x]->GetAdjacents(); 
 	for (unsigned int it = 0; it < tempAdj.size(); it++)
 	{
-		occupied.push_back(tempAdj[it]->GetCenter());
+		occupied.push_back(tempAdj[it]->GetCenter()); //updates occupied with the randomised chunks adjacent centers
 	}
-	location.y = 0.25f;
-	++ObjCount;
+	location.y = 0.25f; //sets the location of the obj to this height
+	++ObjCount; //adds to the count of the object
 	return true;
-	/*switch (ObjCount)
-	{
-	case 0:
-	{
-		location = temp[0]->GetCenter();
-		ObjCount++;
-	}
-	break;
-	case 1:
-	{
-		location = temp[temp.size() - 1]->GetCenter();
-		ObjCount++;
-	}
-	break;
-	}
-	location.y = 0.25f;
-	return true;*/
 }
 
 Vector3 BuildMap::GetDestination(Grid *currentGrid, Color color, Vector3 AIpos)
@@ -92,31 +75,32 @@ Vector3 BuildMap::GetDestination(Grid *currentGrid, Color color, Vector3 AIpos)
 		}
 	}
 
+	//if the adjacents chunk's center of the current chunk has no paint on it, choose a random chunk thats not occupied to set as next destination for ai to move towards
 	bool found = false;
 	bool same = false;
 	int count = 0;
 	std::vector<GridChunk*> temp = currentGrid->GetAllChunks(); //temp stores all chunks
-	while (!found)
+	while (!found) //if a suitable randomised destination is not found
 	{
-		int x = Math::RandIntMinMax(0, temp.size() - 1);
-		for (unsigned int it = 0; it < occupied.size(); it++)
+		int x = Math::RandIntMinMax(0, temp.size() - 1); 
+		for (unsigned int it = 0; it < occupied.size(); it++) //iterates through all the saved occupied chunk centers
 		{
-			if (temp[x]->GetCenter() == prevCenter)
+			if (temp[x]->GetCenter() == prevCenter) //if the randomised chunk is the same as the previous chunk center, loop again (to make sure ai doesnt go back and forth)
 				same = true;
-			if (temp[x]->GetCenter() == occupied[it])
+			if (temp[x]->GetCenter() == occupied[it]) //if any of the occupied matches the center of the randomised chunk
 				same = true;
 			if (same)
-				break;
+				break; //loop again
 		}
-		if (!same)
+		if (!same) //else, a randomised destination has been found
 		{
 			found = true;
-			prevCenter = targetChunk->GetCenter();
-			return temp[x]->GetCenter();
+			prevCenter = targetChunk->GetCenter(); 
+			return temp[x]->GetCenter(); //return the new destination
 		}
 		count++;
-		if (count == 10)
-			prevCenter = Vector3(0, 0, 20);
+		if (count == 10) //if loops too many times
+			prevCenter = Vector3(0, 0, 20); //return a default location for ai to moves towards
 			return Vector3(0, 0, 20);
 	}
 	
@@ -132,45 +116,20 @@ Vector3 BuildMap::GetLocation()
 Vector3 BuildMap::GenerateRandNum(int length)
 {
 	float x = Math::RandFloatMinMax(-length, length);
-	std::cout << "X: " << x << std::endl;//get GRID_LENGTH_HALF
 	float z = Math::RandFloatMinMax(-length, length);
-	std::cout << "Z: " << z << std::endl;
 	chunkPos = Vector3(x, 0, z);
 	return chunkPos;
 }
 
-std::string BuildMap::GenerateRandObj(int x)
-{
-	std::string filename;
-	switch (x)
-	{
-	case 1:
-	{
-		filename = "OBJ//Building.obj";
-	}
-	break;
-	case 2:
-	{
-		filename = "OBJ//Building.obj";
-	}
-	break;
-	case 3:
-	{
-		//filename = ;
-	}
-	break;
-	}
-	return filename;
-}
-
 std::string BuildMap::GetObjTex(int x)
 {
+	//get a random texture for buildings
 	std::string filename;
 	switch (x)
 	{
 	case 1:
 	{
-		filename = "Image//color2.tga";
+		filename = "Image//BuildingTex2.tga";
 	}
 	break;
 	case 2:
@@ -180,16 +139,21 @@ std::string BuildMap::GetObjTex(int x)
 	break;
 	case 3:
 	{
-
+		filename = "Image//BuildingTex3.tga";
+	}
+	break;
+	case 4:
+	{
+		filename = "Image//BuildingTex4.tga";
 	}
 	break;
 	}
-
 	return filename;
 }
 
 Vector3 BuildMap::GetRandRotate(int x)
 {
+	//get random rotate
 	Vector3 rotateB;
 	switch (x)
 	{
@@ -220,6 +184,7 @@ Vector3 BuildMap::GetRandRotate(int x)
 
 Vector3 BuildMap::GetRandScale(int x)
 {
+	//get random scale
 	Vector3 scaleB;
 
 	switch (x)

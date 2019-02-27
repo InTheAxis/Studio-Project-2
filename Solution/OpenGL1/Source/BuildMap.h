@@ -13,7 +13,6 @@ public:
 	void SetOccupied(Grid* currentGrid, Vector3 pos);
 	bool GenerateObj(Grid *currentGrid);
 	Vector3 GetLocation();
-	std::string GenerateRandObj(int);
 	std::string GetObjTex(int);
 	Vector3 GetRandRotate(int);
 	Vector3 GetRandScale(int);

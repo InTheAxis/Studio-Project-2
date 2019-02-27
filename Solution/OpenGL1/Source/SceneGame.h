@@ -47,7 +47,6 @@ private:
 
 	const int NUM_OF_BUTTONS = 2;
 	const int TIMER_MAX = 20;
-	Vector3 temp;
 };
 
 #endif

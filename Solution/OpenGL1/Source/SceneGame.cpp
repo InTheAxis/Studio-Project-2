@@ -30,7 +30,7 @@ void SceneGame::InitDerived()
 	ai.SetMaterial(shiny);
 	ai.DefineRect2DCollider(Vector3(2, 2, 2));
 	ai.GetPaint()->SetPaintColor(Color(1, 1, 0));
-	ai.SetTranslate(Vector3(0, 0.3, 10));
+	ai.SetTranslate(Vector3(0, 0.3, 40));
 	ai.SetStats(10000, 1111, 7000, 0.05);
 
 	//car
@@ -69,22 +69,17 @@ void SceneGame::InitDerived()
 	rightWall.SetTranslate(Vector3(53.75, 0, 0));
 	rightWall.SetScale(Vector3(1.1, 0.5, 1.1));
 
-	backWall.Init("Border", "OBJ//Wall.obj", "Image//Red.tga");
+	backWall.Init("Border", "OBJ//Wall.obj", "Image//WallTex.tga");
 	backWall.DefineRect2DCollider(Vector3(1, 1, 115));
 	backWall.SetTranslate(Vector3(0, 0, -53.75));
 	backWall.SetRotate(Vector3(0, 90, 0));
 	backWall.SetScale(Vector3(1.1, 0.5, 1.1));
 
-
 	std::cout << "Done Generating OBJs\n";
-
-
 
 	std::cout << "Generating grid for level\n";
 	level.GenerateGrid(paintLayer.GetVBO());
 	std::cout << "Done Generating grid\n";
-
-
 
 	//buttons
 	allButtons.push_back(&resumeButton);
@@ -98,14 +93,14 @@ void SceneGame::InitDerived()
 
 	std::cout << "Generating map based on grid\n";
 	//generating map
-	while (map.GetObjectCount() < sqrt((level_chunk.GetChunkCount())))
+	while (map.GetObjectCount() < sqrt((level_chunk.GetChunkCount()))) //gets a value depending on chunk size
 	{
-		if (map.GenerateObj(&level))
+		if (map.GenerateObj(&level)) //if random area is not occupied
 		{
-			int x = Math::RandIntMinMax(1, 2);
+			int x = Math::RandIntMinMax(1, 4);
 			int y = Math::RandIntMinMax(1, 4); //random to choose the generated object
 			Objects.push_back(Collidable());
-			Objects[map.GetObjectCount() - 1].Init("genObj", map.GenerateRandObj(x), map.GetObjTex(x));
+			Objects[map.GetObjectCount() - 1].Init("genObj", "OBJ//Building.obj", map.GetObjTex(x)); 
 			Objects[map.GetObjectCount() - 1].SetMaterial(dull);
 			Objects[map.GetObjectCount() - 1].DefineRect2DCollider(Vector3(5,5,5));
 			Objects[map.GetObjectCount() - 1].SetTranslate(map.GetLocation());
@@ -256,26 +251,33 @@ void SceneGame::UpdateDerived(double dt)
 		//ai
 		if (ai.CheckToMove())
 		{
-			temp = map.GetDestination(&level, car.GetPaint()->GetPaintColor(), ai.GetTranslate());
+			ai.SetNewLocation(map.GetDestination(&level, car.GetPaint()->GetPaintColor(), ai.GetTranslate())); //set a new location for ai to move to when its alr reached first destination or beginning of game
 		}
-		ai.SetNextForward(temp);
-		if (!ai.CheckToMove())
+		ai.SetNextForward(ai.GetNewLocation()); //updates view vector everytime it moves
+		if (!ai.CheckToMove()) //if not at destination
 		{
-			ai.CalcAngle();
-			if (ai.IfTurn())
+			ai.CalcAngle(); //checks angle to turn
+			if (ai.IfTurn()) //if more than 5 degree then turn else dont
 			{
-				if (ai.GetSpeed() > 5)
+				if (ai.GetSpeed() > 5) //brake if u > 5
 				{
 					ai.Brake(true);
-				
 				}
 				else
 				{
 					ai.Brake(false);
 				}
-				ai.MoveRight(ai.SetDir(), dt);
+				ai.MoveRight(ai.SetDir(), dt); //turn
 			}
-			ai.MoveForward(1, dt);
+			ai.MoveForward(1, dt); //move
+			Vector3 currPos = ai.GetTranslate(); //save prev pos to check if its stuck at a place
+			if (ai.ReDirect(currPos)) //if need to redirect
+			{
+				if (ai.GetReCount() <= 2) //check if its stuck there constantly
+					ai.MoveRight(1, dt); //then change direction for it to turn
+				else
+					ai.MoveRight(-1, dt); //else turn away from stuck area
+			}
 		}
 
 
