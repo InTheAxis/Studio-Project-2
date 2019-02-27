@@ -13,6 +13,7 @@
 #include "CollisionHandler.h"
 #include <Windows.h>
 #include <mmsystem.h>
+#include "CollectibleSprayBoost.h"
 
 class SceneGame :public Scene
 {
@@ -47,6 +48,13 @@ private:
 
 	const int NUM_OF_BUTTONS = 2;
 	const int TIMER_MAX = 20;
+
+	//======================= Speedometer ==========================
+	GameObject Needle;
+	float AngleOfRotation;
+	const float MAX_SPEED = 160;
+	//==============================================================
+	CollectibleSprayBoost SprayBoost;
 };
 
 #endif

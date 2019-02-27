@@ -8,6 +8,21 @@ SceneGarage::SceneGarage()
 
 void SceneGarage::InitDerived()
 {
+	//mouse and buttons
+	exitButton.Init("exit", "OBJ//LevelsButton.obj", "Image//levels1.tga", Vector3(50, 5, -10), Vector3(0, 0, 0), Vector3(1, 1, 0));
+	exitText.Init("level3text", "OBJ//LevelsButton.obj", "Image//exitText.tga", Vector3(50, 5, -9), Vector3(0, 0, 0), Vector3(20, 20, 0));
+
+	hoodinkButton.Init("exit", "OBJ//LevelsButton.obj", "Image//levels1.tga", Vector3(10, 5, -10), Vector3(0, 0, 0), Vector3(1, 1, 0));
+	hoodinkText.Init("level3text", "OBJ//LevelsButton.obj", "Image//exitText.tga", Vector3(10, 5, -9), Vector3(0, 0, 0), Vector3(20, 20, 0));
+
+	mouse.Init("mouse", MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(orthSize.x * 0.5f, orthSize.y * 0.5f, 10), Vector3(0, 0, 0), Vector3(1, 1, 0));
+
+	allButtons.push_back(&hoodinkButton);
+	allButtons.push_back(&exitButton);
+	//passing window range and buttons for cursor
+	mouse.SetOrthSize(orthSize);
+	mouse.SetAllButton(allButtons);
+
 	TAXI.Init("Taxi","OBJ//TAXI.obj", "Image//Red.tga", Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0.1, 0.1, 0.1));
 	TRUCK.Init("Truck","OBJ//TRUCK.obj", "Image//Red.tga", Vector3(0, 0, 0));
 	F1.Init("F1","OBJ//F1.obj", "Image//Red.tga", Vector3(0, 0, 0));
@@ -49,11 +64,16 @@ void SceneGarage::InitDerived()
 void SceneGarage::RenderDerived()
 {
 	RenderObject(&BACKGROUND);
-
 	RenderObjectOnScreen(&ARROW);
 	ARROW.SetScale(Vector3(16,12.5,3));
 	ARROW.SetTranslate(Vector3(30,-4.5f,0));
 	
+	//mouse and cursor
+	RenderObjectOnScreen(&mouse, false);
+	RenderObjectOnScreen(&exitButton, false);
+	RenderObjectOnScreen(&exitText, false);
+	RenderObjectOnScreen(&hoodinkButton, false);
+	RenderObjectOnScreen(&hoodinkText, false);
 
 	//============================ Vehicle Switching ==============================
 	if (CurrentVehicle == V_TAXI)
@@ -86,6 +106,10 @@ void SceneGarage::RenderDerived()
 bool car = false;
 void SceneGarage::UpdateDerived(double dt)  //Keeps the vehicles in rotation
 {
+	//mouse
+	mouse.Move(dt);
+	mouse.CheckHover();
+
 	if (CurrentVehicle == 0)
 	{
 		if (TAXI.GetScale() != Vector3(1, 1, 1))
@@ -126,6 +150,41 @@ void SceneGarage::UpdateDerived(double dt)  //Keeps the vehicles in rotation
 	TAXI.IncrementRotate(Vector3(0, 1, 0));
 	TRUCK.IncrementRotate(Vector3(0, 1, 0));
 	F1.IncrementRotate(Vector3(0, 1, 0));
+
+	//buttons
+	for (Button* b : allButtons)	//for each button in the vector carryout the function
+	{
+		b->AnimateButton();
+	}
+
+	if (exitButton.GetOnClickEvent())
+	{
+		allButtons[1]->SetHover(false);
+		exitButton.SetOnClickEvent(false);
+		RequestChangeScene(1);//test
+		mouse.ResetMousePos();
+	}
+
+	if (hoodinkButton.GetOnClickEvent())
+	{
+		allButtons[0]->SetHover(false);
+		hoodinkButton.SetOnClickEvent(false);
+		RequestChangeScene(2);//test
+		mouse.ResetMousePos();
+	}
+
+	if (Application::leftMouseClick)
+	{
+		for (unsigned int i = 0; i < allButtons.size(); ++i)
+		{
+			if (allButtons[i]->GetHover())
+			{
+				allButtons[i]->DoAction();
+				break;
+			}
+		}
+	}
+
 }
 
 void SceneGarage::UpdateDerivedBounced(double dt)
@@ -204,6 +263,8 @@ void SceneGarage::UpdateDerivedBounced(double dt)
 		}
 	}
 	//================================================================================
+
+	
 }
 
 SceneGarage::~SceneGarage()

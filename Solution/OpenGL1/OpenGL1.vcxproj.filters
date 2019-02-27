@@ -168,6 +168,12 @@
     <ClInclude Include="Source\AI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\CollectibleSprayBoost.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneHoodInk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
@@ -309,6 +315,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\AI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CollectibleSprayBoost.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneHoodInk.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

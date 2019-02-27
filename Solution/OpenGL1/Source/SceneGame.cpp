@@ -24,6 +24,13 @@ void SceneGame::InitDerived()
 	exitText.Init("level3text", "OBJ//LevelsButton.obj", "Image//exitText.tga", Vector3(40, 15, -9), Vector3(0, 0, 0), Vector3(20, 20, 0));
 	mouse.Init("mouse", MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(orthSize.x * 0.5f, orthSize.y * 0.5f, 10), Vector3(0, 0, 0), Vector3(1, 1, 0));
 
+	//========================================================= Speedometer ====================================================
+	TEXT.Init("Text", MeshBuilder::GenerateText(16, 16), "Image//Fonts//calibri.tga");
+
+	Needle.Init("Needle", "OBJ//Needle.obj", "Image//Green.tga", Vector3(50, 1, 0), Vector3(-3, 0, 0), Vector3(1.5, 1.6, 1));
+	Needle.SetMaterial(shiny);
+	//==========================================================================================================================
+
 	//AI
 	ai.Init("ai", "OBJ//taxi.obj", "Image//Red.tga");
 	ai.CreateRigidBody(Vector3(0, 0, 10), 1200, 0.1f, 0.09f);
@@ -31,7 +38,7 @@ void SceneGame::InitDerived()
 	ai.DefineRect2DCollider(Vector3(2, 2, 2));
 	ai.GetPaint()->SetPaintColor(Color(1, 1, 0));
 	ai.SetTranslate(Vector3(0, 0.3, 40));
-	ai.SetStats(10000, 1111, 7000, 0.05);
+	ai.SetStats(20000, 1111, 7000, 0.05);
 
 	//car
 	car.Init("car", "OBJ//taxiNoWheels.obj", "Image//taxi.tga");
@@ -40,16 +47,18 @@ void SceneGame::InitDerived()
 	car.DefineRect2DCollider(Vector3(2, 2, 2));
 	car.GetPaint()->SetPaintColor(Color(1, 0, 1));
 	car.SetTranslate(Vector3(0, 0.3, 0));
-	car.SetStats(10000, 1111, 7000, 0.05);
+	car.SetStats(20000, 1111, 7000, 0.05);
 	//adding particle effects to car
 	car.AddChild(&particleEffect);
 
 	//PowerUps,Particle Effects
 	speedboost.Init("speedboost", MeshBuilder::GenerateCube(Color(0, 0, 0)), "", Vector3(0, 0.5, 5), Vector3(0, 0, 0), Vector3(1, 1, 1));
 	particleEffect.Init("smoke", "OBJ//cloud.obj", "Image//cloud.tga", Vector3(0, 0.5f, car.GetTranslate().z-1.5f), Vector3(0, 0, 0), Vector3(0.1f, 0.1f, 0.1f));
+	SprayBoost.Init("SprayBoost", MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(0, 0.5, 15), Vector3(0, 0, 0), Vector3(1, 1, 1));
 
 	//map
 	floor.Init("floor", "OBJ//LowPolyFloor.obj", "Image//ground.tga", Vector3(0, 0, 0));
+	floor.AddTexture("Image//ground-plain.tga");
 	paintLayer.Init("paintLayer", "OBJ//HighPolyFloor.obj", "", Vector3(0, 0.25f, 0));
 	
 	//walls
@@ -89,6 +98,7 @@ void SceneGame::InitDerived()
 	map.SetOccupied(&level, ai.GetTranslate());
 	map.SetOccupied(&level, car.GetTranslate());
 	map.SetOccupied(&level, speedboost.GetTranslate());
+	map.SetOccupied(&level, SprayBoost.GetTranslate());
 
 
 	std::cout << "Generating map based on grid\n";
@@ -165,6 +175,9 @@ void SceneGame::RenderDerived()
 	if(!speedboost.GetPickedUp())
 		RenderObject(&speedboost, false);
 
+	if (!SprayBoost.GetPickedUp())
+		RenderObject(&SprayBoost, false);
+
 	for (int x = 0; x < map.GetObjectCount(); x++)
 	{
 		RenderObject(&Objects[x]);
@@ -180,6 +193,22 @@ void SceneGame::RenderDerived()
 		RenderObjectOnScreen(&mouse, false);
 	}
 
+	//================================== Speedometer ======================================
+	RenderObjectOnScreen(&Needle, true);
+	//Needle.IncrementRotate(Vector3(0, 0, -4)); //TEST
+
+	Needle.SetRotate(Vector3(0, 0, -AngleOfRotation)); //FINAL
+
+	RenderTextOnScreen(&TEXT, "0", Color(0, 1, 0), 1.2f, 35.f, 0.3f);
+	RenderTextOnScreen(&TEXT, "20", Color(0, 1, 0), 1.2f, 35.3f, 2.4f);
+	RenderTextOnScreen(&TEXT, "40", Color(0, 1, 0), 1.2f, 36.6f, 3.8f);
+	RenderTextOnScreen(&TEXT, "60", Color(0, 1, 0), 1.2f, 38.4f, 5.f);
+	RenderTextOnScreen(&TEXT, "80", Color(0, 1, 0), 1.2f, 41.3f, 5.7f);
+	RenderTextOnScreen(&TEXT, "100", Color(0, 1, 0), 1.2f, 44.5f, 5.f);
+	RenderTextOnScreen(&TEXT, "120", Color(0, 1, 0), 1.2f, 45.5f, 3.8f);
+	RenderTextOnScreen(&TEXT, "140", Color(0, 1, 0), 1.2f, 46.7f, 2.4f);
+	RenderTextOnScreen(&TEXT, "160", Color(0, 1, 0), 1.2f, 47.3f, 0.3f);
+	//====================================================================================
 
 	//timer
 	std::string timerString = "Timer: " + std::to_string(TIMER_MAX - (int)std::ceil(timer));
@@ -247,6 +276,10 @@ void SceneGame::UpdateDerived(double dt)
 		{
 			car.MoveRight(0, dt);
 		}
+
+		//========================== Speedometer ================================
+		AngleOfRotation = Math::Clamp(car.GetSpeed() / MAX_SPEED * 360.f, 0.f, 180.f);
+		//======================================================================
 
 		//ai
 		if (ai.CheckToMove())
@@ -336,7 +369,20 @@ void SceneGame::UpdateDerived(double dt)
 		if (!currentCam)
 			camera[0]->Update(dt, car.GetTranslate(), car.GetAngle()); //update camera
 
-		paintLayer.ChangeColor(&level, car.GetTranslate(), car.GetPaint()->GetPaintColor());
+		//paint layer for spray boost.
+		if (!SprayBoost.CheckAbsorption(car.GetTranslate()))
+		{
+			std::cout << "No boost: " << std::endl;
+			paintLayer.ChangeColor(&level, car.GetTranslate(), car.GetPaint()->GetPaintColor());
+		}
+		else
+		{
+			std::cout << "Boost: " << std::endl;
+			paintLayer.ChangeColor(&level, car.GetTranslate(), car.GetPaint()->GetPaintColor(), 1.5);
+		}
+		SprayBoost.ApplyEffect(reinterpret_cast<GameObject*>(&car), dt);
+
+		//paintlayer for ai
 		paintLayer.ChangeColor(&level, ai.GetTranslate(), ai.GetPaint()->GetPaintColor());
 
 	}

@@ -158,6 +158,7 @@
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\Car.h" />
     <ClInclude Include="Source\Collectibles.h" />
+    <ClInclude Include="Source\CollectibleSprayBoost.h" />
     <ClInclude Include="Source\Collidable.h" />
     <ClInclude Include="Source\Collider.h" />
     <ClInclude Include="Source\CollisionHandler.h" />
@@ -190,6 +191,7 @@
     <ClInclude Include="Source\SceneExampleFBO.h" />
     <ClInclude Include="Source\SceneExampleInk.h" />
     <ClInclude Include="Source\SceneGame.h" />
+    <ClInclude Include="Source\SceneHoodInk.h" />
     <ClInclude Include="Source\SceneLevelSelect.h" />
     <ClInclude Include="Source\SceneManager.h" />
     <ClInclude Include="Source\SceneResult.h" />
@@ -210,6 +212,7 @@
     <ClCompile Include="Source\Car.cpp" />
     <ClCompile Include="Source\CollectibleParticleEffect.cpp" />
     <ClCompile Include="Source\Collectibles.cpp" />
+    <ClCompile Include="Source\CollectibleSprayBoost.cpp" />
     <ClCompile Include="Source\Collidable.cpp" />
     <ClCompile Include="Source\Collider.cpp" />
     <ClCompile Include="Source\CollisionHandler.cpp" />
@@ -240,6 +243,7 @@
     <ClCompile Include="Source\SceneExampleFBO.cpp" />
     <ClCompile Include="Source\SceneExampleInk.cpp" />
     <ClCompile Include="Source\SceneGame.cpp" />
+    <ClCompile Include="Source\SceneHoodInk.cpp" />
     <ClCompile Include="Source\SceneLevelSelect.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\SceneResult.cpp" />

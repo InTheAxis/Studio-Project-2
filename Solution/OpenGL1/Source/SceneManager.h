@@ -16,6 +16,7 @@
 #include "SceneGame.h"
 #include "SceneResult.h"
 #include "SceneGarage.h"
+#include "SceneHoodInk.h"
 
 class SceneManager
 {
@@ -44,12 +45,13 @@ private:
 	SceneGame game;
 	SceneResult results;
 	SceneGarage garage;
+	SceneHoodInk theHood;
 
 	enum gameScenes
 	{
 		EMPTY=0,
 		START,
-		LEVEL_SELECT,
+		HOOD_SCENE,
 		LEVEL_1,
 		RESULTS,
 		PAUSE,

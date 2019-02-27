@@ -16,6 +16,7 @@ SceneManager::SceneManager()
 	allScenes[LEVEL_1] = &game;
 	allScenes[RESULTS] = &results;
 	allScenes[GARAGE_SCREEN] = &garage;
+	allScenes[HOOD_SCENE] = &theHood;
 }
 
 Scene* SceneManager::GetFirstScene()

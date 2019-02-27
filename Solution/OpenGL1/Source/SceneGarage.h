@@ -3,7 +3,8 @@
 
 #include "Scene.h"
 #include "Paintable.h"
-
+#include "LoadSceneButton.h"
+#include "Cursor.h"
 
 class SceneGarage : public Scene
 {
@@ -41,6 +42,12 @@ protected:
 
 	GameObject BACKGROUND;
 	GameObject TEXT;
+
+
+	Cursor mouse;
+	LoadSceneButton hoodinkButton, exitButton;
+	GameObject hoodinkText,exitText;
+	std::vector<Button*> allButtons;
 
 	std::string SColor;
 	std::string SVehicle;
