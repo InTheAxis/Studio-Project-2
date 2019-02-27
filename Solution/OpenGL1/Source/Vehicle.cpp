@@ -68,6 +68,14 @@ void Vehicle::Brake(bool brake)
 		this->AddBrakeFriction(0);
 }
 
+void Vehicle::Reset()
+{
+	s = u = v = a = 0;
+	angleY = 0.0f;
+	turningLerpf = 0;
+	boostForce = 0;
+}
+
 void Vehicle::SetStats(float engineForce, float brakeFriction, float turningForce, float wheelRadius)
 {
 	this->engineForce = engineForce;

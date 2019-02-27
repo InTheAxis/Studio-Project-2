@@ -30,6 +30,7 @@ Mesh* MeshBuilder::GenerateOBJ(const std::string &file_path)
 
 	mesh->indexSize = index_buffer_data.size();
 	mesh->SetVBData(&vertex_buffer_data);
+	mesh->SetDefaultVBData(&vertex_buffer_data);
 
 	mesh->mode = Mesh::DRAW_TRIANGLES;
 
@@ -85,6 +86,7 @@ Mesh* MeshBuilder::GenerateText(unsigned numRow, unsigned numCol)
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_data.size() * sizeof(GLuint), &index_buffer_data[0], GL_STATIC_DRAW);
 
 	mesh->indexSize = index_buffer_data.size();
+	mesh->SetDefaultVBData(&vertex_buffer_data);
 	mesh->SetVBData(&vertex_buffer_data);
 
 	mesh->mode = Mesh::DRAW_TRIANGLES;
@@ -147,6 +149,7 @@ Mesh* MeshBuilder::GenerateAxes(float lengthX, float lengthY, float lengthZ)
 
 	mesh->indexSize = index_buffer_data.size();
 	mesh->SetVBData(&vertex_buffer_data);
+	mesh->SetDefaultVBData(&vertex_buffer_data);
 
 	mesh->mode = Mesh::DRAW_LINES;
 
@@ -199,6 +202,7 @@ Mesh* MeshBuilder::GenerateQuad(Color color)
 
 	mesh->indexSize = index_buffer_data.size();
 	mesh->SetVBData(&vertex_buffer_data);
+	mesh->SetDefaultVBData(&vertex_buffer_data);
 	
 	mesh->mode = Mesh::DRAW_TRIANGLE_STRIP;
 
@@ -307,6 +311,7 @@ Mesh* MeshBuilder::GenerateCube(Color color)
 
 	mesh->indexSize = index_buffer_data.size();
 	mesh->SetVBData(&vertex_buffer_data);
+	mesh->SetDefaultVBData(&vertex_buffer_data);
 
 	mesh->mode = Mesh::DRAW_TRIANGLES;
 
@@ -344,6 +349,7 @@ Mesh * MeshBuilder::GenerateLines(std::vector<Vector3> &lineStart, std::vector<V
 
 	mesh->indexSize = index_buffer_data.size();
 	mesh->SetVBData(&vertex_buffer_data);
+	mesh->SetDefaultVBData(&vertex_buffer_data);
 
 	mesh->mode = Mesh::DRAW_LINES;
 

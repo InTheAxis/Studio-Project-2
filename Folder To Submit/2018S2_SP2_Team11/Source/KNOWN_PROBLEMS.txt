@@ -1,3 +1,8 @@
+////MAJOR
+paint doesn't reset when playing more than once, no time to fix before deadline
+
+
+////MINOR OR UNKNOWN
 Sometimes the mouse might cause framerate drops, 
 very random and only mouse input affected (touchpad is not)
 
@@ -11,3 +16,10 @@ behaviour is undefined (and cant be easily defined due to the nature of the coll
 
 Models for truck and F1 are off, wheels not properly rendered etc, 
 hence outside of garage theres only the taxi
+
+
+No prevention for player from selecting same color as ai '
+
+
+Design doesnt take into account exitting of scenes 
+- scenes still exist even after changing from them
