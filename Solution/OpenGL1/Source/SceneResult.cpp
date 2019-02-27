@@ -75,8 +75,8 @@ void SceneResult::UpdateDerived(double dt)
 		//scale the result bars
 		resultBarL.SetScale(Vector3(3, car->GetPaint()->GetPercentage() * 10, 1));
 		resultBarR.SetScale(Vector3(3, ai->GetPaint()->GetPercentage() * 10, 1));
-		resultBarL.SetTranslate(Vector3(5, car->GetPaint()->GetPercentage() * 5 + 5, 0));
-		resultBarR.SetTranslate(Vector3(orthSize.x - 5, ai->GetPaint()->GetPercentage() * 5 + 5, 0));
+		resultBarL.SetTranslate(Vector3(5, car->GetPaint()->GetPercentage() * 10 + 5, 0));
+		resultBarR.SetTranslate(Vector3(orthSize.x - 5, ai->GetPaint()->GetPercentage() * 10 + 5, 0));
 
 		//temp, for testing
 		std::cout << car->GetPaint()->GetPercentage() << ":P%\n";
