@@ -50,6 +50,7 @@ void SceneGame::InitDerived()
 
 	//map
 	floor.Init("floor", "OBJ//LowPolyFloor.obj", "Image//ground.tga", Vector3(0, 0, 0));
+	floor.AddTexture("Image//ground-plain.tga");
 	paintLayer.Init("paintLayer", "OBJ//HighPolyFloor.obj", "", Vector3(0, 0.25f, 0));
 	
 	//walls

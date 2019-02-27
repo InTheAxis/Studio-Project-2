@@ -8,8 +8,8 @@ SceneResult::SceneResult()
 void SceneResult::InitDerived()
 {
 	//exit button and cursor
-	exitButton.Init("exit", "OBJ//LevelsButton.obj", "Image//levels1.tga", Vector3(50, 5, 1), Vector3(0, 0, 0), Vector3(1, 1, 0));
-	exitText.Init("level3text", "OBJ//LevelsButton.obj", "Image//exitText.tga", Vector3(50, 5, 2), Vector3(0, 0, 0), Vector3(20, 20, 0));
+	exitButton.Init("exit", "OBJ//LevelsButton.obj", "Image//levels1.tga", Vector3(orthSize.x * 0.5f, 4, 1), Vector3(0, 0, 0), Vector3(0.05f, 0.05f, 0));
+	exitText.Init("level3text", "OBJ//LevelsButton.obj", "Image//exitText.tga", Vector3(orthSize.x * 0.5f, 4, 2), Vector3(0, 0, 0), Vector3(10, 10, 0));
 	mouse.Init("mouse", MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(orthSize.x * 0.5f, orthSize.y * 0.5f, 10), Vector3(0, 0, 0), Vector3(1, 1, 0));
 
 	allButtons.push_back(&exitButton);
@@ -24,8 +24,8 @@ void SceneResult::InitDerived()
 	ai = static_cast<Vehicle*>(GetDontDestroyGameObject("ai"));
 
 	//generate objs for other gameobjects
-	resultBarL.Init("leftbar", MeshBuilder::GenerateQuad(car->GetPaint()->GetPaintColor()), "", Vector3(10, 0, 0));
-	resultBarR.Init("rightbar", MeshBuilder::GenerateQuad(ai->GetPaint()->GetPaintColor()), "", Vector3(20, 0 , 0));
+	resultBarL.Init("leftbar", MeshBuilder::GenerateQuad(car->GetPaint()->GetPaintColor()));
+	resultBarR.Init("rightbar", MeshBuilder::GenerateQuad(ai->GetPaint()->GetPaintColor()));
 
 	//setting camera
 	camera[FIXED_TOP_DOWN]->Init(Vector3(0, 150, 0), Vector3(0, 0, 0), Vector3(0, 0, 1));
@@ -35,7 +35,10 @@ void SceneResult::RenderDerived()
 {
 	//ensure to check if nullptr
 	if (floor)
-		RenderObject(floor);
+	{
+		floor->ChangeTexture(0); //change to normal texture
+		RenderObject(floor, false);
+	}
 	if (paintLayer)
 		RenderObject(paintLayer);
 
@@ -69,9 +72,11 @@ void SceneResult::UpdateDerived(double dt)
 		Paintable::CalculateCoverage(colors, car->GetPaint(), ai->GetPaint());
 		std::cout << "Done Calculating Coverage\n";
 
-		//scale the resul bars
-		resultBarL.SetScale(Vector3(1, car->GetPaint()->GetPercentage(), 1));
-		resultBarR.SetScale(Vector3(1, ai->GetPaint()->GetPercentage(), 1));
+		//scale the result bars
+		resultBarL.SetScale(Vector3(3, car->GetPaint()->GetPercentage() * 10, 1));
+		resultBarR.SetScale(Vector3(3, ai->GetPaint()->GetPercentage() * 10, 1));
+		resultBarL.SetTranslate(Vector3(5, car->GetPaint()->GetPercentage() * 5 + 5, 0));
+		resultBarR.SetTranslate(Vector3(orthSize.x - 5, ai->GetPaint()->GetPercentage() * 5 + 5, 0));
 
 		//temp, for testing
 		std::cout << car->GetPaint()->GetPercentage() << ":P%\n";
@@ -89,7 +94,7 @@ void SceneResult::UpdateDerived(double dt)
 		allButtons[0]->SetHover(false);
 		exitButton.SetOnClickEvent(false);
 		mouse.ResetMousePos();
-		RequestChangeScene(1);//test
+		RequestChangeScene(1);
 	}
 
 	if (Application::leftMouseClick)
@@ -100,10 +105,6 @@ void SceneResult::UpdateDerived(double dt)
 			{
 				allButtons[i]->DoAction();
 				break;
-			}
-
-			else
-			{
 			}
 		}
 	}
@@ -117,6 +118,11 @@ void SceneResult::RenderFrameBuffer()
 {
 	if (paintLayer)
 		RenderObject(paintLayer, false);
+	if (floor)
+	{
+		floor->ChangeTexture(1); //change to plain texture
+		RenderObject(floor, false);
+	}
 }
 
 SceneResult::~SceneResult()
