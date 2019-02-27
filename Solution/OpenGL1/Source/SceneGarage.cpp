@@ -159,10 +159,10 @@ void SceneGarage::UpdateDerived(double dt)  //Keeps the vehicles in rotation
 
 	if (exitButton.GetOnClickEvent())
 	{
+		mouse.ResetMousePos();
 		allButtons[1]->SetHover(false);
 		exitButton.SetOnClickEvent(false);
 		RequestChangeScene(1);//test
-		mouse.ResetMousePos();
 	}
 
 	if (hoodinkButton.GetOnClickEvent())

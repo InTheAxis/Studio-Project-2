@@ -66,7 +66,7 @@ void SceneStart::UpdateDerived(double dt)
 
 	if (play.GetOnClickEvent())
 	{
-		allButtons[buttonindex]->SetHover(false);
+		allButtons[0]->SetHover(false);
 		play.SetOnClickEvent(false);
 		mouse.ResetMousePos();
 		RequestChangeScene(3);
@@ -74,7 +74,7 @@ void SceneStart::UpdateDerived(double dt)
 
 	if (garage.GetOnClickEvent())
 	{
-		allButtons[buttonindex]->SetHover(false);
+		allButtons[1]->SetHover(false);
 		garage.SetOnClickEvent(false);
 		mouse.ResetMousePos();
 		RequestChangeScene(6);
