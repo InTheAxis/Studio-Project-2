@@ -12,6 +12,7 @@ public:
 	virtual void RollBack(float u, float v, double dt);
 	~Car();
 	Wheel wheels[4];
+	GameObject hood;
 private:
 };
 

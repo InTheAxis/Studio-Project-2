@@ -1,0 +1,13 @@
+Sometimes the mouse might cause framerate drops, 
+very random and only mouse input affected (touchpad is not)
+
+
+Sometimes A.I. gets stuck, or goes in circles
+
+
+Possible that, if somehow the frame times mess up and two object colliders overlap, 
+behaviour is undefined (and cant be easily defined due to the nature of the collision)
+
+
+Unable to fully integrate HoodInk and Garage features
+Customizing car doesn't save to car that is in gameplay

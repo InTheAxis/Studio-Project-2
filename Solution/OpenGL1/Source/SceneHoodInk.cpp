@@ -53,7 +53,7 @@ void SceneHoodInk::InitDerived()
 	//yellow.SetPaintColor(Color(1, 1, 0));
 	//purple.SetPaintColor(Color(1, 0, 1));
 
-	R, G, B = 0;
+	R = 0, G = 0, B = 0;
 	CurrentColor = C_RED;
 
 	//MouseX = mouse.GetTranslate().x;
@@ -91,6 +91,7 @@ void SceneHoodInk::RenderDerived()
 	//RenderTextOnScreen(&TEXT, Screenshot, Color(1, 1, 1), 3.f, 20.f, 20.f);
 	//=======================================================================================
 	RenderObjectOnScreen(&mouse, false);
+	RenderTextOnScreen(&TEXT, "Press Enter when done", Color(1, 1, 1), 1, 0, 0);
 }
 
 void SceneHoodInk::UpdateDerived(double dt)
@@ -175,10 +176,6 @@ void SceneHoodInk::UpdateDerivedBounced(double dt)
 	if (Application::IsKeyPressed(VK_RETURN))
 	{
 		WriteFromFBO(m_frameBufferID, "Screenshots//test.tga");
-	}
-
-	if (Application::IsKeyPressed(VK_ESCAPE))
-	{
 		RequestChangeScene(6);
 	}
 }
