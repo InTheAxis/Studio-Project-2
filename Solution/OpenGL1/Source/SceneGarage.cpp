@@ -102,7 +102,6 @@ void SceneGarage::RenderDerived()
 	}
 }
 
-bool car = false;
 void SceneGarage::UpdateDerived(double dt)  //Keeps the vehicles in rotation
 {
 	//mouse
