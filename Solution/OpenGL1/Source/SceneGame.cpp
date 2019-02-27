@@ -139,9 +139,10 @@ void SceneGame::InitDerived()
 	//background music
 	PlaySound(TEXT("Music//background.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 	
-	//timer
+	//misc
 	timer = 0;
 	speedometerAngle = 0;
+	currentCam = FIXED_FOLLOWER;
 }
 
 void SceneGame::RenderDerived()

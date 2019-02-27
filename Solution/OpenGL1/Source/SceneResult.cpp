@@ -30,6 +30,8 @@ void SceneResult::InitDerived()
 	//setting camera
 	camera[FIXED_TOP_DOWN]->Init(Vector3(0, 150, 0), Vector3(0, 0, 0), Vector3(0, 0, 1));
 	currentCam = FIXED_TOP_DOWN;
+
+	elapsed = 0;
 }
 void SceneResult::RenderDerived()
 {
@@ -47,13 +49,15 @@ void SceneResult::RenderDerived()
 	RenderObjectOnScreen(&exitButton, false);
 	RenderObjectOnScreen(&exitText, false);
 
-	RenderObjectOnScreen(&resultBarL, false);
-	RenderObjectOnScreen(&resultBarR, false);
+	if (elapsed < 0)
+	{
+		RenderObjectOnScreen(&resultBarL, false);
+		RenderObjectOnScreen(&resultBarR, false);
+	}
 
 	if (exitButton.GetOnClickEvent())
 	{
 		RemoveDontDestroyGameObject(floor);
-		RemoveDontDestroyGameObject(static_cast<GameObject*>(car));
 		RemoveDontDestroyGameObject(static_cast<GameObject*>(ai));
 		RemoveDontDestroyGameObject(static_cast<GameObject*>(paintLayer));
 	}
@@ -63,8 +67,9 @@ void SceneResult::UpdateDerived(double dt)
 {
 	mouse.Move(dt);
 	mouse.CheckHover();
-
-	if (Application::IsKeyPressed('A'))
+	if (elapsed >= 0)
+		elapsed += dt;
+	if (elapsed > 1.f)
 	{
 		//reading paint
 		std::cout << "Calculating Coverage...\n";
@@ -78,10 +83,10 @@ void SceneResult::UpdateDerived(double dt)
 		resultBarL.SetTranslate(Vector3(5, car->GetPaint()->GetPercentage() * 10 + 5, 0));
 		resultBarR.SetTranslate(Vector3(orthSize.x - 5, ai->GetPaint()->GetPercentage() * 10 + 5, 0));
 
-		//temp, for testing
 		std::cout << car->GetPaint()->GetPercentage() << ":P%\n";
 		std::cout << ai->GetPaint()->GetPercentage() << ":AI\n";
-		//WriteFromFBO(m_frameBufferID, "Screenshots//test.tga");
+
+		elapsed = -999;
 	}
 
 	for (Button* b : allButtons)	//for each button in the vector carryout the function

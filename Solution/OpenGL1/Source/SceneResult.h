@@ -24,6 +24,7 @@ protected:
 
 	std::vector<Button*> allButtons;
 	
+	double elapsed;
 
 	virtual void InitDerived();
 	virtual void RenderDerived();
