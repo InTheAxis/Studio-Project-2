@@ -155,15 +155,70 @@ void SceneGarage::UpdateDerived(double dt)  //Keeps the vehicles in rotation
 		b->AnimateButton();
 	}
 
-
 	if (exitButton.GetOnClickEvent())
 	{
+		existingCar = static_cast<Car*>(GetDontDestroyGameObject("car"));
+		if (!existingCar) std::cout << " ERROR : car pointer lost in garage\n";
+
+		if (existingCar->GetTextureSize() < 6)
+		{
+			existingCar->AddTexture("Image//Red.tga");
+			existingCar->AddTexture("Image//Blue.tga");
+			existingCar->AddTexture("Image//Yellow.tga");
+			existingCar->AddTexture("Image//Purple.tga");
+			existingCar->AddTexture("Image//Aqua.tga");
+		}
+
+		switch (currentVehicle)
+		{
+		default:
+		case V_TAXI:
+			if (existingCar)
+				existingCar->Init("car", "OBJ//taxiNoWheels.obj");
+			break;
+		case V_TRUCK:
+			if (existingCar)
+				existingCar->Init("car", "OBJ//TRUCK.obj");
+			break;
+		case V_F1:
+			if (existingCar)
+				existingCar->Init("car", "OBJ//F1.obj");
+			break;
+		}
+		switch (currentColor)
+		{
+		case C_GREEN:
+			existingCar->GetPaint()->SetPaintColor(Color(0, 1, 0));
+			existingCar->ChangeTexture(C_GREEN);
+			break;
+		case C_RED:
+			existingCar->GetPaint()->SetPaintColor(Color(1, 0, 0));
+			existingCar->ChangeTexture(C_RED);
+			break;
+		case C_BLUE:
+			existingCar->GetPaint()->SetPaintColor(Color(0, 1, 0));
+			existingCar->ChangeTexture(C_BLUE);
+			break;
+		case C_YELLOW:
+			existingCar->GetPaint()->SetPaintColor(Color(1, 1, 0));
+			existingCar->ChangeTexture(C_YELLOW);
+			break;
+		case C_PURPLE:
+			existingCar->GetPaint()->SetPaintColor(Color(1, 0, 1));
+			existingCar->ChangeTexture(C_PURPLE);
+			break;
+		case C_AQUA:
+			existingCar->GetPaint()->SetPaintColor(Color(0, 1, 1));
+			existingCar->ChangeTexture(C_AQUA);
+			break;
+		}
+
 		mouse.ResetMousePos();
 		allButtons[1]->SetHover(false);
 		exitButton.SetOnClickEvent(false);
-		RequestChangeScene(1);//test
+		//RequestDontDestroy(static_cast<GameObject*>(existingCar));
+		RequestChangeScene(1); //START
 	}
-
 
 	if (hoodinkButton.GetOnClickEvent())
 	{
@@ -189,55 +244,6 @@ void SceneGarage::UpdateDerived(double dt)  //Keeps the vehicles in rotation
 
 void SceneGarage::UpdateDerivedBounced(double dt)
 {
-	if (exitButton.GetOnClickEvent())
-	{
-		existingCar = static_cast<Car*>(GetDontDestroyGameObject("car"));
-		if (!existingCar) std::cout << " ERROR : car pointer lost in garage\n";
-		switch (currentVehicle)
-		{
-		default:
-		case V_TAXI:
-			if (existingCar)
-				existingCar->Init("car", "OBJ//taxiNoWheels.obj");
-			break;
-		case V_TRUCK:
-			if (existingCar)
-				existingCar->Init("car", "OBJ//TRUCK.obj");
-			break;
-		case V_F1:
-			if (existingCar)
-				existingCar->Init("car", "OBJ//F1.obj");
-			break;
-		}
-		switch (currentColor)
-		{
-		case C_GREEN:
-			existingCar->GetPaint()->SetPaintColor(Color(0, 1, 0));
-			break;
-		case C_RED:
-			existingCar->GetPaint()->SetPaintColor(Color(1, 0, 0));
-			break;
-		case C_BLUE:
-			existingCar->GetPaint()->SetPaintColor(Color(0, 1, 0));
-			break;
-		case C_YELLOW:
-			existingCar->GetPaint()->SetPaintColor(Color(1, 1, 0));
-			break;
-		case C_PURPLE:
-			existingCar->GetPaint()->SetPaintColor(Color(1, 0, 1));
-			break;
-		case C_AQUA:
-			existingCar->GetPaint()->SetPaintColor(Color(0, 1, 1));
-			break;
-		}
-
-		allButtons[1]->SetHover(false);
-		exitButton.SetOnClickEvent(false);
-		RequestDontDestroy(static_cast<GameObject*>(existingCar));
-		RequestChangeScene(1); //START
-		mouse.ResetMousePos();
-	}
-	
 	//======================= Vehicle Switching ===========================
 	if (Application::IsKeyPressed(VK_UP))
 	{

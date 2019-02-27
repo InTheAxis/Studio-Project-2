@@ -78,6 +78,11 @@ void GameObject::ChangeTexture(int textureIndex)
 	objectMesh->textureID = this->textureIDs[textureIndex];
 }
 
+int GameObject::GetTextureSize()
+{
+	return textureIDs.size();
+}
+
 Material* GameObject::GetMaterial()
 {
 	return &(objectMesh->material);

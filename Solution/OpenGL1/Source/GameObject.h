@@ -29,6 +29,7 @@ public:
 	//getter setters
 	unsigned GetTextureID(); //getter for mesh->textureID
 	void ChangeTexture(int textureIndex); //setter for textureID
+	int GetTextureSize();
 	Material* GetMaterial(); //getter for mesh->material
 	void SetMaterial(Material);
 	std::string GetName();
