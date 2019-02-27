@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "Paintable.h"
 #include "LoadSceneButton.h"
+#include "Car.h"
 #include "Cursor.h"
 
 class SceneGarage : public Scene
@@ -22,8 +23,8 @@ public:
 	};
 	enum Colour
 	{
-		C_RED = 0,
-		C_GREEN,
+		C_GREEN = 0,
+		C_RED,
 		C_BLUE,
 		C_YELLOW,
 		C_PURPLE,
@@ -37,30 +38,24 @@ protected:
 	GameObject TRUCK;
 	GameObject F1;
 	GameObject ARROW;
-
-	GameObject ToiletTest; //Placeholder
-
 	GameObject BACKGROUND;
-	GameObject TEXT;
 
+	Car* existingCar;
 
 	Cursor mouse;
 	LoadSceneButton hoodinkButton, exitButton;
 	GameObject hoodinkText,exitText;
 	std::vector<Button*> allButtons;
 
-	std::string SColor;
-	std::string SVehicle;
-
 	virtual void InitDerived();
 	virtual void RenderDerived();
 	virtual void UpdateDerived(double dt);
 	virtual void UpdateDerivedBounced(double dt);
 
-	int CurrentVehicle;
-	int CurrentColor;
+	int currentVehicle;
+	int currentColor;
 
-	bool Selected;
+	bool selected;
 };
 
 #endif 

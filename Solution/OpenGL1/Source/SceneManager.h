@@ -3,12 +3,12 @@
 
 #include "Scene.h"
 //include all yo scenes here
-//test scenes
-#include "SceneExampleCar.h"
-#include "SceneExampleColl.h"
-#include "SceneExampleInk.h"
-#include "SceneExampleCarInk.h"
-#include "SceneExampleFBO.h"
+//test scenes, add them solution if needed?
+//#include "SceneExampleCar.h"
+//#include "SceneExampleColl.h"
+//#include "SceneExampleInk.h"
+//#include "SceneExampleCarInk.h"
+//#include "SceneExampleFBO.h"
 //actual scenes
 #include "SceneEmpty.h"
 #include "SceneStart.h"
@@ -33,15 +33,9 @@ private:
 	Scene** currentScene;
 	int currentIndex;
 
-	//testing
-
-	SceneExampleCar example;
-
-
-	//actual
 	SceneEmpty empty;
 	SceneStart startMenu;
-	/*SceneLevelSelect levels;*/
+	//SceneLevelSelect levels;  removed
 	SceneGame game;
 	SceneResult results;
 	SceneGarage garage;
@@ -49,13 +43,13 @@ private:
 
 	enum gameScenes
 	{
-		EMPTY=0,
+		EMPTY = 0,
 		START,
-		HOOD_SCENE,
+		HOOD,
 		LEVEL_1,
 		RESULTS,
 		PAUSE,
-		GARAGE_SCREEN,
+		GARAGE,
 
 		NUM_OF_SCENES
 	};

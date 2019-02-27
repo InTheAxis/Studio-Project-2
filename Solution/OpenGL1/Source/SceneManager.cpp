@@ -10,19 +10,18 @@ SceneManager::SceneManager()
 		allScenes[i] = &empty;
 	}
 
-	allScenes[EMPTY] = &example;
 	allScenes[START] = &startMenu;
 	/*allScenes[LEVEL_SELECT] = &levels;*/
 	allScenes[LEVEL_1] = &game;
 	allScenes[RESULTS] = &results;
-	allScenes[GARAGE_SCREEN] = &garage;
-	allScenes[HOOD_SCENE] = &theHood;
+	allScenes[GARAGE] = &garage;
+	allScenes[HOOD] = &theHood;
 }
 
 Scene* SceneManager::GetFirstScene()
 {
-	currentIndex = 0;
-	return allScenes[0];
+	currentIndex = 1;
+	return allScenes[currentIndex];
 }
 
 void SceneManager::SetCurrentScene(Scene** s)

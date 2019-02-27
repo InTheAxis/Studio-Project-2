@@ -25,36 +25,37 @@ protected:
 	virtual void RenderDerived();
 	virtual void UpdateDerived(double dt);
 	virtual void UpdateDerivedBounced(double dt);
-	virtual void RenderFrameBuffer();
 private:
+	//basically all renderable objects
 	Cursor mouse;
 	LoadSceneButton resumeButton, exitButton;
-	Car car;
-
 	GameObject floor,resumeText,exitText;
 	Grid level;
 	GridChunk level_chunk;
-	Paintable paintLayer;
-
+	Car* car;
 	AI ai;
-	std::vector<Collidable> Objects;
+	Paintable paintLayer;
 	BuildMap map;
+
+	std::vector<Collidable> Objects;
 	Collidable frontWall,backWall,leftWall,rightWall;
 
 	CollectibleSpeedBoost speedboost;
+	CollectibleSprayBoost sprayBoost;
 	CollectibleParticleEffect particleEffect;
 	std::vector<Button*> allButtons;
+	
+	GameObject needle;
+	
+	//other variables
+	float speedometerAngle;
 	double timer;
 
+	//constants
 	const int NUM_OF_BUTTONS = 2;
 	const int TIMER_MAX = 20;
-
-	//======================= Speedometer ==========================
-	GameObject Needle;
-	float AngleOfRotation;
 	const float MAX_SPEED = 160;
-	//==============================================================
-	CollectibleSprayBoost SprayBoost;
+
 };
 
 #endif

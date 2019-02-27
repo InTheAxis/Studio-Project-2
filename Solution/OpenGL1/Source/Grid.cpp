@@ -125,7 +125,7 @@ void Grid::AssignVertsCells(std::vector<Vertex>* vboPtr)
 			FindCell((int)v.pos.x, (int)v.pos.z)->PushVertToCell(&v);
 	}
 	if (error)
-		std::cout << " ERROR: Grid length too small, vertices outside cells\n";
+		std::cout << " WARNING: Grid length too small, vertices outside cells\n";
 }
 
 int Grid::CalcIndexForCells(int x, int z)

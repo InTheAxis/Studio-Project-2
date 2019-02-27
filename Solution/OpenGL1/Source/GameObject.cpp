@@ -57,7 +57,13 @@ void GameObject::AddTexture(std::string filePathTGA)
 
 void GameObject::AddChild(GameObject* go)
 {
-	if (go != this)
+	bool temp = false;
+	for (GameObject* child : children) //prevent duplicates
+	{
+		if (child == go)
+			temp - true;
+	}
+	if (go != this && !temp)
 		this->children.emplace_back(go);
 }
 
