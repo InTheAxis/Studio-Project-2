@@ -7,3 +7,7 @@ Sometimes A.I. gets stuck, or goes in circles
 
 Possible that, if somehow the frame times mess up and two object colliders overlap, 
 behaviour is undefined (and cant be easily defined due to the nature of the collision)
+
+
+Models for truck and F1 are off, wheels not properly rendered etc, 
+hence outside of garage theres only the taxi

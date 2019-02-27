@@ -66,6 +66,11 @@ void Scene::PushToDontDestroy(GameObject * go)
 	this->dontDestroy.emplace_back(go);
 }
 
+void Scene::ClearDontDestroy()
+{
+	dontDestroy.clear();
+}
+
 bool Scene::GetChangeSceneEvent(int* outIndex)
 {
 	if (changingScene)

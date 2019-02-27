@@ -30,14 +30,14 @@ void SceneStart::InitDerived()
 	{
 		existingCar = new Car;
 		existingCar->Init("car", "OBJ//taxiNoWheels.obj", "Image//Green.tga");
-		existingCar->SetTranslate(Vector3(orthSize.x * 0.5f, carY, -2));
-		existingCar->SetRotate(Vector3(0, 90, 0));
-		existingCar->SetScale(Vector3(9, 9, 9));
 		existingCar->SetMaterial(shiny);
 		existingCar->GetPaint()->SetPaintColor(Color(0, 1, 0));
 
 		RequestDontDestroy(static_cast<GameObject*>(existingCar));
 	}
+	existingCar->SetTranslate(Vector3(orthSize.x * 0.5f, carY, -2));
+	existingCar->SetRotate(Vector3(0, 90, 0));
+	existingCar->SetScale(Vector3(9, 9, 9));
 	std::cout << "Done Generating OBJs\n";
 
 	//initialising UI
@@ -51,6 +51,9 @@ void SceneStart::InitDerived()
 	mouse.SetOrthSize(orthSize);
 	mouse.SetAllButton(allButtons);
 	freeRoam.ToggleCamMovement();
+
+	//background music
+	PlaySound(TEXT("Music//background.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 }
 
 void SceneStart::RenderDerived()

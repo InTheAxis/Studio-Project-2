@@ -169,22 +169,23 @@ void SceneGarage::UpdateDerived(double dt)  //Keeps the vehicles in rotation
 			existingCar->AddTexture("Image//Aqua.tga");
 		}
 
-		switch (currentVehicle)
-		{
-		default:
-		case V_TAXI:
-			if (existingCar)
-				existingCar->Init("car", "OBJ//taxiNoWheels.obj");
-			break;
-		case V_TRUCK:
-			if (existingCar)
-				existingCar->Init("car", "OBJ//TRUCK.obj");
-			break;
-		case V_F1:
-			if (existingCar)
-				existingCar->Init("car", "OBJ//F1.obj");
-			break;
-		}
+		//Because models are off
+		//switch (currentVehicle)
+		//{
+		//default:
+		//case V_TAXI:
+		//	if (existingCar)
+		//		existingCar->Init("car", "OBJ//taxiNoWheels.obj");
+		//	break;
+		//case V_TRUCK:
+		//	if (existingCar)
+		//		existingCar->Init("car", "OBJ//TRUCK.obj");
+		//	break;
+		//case V_F1:
+		//	if (existingCar)
+		//		existingCar->Init("car", "OBJ//F1.obj");
+		//	break;
+		//} 
 		switch (currentColor)
 		{
 		case C_GREEN:

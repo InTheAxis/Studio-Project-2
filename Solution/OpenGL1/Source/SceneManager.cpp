@@ -40,6 +40,7 @@ void SceneManager::PollForSceneChangeEvent()
 	int index = 999;
 	if (allScenes[currentIndex]->GetChangeSceneEvent(&index))
 	{
+		allScenes[index]->ClearDontDestroy();
 		for (GameObject* &go : allScenes[currentIndex]->RetriveDontDestroy())
 		{
 			std::cout << "Storing \"" << go->GetName() << "\" in memory ";

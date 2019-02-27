@@ -16,7 +16,6 @@ bool CollectibleSprayBoost::CheckAbsorption(Vector3 objectLocation)
 	/*std::cout << PickedUp << std::endl;*/
 	if (!pickedUp)
 	{
-		std::cout << "Passed first if" << std::endl;
 		bool Xwithin = false;
 		bool Zwithin = false;
 

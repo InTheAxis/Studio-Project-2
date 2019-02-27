@@ -135,9 +135,6 @@ void SceneGame::InitDerived()
 	{
 		Objects[i].UpdateCollider();
 	}
-
-	//background music
-	PlaySound(TEXT("Music//background.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 	
 	//misc
 	timer = 0;

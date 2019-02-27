@@ -118,6 +118,7 @@ public:
 	bool GetChangeSceneEvent(int* outIndex);
 	std::vector<GameObject*> RetriveDontDestroy();
 	void PushToDontDestroy(GameObject* go);
+	void ClearDontDestroy();
 	//for capturing mouse
 	bool GetCaptureMouse();
 
