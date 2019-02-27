@@ -172,6 +172,7 @@ protected:
 	void RequestChangeScene(int index);
 	void RequestDontDestroy(GameObject* go); //use static_cast<GameObject*> if pointer address/reference is to be preserved
 	GameObject* GetDontDestroyGameObject(std::string name);
+	std::string RemoveDontDestroyGameObject(GameObject* target);
 
 	//read and write from frame buffer object
 	std::vector<Color> ReadFromFBO(unsigned fboID);

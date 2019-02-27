@@ -73,9 +73,9 @@ bool CollisionHandler::CheckCollision2D(RigidBody* A, Collidable* B)
 		if (pointA.Dot(direction) < 0)
 			return false; //no intersection
 		//if simplex has duplicates
-		for (int i = 0; i < simplex.size(); ++i)
+		for (unsigned int i = 0; i < simplex.size(); ++i)
 		{
-			for (int j = 0; j < simplex.size(); ++j)
+			for (unsigned int j = 0; j < simplex.size(); ++j)
 			{
 				if (i != j && simplex[i] == simplex[j])
 					return false;
@@ -148,9 +148,9 @@ bool CollisionHandler::CheckCollision(RigidBody* A, Collidable* B)
 		else if (simplex.size() == 4)
 		{
 			bool testDuplicates = false;
-			for (int i = 0; i < simplex.size(); ++i)
+			for (unsigned int i = 0; i < simplex.size(); ++i)
 			{
-				for (int j = 0; j < simplex.size(); ++j)
+				for (unsigned int j = 0; j < simplex.size(); ++j)
 				{
 					if (i != j && simplex[i] == simplex[j])
 						testDuplicates = true;
@@ -235,7 +235,7 @@ void CollisionHandler::CalculatePenetration2D(RigidBody *A, Collidable *B)
 		//find closest edge to origin
 		Edge closest;
 		closest.distance = 99999;
-		for (int i = 0; i < simplexCopy.size(); ++i)
+		for (unsigned int i = 0; i < simplexCopy.size(); ++i)
 		{
 			int j = i + 1 == simplexCopy.size() ? 0 : i + 1;
 			//get the current point and the next one
@@ -327,7 +327,7 @@ void CollisionHandler::CalculatePenetration(RigidBody* A, Collidable* B)
 		else
 		{
 			std::vector<Edge> looseEdges; //from removing faces 
-			for (int i = 0; i < faces.size(); ++i)
+			for (unsigned int i = 0; i < faces.size(); ++i)
 			{
 				//check if point can see face
 				if (faces[i].normal.Dot(point - faces[i].edges[0].points[0]) > 0)
@@ -338,7 +338,7 @@ void CollisionHandler::CalculatePenetration(RigidBody* A, Collidable* B)
 						//add loose edges
 						Edge reverseEdge(faces[i].edges[j].points[1], faces[i].edges[j].points[0]);
 						bool alrLoose = false;
-						for (int k = 0; k < looseEdges.size(); ++k)
+						for (unsigned int k = 0; k < looseEdges.size(); ++k)
 						{
 							if (reverseEdge.points[0] == looseEdges[k].points[0] && reverseEdge.points[1] == looseEdges[k].points[1])
 							{
@@ -356,7 +356,7 @@ void CollisionHandler::CalculatePenetration(RigidBody* A, Collidable* B)
 				}
 			}
 			//add new triangles
-			for (int i = 0; i < looseEdges.size(); ++i)
+			for (unsigned int i = 0; i < looseEdges.size(); ++i)
 			{
 				if (point == looseEdges[i].points[0] || point == looseEdges[i].points[1])
 					std::cout << "point is alr in edge\n";

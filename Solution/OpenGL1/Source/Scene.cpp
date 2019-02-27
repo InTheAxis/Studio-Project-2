@@ -37,6 +37,21 @@ GameObject* Scene::GetDontDestroyGameObject(std::string name)
 	return nullptr;
 }
 
+std::string Scene::RemoveDontDestroyGameObject(GameObject * target)
+{
+	std::string retName = "";
+	for (unsigned int i = 0; i < dontDestroy.size(); ++i)
+	{
+		if (dontDestroy[i] == target)
+		{
+			retName = dontDestroy[i]->GetName();
+			dontDestroy.erase(dontDestroy.begin() + i);
+			break;
+		}
+	}
+	return retName;
+}
+
 std::vector<GameObject*> Scene::RetriveDontDestroy()
 {
 	return dontDestroy;
@@ -112,7 +127,7 @@ void Scene::WriteFromFBO(unsigned fboID, std::string fileDest)
 	GLubyte header[18] = { 0,0,2,0,0,0,0,0,0,0,0,0,(char)xa,(char)xb,(char)ya,(char)yb,32,0 };
 
 	//removing black(clear color), setting as transparent
-	for (int i = 3; i < imageSize; i += 4)
+	for (unsigned int i = 3; i < imageSize; i += 4)
 	{
 		if ((int)data[i - 3] == 0 && (int)data[i - 2] == 0 && (int)data[i - 1] == 0)
 			data[i] = (unsigned char)(0);

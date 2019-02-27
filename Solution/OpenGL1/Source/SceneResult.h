@@ -4,7 +4,8 @@
 #include "Scene.h"
 #include "Vehicle.h"
 #include "Paintable.h"
-
+#include "LoadSceneButton.h"
+#include "Cursor.h"
 class SceneResult : public Scene
 {
 public:
@@ -16,6 +17,13 @@ protected:
 	Vehicle* car, *ai;
 	Paintable* paintLayer;
 	GameObject resultBarL, resultBarR;
+	
+	Cursor mouse;
+	LoadSceneButton exitButton;
+	GameObject exitText;
+
+	std::vector<Button*> allButtons;
+	
 
 	virtual void InitDerived();
 	virtual void RenderDerived();

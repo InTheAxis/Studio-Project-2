@@ -32,7 +32,7 @@ bool BuildMap::GenerateObj(Grid* currentGrid)
 		{
 			return false;
 		}
-		for (int it = 0; it < currAdj.size(); it++)
+		for (unsigned int it = 0; it < currAdj.size(); it++)
 		{
 			if (v == currAdj[it]->GetCenter())
 				return false;
@@ -41,7 +41,7 @@ bool BuildMap::GenerateObj(Grid* currentGrid)
 	location = temp[x]->GetCenter();
 	occupied.push_back(location);
 	std::vector<GridChunk*> tempAdj = temp[x]->GetAdjacents();
-	for (int it = 0; it < tempAdj.size(); it++)
+	for (unsigned int it = 0; it < tempAdj.size(); it++)
 	{
 		occupied.push_back(tempAdj[it]->GetCenter());
 	}
@@ -72,15 +72,15 @@ Vector3 BuildMap::GetDestination(Grid *currentGrid, Color color, Vector3 AIpos)
 	GridChunk* targetChunk = currentGrid->FindChunk((int)AIpos.x, (int)AIpos.z); //Find chunk the AI is on
 	
 	std::vector<GridChunk*> Adjacents = targetChunk->GetAdjacents(); //Get the adjacent chunks of current chunk and pass into vector Adjacents
-	for (int it = 0; it < Adjacents.size(); it++) //iterate throught vector adjacents to get its' cell
+	for (unsigned int it = 0; it < Adjacents.size(); it++) //iterate throught vector adjacents to get its' cell
 	{
 		if (Adjacents[it]->GetCenter() != prevCenter) //check if the adjacent chunk was the previous chunk
 		{
 			std::vector<GridCell*> AdjCells = Adjacents[it]->GetCells(); //Get the cells within the current chunk
-			for (int it = 0; it < AdjCells.size(); it++) //iterate through the cells of the current adjacent chunk
+			for (unsigned int it = 0; it < AdjCells.size(); it++) //iterate through the cells of the current adjacent chunk
 			{
 				std::vector<Vertex*> CellVert = AdjCells[it]->GetCellVertex(); //get the vertices of the current cell of the current adjacent chunk
-				for (int it = 0; it < CellVert.size(); it++) //iterate through the vertices to find the Vert that is colored opposite to its own color
+				for (unsigned int it = 0; it < CellVert.size(); it++) //iterate through the vertices to find the Vert that is colored opposite to its own color
 				{
 					if (CellVert[it]->color.r == color.r && CellVert[it]->color.g == color.g && CellVert[it]->color.b == color.b) //if found
 					{
@@ -99,7 +99,7 @@ Vector3 BuildMap::GetDestination(Grid *currentGrid, Color color, Vector3 AIpos)
 	while (!found)
 	{
 		int x = Math::RandIntMinMax(0, temp.size() - 1);
-		for (int it = 0; it < occupied.size(); it++)
+		for (unsigned int it = 0; it < occupied.size(); it++)
 		{
 			if (temp[x]->GetCenter() == prevCenter)
 				same = true;
@@ -146,7 +146,7 @@ std::string BuildMap::GenerateRandObj(int x)
 	{
 	case 1:
 	{
-		filename = "OBJ//ground-low.obj";
+		filename = "OBJ//Building.obj";
 	}
 	break;
 	case 2:

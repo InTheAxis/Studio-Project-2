@@ -14,14 +14,14 @@ SceneGame::~SceneGame()
 
 void SceneGame::InitDerived()
 {
+	std::cout << "Generating OBJs\n";
+	
+	
 	//timer,button and cursor
-
 	resumeButton.Init("resume", "OBJ//LevelsButton.obj", "Image//levels1.tga", Vector3(20, 15, -10), Vector3(0, 0, 0), Vector3(1, 1, 0));
 	resumeText.Init("level1text", "OBJ//LevelsButton.obj", "Image//resumeText.tga", Vector3(20, 15, -9), Vector3(0, 0, 0), Vector3(20, 20, 0));
-
 	exitButton.Init("exit", "OBJ//LevelsButton.obj", "Image//levels1.tga", Vector3(40, 15, -10), Vector3(0, 0, 0), Vector3(1, 1, 0));
 	exitText.Init("level3text", "OBJ//LevelsButton.obj", "Image//exitText.tga", Vector3(40, 15, -9), Vector3(0, 0, 0), Vector3(20, 20, 0));
-
 	mouse.Init("mouse", MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(orthSize.x * 0.5f, orthSize.y * 0.5f, 10), Vector3(0, 0, 0), Vector3(1, 1, 0));
 
 	//AI
@@ -29,7 +29,8 @@ void SceneGame::InitDerived()
 	ai.CreateRigidBody(Vector3(0, 0, 10), 1200, 0.1f, 0.09f);
 	ai.SetMaterial(shiny);
 	ai.DefineRect2DCollider(Vector3(2, 2, 2));
-	ai.SetTranslate(Vector3(0, 0.3, 0));
+	ai.GetPaint()->SetPaintColor(Color(1, 1, 0));
+	ai.SetTranslate(Vector3(0, 0.3, 10));
 	ai.SetStats(10000, 1111, 7000, 0.05);
 
 	//car
@@ -37,46 +38,53 @@ void SceneGame::InitDerived()
 	car.CreateRigidBody(Vector3(0, 0, 10), 1200, 0.1f, 0.09f);
 	car.SetMaterial(shiny);
 	car.DefineRect2DCollider(Vector3(2, 2, 2));
-	car.GetPaint()->SetPaintColor(Color(1, 1, 0));
+	car.GetPaint()->SetPaintColor(Color(1, 0, 1));
 	car.SetTranslate(Vector3(0, 0.3, 0));
 	car.SetStats(10000, 1111, 7000, 0.05);
+	//adding particle effects to car
+	car.AddChild(&particleEffect);
 
 	//PowerUps,Particle Effects
 	speedboost.Init("speedboost", MeshBuilder::GenerateCube(Color(0, 0, 0)), "", Vector3(0, 0.5, 5), Vector3(0, 0, 0), Vector3(1, 1, 1));
-	particleEffect.Init("particleEffect", MeshBuilder::GenerateCube(Color(1, 0, 0)), "", Vector3(0, 0.5, car.GetTranslate().z-1.5), Vector3(0, 0, 0), Vector3(0.1, 0.1, 0.1));
+	particleEffect.Init("smoke", "OBJ//cloud.obj", "Image//cloud.tga", Vector3(0, 0.5f, car.GetTranslate().z-1.5f), Vector3(0, 0, 0), Vector3(0.1f, 0.1f, 0.1f));
 
 	//map
 	floor.Init("floor", "OBJ//LowPolyFloor.obj", "Image//ground.tga", Vector3(0, 0, 0));
 	paintLayer.Init("paintLayer", "OBJ//HighPolyFloor.obj", "", Vector3(0, 0.25f, 0));
 	
+	//walls
 	frontWall.Init("Border", "OBJ//Wall.obj","Image//Red.tga");
 	frontWall.DefineRect2DCollider(Vector3(1, 1, 115));
-	frontWall.SetTranslate(Vector3(0, 0, 55));
+	frontWall.SetTranslate(Vector3(0, 0, 53.75));
 	frontWall.SetRotate(Vector3(0, 90, 0));
-	frontWall.SetScale(Vector3(1.1, 0.5, 1.1));
+	frontWall.SetScale(Vector3(1.1f, 0.5f, 1.1f));
 
 	leftWall.Init("Border", "OBJ//Wall.obj", "Image//Red.tga");
 	leftWall.DefineRect2DCollider(Vector3(1, 1, 115));
-	leftWall.SetTranslate(Vector3(-55, 0, 0));
-	leftWall.SetScale(Vector3(1.1, 0.5, 1.1));
+	leftWall.SetTranslate(Vector3(-53.75f, 0.f, 0.f));
+	leftWall.SetScale(Vector3(1.1f, 0.5f, 1.1f));
 
 	rightWall.Init("Border", "OBJ//Wall.obj", "Image//Red.tga");
 	rightWall.DefineRect2DCollider(Vector3(1, 1, 115));
-	rightWall.SetTranslate(Vector3(55, 0, 0));
+	rightWall.SetTranslate(Vector3(53.75, 0, 0));
 	rightWall.SetScale(Vector3(1.1, 0.5, 1.1));
 
 	backWall.Init("Border", "OBJ//Wall.obj", "Image//Red.tga");
 	backWall.DefineRect2DCollider(Vector3(1, 1, 115));
-	backWall.SetTranslate(Vector3(0, 0, -55));
+	backWall.SetTranslate(Vector3(0, 0, -53.75));
 	backWall.SetRotate(Vector3(0, 90, 0));
 	backWall.SetScale(Vector3(1.1, 0.5, 1.1));
 
 
-	
+	std::cout << "Done Generating OBJs\n";
+
+
+
 	std::cout << "Generating grid for level\n";
 	level.GenerateGrid(paintLayer.GetVBO());
-	std::cout << "Done!\n";
-	
+	std::cout << "Done Generating grid\n";
+
+
 
 	//buttons
 	allButtons.push_back(&resumeButton);
@@ -87,6 +95,9 @@ void SceneGame::InitDerived()
 	map.SetOccupied(&level, car.GetTranslate());
 	map.SetOccupied(&level, speedboost.GetTranslate());
 
+
+	std::cout << "Generating map based on grid\n";
+	//generating map
 	while (map.GetObjectCount() < sqrt((level_chunk.GetChunkCount())))
 	{
 		if (map.GenerateObj(&level))
@@ -102,23 +113,14 @@ void SceneGame::InitDerived()
 			Objects[map.GetObjectCount() - 1].SetScale(map.GetRandScale(y));
 		}
 	}
-	
-	//adding particle effects to car
-	car.AddChild(&particleEffect);
+	std::cout << "Done Generating map\n";
 
-	
-	
-	RequestDontDestroy(&car);
-	RequestDontDestroy(&ai);
-	timer = 0;
-
-	//background music
-	PlaySound(TEXT("Music//background.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 
 	//passing window range and buttons for cursor
 	mouse.SetOrthSize(orthSize);
 	mouse.SetAllButton(allButtons);
 
+	//update non-moving colliders
 	frontWall.UpdateCollider();
 	leftWall.UpdateCollider();
 	rightWall.UpdateCollider();
@@ -129,6 +131,10 @@ void SceneGame::InitDerived()
 		Objects[i].UpdateCollider();
 	}
 
+	//background music
+	PlaySound(TEXT("Music//background.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+
+	timer = 0;
 }
 
 void SceneGame::RenderDerived()
@@ -179,16 +185,16 @@ void SceneGame::RenderDerived()
 		RenderObjectOnScreen(&mouse, false);
 	}
 
-	//mouse
-	
 
 	//timer
-	std::string timerString = "Timer: " + std::to_string(timer);
-	RenderTextOnScreen(&TEXT, timerString, Color(1, 0, 1), 1, 0, 0);
+	std::string timerString = "Timer: " + std::to_string(TIMER_MAX - (int)std::ceil(timer));
+	RenderTextOnScreen(&TEXT, timerString, Color(1, 1, 1), 1, 1, 0.5f);
 }
 
 void SceneGame::UpdateDerived(double dt)
 {
+	if (dt > 1) //skip first frame or any frames < 1fps
+		return;
 	mouse.Move(dt);
 	mouse.CheckHover();
 
@@ -246,8 +252,6 @@ void SceneGame::UpdateDerived(double dt)
 		{
 			car.MoveRight(0, dt);
 		}
-
-	
 
 		//ai
 		if (ai.CheckToMove())
@@ -331,7 +335,7 @@ void SceneGame::UpdateDerived(double dt)
 			camera[0]->Update(dt, car.GetTranslate(), car.GetAngle()); //update camera
 
 		paintLayer.ChangeColor(&level, car.GetTranslate(), car.GetPaint()->GetPaintColor());
-		paintLayer.ChangeColor(&level, ai.GetTranslate(), Color(1,0,0));
+		paintLayer.ChangeColor(&level, ai.GetTranslate(), ai.GetPaint()->GetPaintColor());
 
 	}
 	else
@@ -378,14 +382,14 @@ void SceneGame::UpdateDerived(double dt)
 
 	//endgame time
 
-	if (timer >= 100)
+	if (timer >= TIMER_MAX)
 	{
 		mouse.ResetMousePos();
 		RequestDontDestroy(&paintLayer);
 		RequestDontDestroy(&floor);
 		std::cout << "given " << static_cast<GameObject*>(&car) << std::endl;
 		RequestDontDestroy(static_cast<GameObject*>(&car));
-		RequestDontDestroy(&ai);
+		RequestDontDestroy(static_cast<GameObject*>(&ai));
 		RequestChangeScene(4);//change to end scene once it is created
 	}
 }

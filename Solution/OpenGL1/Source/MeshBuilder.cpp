@@ -330,7 +330,7 @@ Mesh * MeshBuilder::GenerateLines(std::vector<Vector3> &lineStart, std::vector<V
 	}
 
 	std::vector<GLuint> index_buffer_data;
-	for (int i = 0; i < (lineStart.size() * 2) && i < (lineEnd.size() * 2); ++i)
+	for (unsigned int i = 0; i < (lineStart.size() * 2) && i < (lineEnd.size() * 2); ++i)
 	{
 		index_buffer_data.push_back(i);
 	}

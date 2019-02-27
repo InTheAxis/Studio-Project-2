@@ -68,7 +68,7 @@ void SceneLevelSelect::UpdateDerived(double dt)
 
 	if (Application::leftMouseClick)
 	{
-		for (int i = 0; i < allButtons.size(); ++i)
+		for (unsigned int i = 0; i < allButtons.size(); ++i)
 		{
 			if (allButtons[i]->GetHover())
 			{

@@ -18,7 +18,7 @@ void Collider::PushToHullPoints(Vector3 p)
 void Collider::UpdateHull(Vector3 translate, Vector3 rotate)
 {
 	rotationMatrix[1].SetToRotation(rotate.y, 0, 1, 0); //only handle y rotation for now
-	for (int i = 0; i < hullPoints.size(); ++i)
+	for (unsigned int i = 0; i < hullPoints.size(); ++i)
 	{
 		/*actual transformations*/
 		hullPoints[i] = rotationMatrix[1] * startingPoints[i];

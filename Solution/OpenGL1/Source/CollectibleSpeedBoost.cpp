@@ -61,8 +61,8 @@ void CollectibleSpeedBoost::ApplyEffect(GameObject* object, double dt)
 		//add effect here
 		/*object->IncrementTranslate(Vector3(0, 0, 0.25));*/
 
-		Car* teest = reinterpret_cast<Car*>(object);
-		teest->SetBoostForce(40000.f);
+		Car* teest = static_cast<Car*>(object);
+		teest->SetBoostForce(5000.f);
 
 		if (activeTime <= 0)
 		{

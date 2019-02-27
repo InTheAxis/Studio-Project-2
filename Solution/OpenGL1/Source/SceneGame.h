@@ -43,9 +43,10 @@ private:
 	CollectibleSpeedBoost speedboost;
 	CollectibleParticleEffect particleEffect;
 	std::vector<Button*> allButtons;
-	float timer;
+	double timer;
 
 	const int NUM_OF_BUTTONS = 2;
+	const int TIMER_MAX = 20;
 	Vector3 temp;
 };
 
